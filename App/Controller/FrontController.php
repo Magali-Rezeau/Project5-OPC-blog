@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Form;
+use App\Controller\FormController;
 
 class FrontController {
 
@@ -11,7 +12,7 @@ class FrontController {
     public function __construct()
     {
         $this->form = new Form($_POST);
-        $this->validator = new FormController();
+        $this->validator = new FormController($_POST);
     }
     public function home()
     {   

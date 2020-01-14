@@ -96,32 +96,26 @@
         <div class="contact-content-form">
             <h1>Contact</h1>
             <form action="../public/?page=home" method="post" id="contact-form" name="contact-form" class="contact-form">
-            <span style="font-size:1px;"><?= isset($succes) ? $succes : '' 
-                ?></span>
-            <div class="contact-form-item">
-                    <span style="font-size:1px;"><?= isset($errors['lastname']) ? $errors['lastname'] : '' 
-                ?></span>
-                    <?= $form->text('lastname', 'Votre nom') ?>
-            </div>
+                <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                 <div class="contact-form-item">
-                <span style="font-size:1px;"><?= isset($errors['firstname']) ? $errors['firstname'] : '' 
-                ?></span>
+                    <span class="errors"><?= isset($errors['lastname']) ? $errors['lastname'] : '' ?></span>
+                    <?= $form->text('lastname', 'Votre nom') ?>
+                </div>
+                <div class="contact-form-item">
+                    <span class="errors"><?= isset($errors['firstname']) ? $errors['firstname'] : '' ?></span>
                     <?= $form->text('firstname', 'Votre prénom') ?>
                 </div>
                 <div class="contact-form-item">
-                <span style="font-size:1px;"><?= isset($errors['email']) ? $errors['email'] : '' 
-                ?></span>
+                    <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
                     <?= $form->email('email', 'Votre email') ?>
                 </div>
                 <div class="contact-form-item">
-                <span style="font-size:1px;"><?= isset($errors['message']) ? $errors['message'] : '' 
-                ?></span>
+                    <span class="errors"><?= isset($errors['message']) ? $errors['message'] : '' ?></span>
                     <?= $form->textarea('message', 'Votre message') ?>
                 </div>
                 <div class="contact-form-item">
                     <?= $form->submit('submit', 'Envoyer') ?>
-                </div>
-              
+                </div> 
             </form>
         </div>
     </div>
