@@ -1,0 +1,13 @@
+{
+    "name": "magalirezeau/project5-opc-blog",
+    "authors": [
+        {
+            "name": "Magali Rézeau",
+            "email": "magalirezeau@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"App\\":"App/"}
+    },
+    "require": {}
+}
