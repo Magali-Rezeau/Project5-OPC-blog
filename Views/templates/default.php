@@ -122,9 +122,9 @@
                             </svg>
                         </a>
                     </li>
-                    <li><a href='../public/?page=home'>Accueil</a></li>
-                    <li><a href='../public/?page=blog'>Blog</a></li>
-                    <li><a href='#'>Contact</a></li>
+                    <li><a href="../public/?page=home">Accueil</a></li>
+                    <li><a href="../public/?page=blog">Blog</a></li>
+                    <li><a href="../public/?page=home#contact">Contact</a></li>
                 </ul>
             </label>
         </nav>

@@ -23,6 +23,12 @@ class Router {
                     $this->frontController->home();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'blog') {
+                    ob_start();
+                    $title = "Blog";
+                    $this->frontController->blog();
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
                 } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();

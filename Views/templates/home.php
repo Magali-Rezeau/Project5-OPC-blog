@@ -1,7 +1,7 @@
     <div class="header-content">
         <div class="header-content-text">
             <h1>Bienvenue,</h1>
-            <p>Je suis <span class="catch">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours Développeur d'application PHP/Symfony et ce site est un <span class="catch">portfolio</span> et un <span class="catch">blog</span> développé en php.</p>
+            <p>Je suis <span class="catch">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours <span class="catch">Développeur d'application PHP/Symfony</span> et ce site est un <span class="catch">portfolio</span> et un <span class="catch">blog</span> développé en php.</p>
         </div>
         <div class="header-content-img">
         </div>
