@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
 use App\Model\Form;
 use App\Controller\FormController;
@@ -10,12 +11,14 @@ class FrontController {
     private $form;
     private $validator;
     private $postDAO;
+    private $commentDAO;
 
     public function __construct()
     {
         $this->form = new Form($_POST);
         $this->validator = new FormController($_POST);
         $this->postDAO = new PostDAO();
+        $this->commentDAO = new CommentDAO();
     }
     public function home()
     {   
@@ -48,5 +51,27 @@ class FrontController {
     {
         $posts = $this->postDAO->getPosts();
         require '../Views/templates/blog.php';
+    }
+    public function single($postId) 
+    {
+        $form = $this->form;
+
+        $validator = $this->validator;
+        $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
+        $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
+        $validator->check('message','required','Vous n\'avez pas renseigné de commentaires');
+
+        if(!empty($_POST)) {
+            $errors = $validator->getErrors();
+
+            if(empty($errors)) {
+
+            } else {
+              
+            }
+        }
+        $post = $this->postDAO->getPost($postId);
+        $comments = $this->commentDAO->getComments($postId);
+        require '../Views/templates/single.php';
     }
 }

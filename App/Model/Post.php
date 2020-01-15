@@ -2,6 +2,7 @@
 namespace App\Model;
 
 class Post {
+
     private $id_post;
     private $title;
     private $author;
@@ -10,6 +11,7 @@ class Post {
     private $create_date;
     private $modification_date;
     private $url;
+    
     public function __get($get)
     {
         $method = 'get'.ucfirst($get);
