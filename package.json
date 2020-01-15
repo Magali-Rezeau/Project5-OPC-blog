@@ -1,0 +1,26 @@
+{
+  "name": "project5-opc-blog",
+  "version": "1.0.0",
+  "description": "A portfolio and a blog developed in PHP",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./vendor/sass/main.scss:./public/css/style.css --style compressed",
+    "prefix": "postcss ./public/css/style.css --use autoprefixer -d ./public/css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Magali-Rezeau/Project5-OPC-blog.git"
+  },
+  "author": "Magali Rézeau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Magali-Rezeau/Project5-OPC-blog/issues"
+  },
+  "homepage": "https://github.com/Magali-Rezeau/Project5-OPC-blog#readme",
+  "dependencies": {
+    "autoprefixer": "^9.7.3",
+    "postcss": "^7.0.26",
+    "postcss-cli": "^7.1.0",
+    "sass": "^1.24.4"
+  }
+}
