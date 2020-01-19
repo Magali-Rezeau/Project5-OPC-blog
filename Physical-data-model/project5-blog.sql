@@ -2,10 +2,10 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Jan 15, 2020 at 01:15 PM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Hôte : localhost:8889
+-- Généré le :  Dim 19 jan. 2020 à 19:19
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,35 +17,37 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `project5-blog`
+-- Base de données :  `project5-blog`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Structure de la table `comments`
 --
 
 CREATE TABLE `comments` (
   `id_comment` int(11) NOT NULL,
   `content` longtext NOT NULL,
   `create_date` datetime NOT NULL,
+  `Validation` varchar(10) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `comments`
+-- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id_comment`, `content`, `create_date`, `user_id`, `post_id`) VALUES
-(1, 'It is actually in fact a warning, that the spot belongs to Chuck Norris and that you will be handicapped if you park there.', '2019-12-18 17:22:00', 2, 1),
-(2, 'Chuck Norris is the reason you turn a light on when you enter a room.', '2019-12-17 15:22:00', 1, 1);
+INSERT INTO `comments` (`id_comment`, `content`, `create_date`, `Validation`, `user_id`, `post_id`) VALUES
+(1, 'It is actually in fact a warning, that the spot belongs to Chuck Norris and that you will be handicapped if you park there.', '2019-12-18 17:22:00', 'validate', 2, 1),
+(2, 'Chuck Norris is the reason you turn a light on when you enter a room.', '2019-12-17 15:22:00', 'validate', 1, 1),
+(3, 'ajout d\'un commentaire It is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot be', '2020-01-19 17:11:13', 'noValidate', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Structure de la table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -59,7 +61,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `posts`
+-- Déchargement des données de la table `posts`
 --
 
 INSERT INTO `posts` (`id_post`, `title`, `content`, `short_content`, `create_date`, `modification_date`, `user_id`) VALUES
@@ -72,7 +74,7 @@ INSERT INTO `posts` (`id_post`, `title`, `content`, `short_content`, `create_dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_users`
+-- Structure de la table `role_users`
 --
 
 CREATE TABLE `role_users` (
@@ -81,7 +83,7 @@ CREATE TABLE `role_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `role_users`
+-- Déchargement des données de la table `role_users`
 --
 
 INSERT INTO `role_users` (`id_role_user`, `entitled`) VALUES
@@ -92,7 +94,7 @@ INSERT INTO `role_users` (`id_role_user`, `entitled`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Structure de la table `users`
 --
 
 CREATE TABLE `users` (
@@ -106,7 +108,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `create_date`, `profile_picture`, `role_users_id`) VALUES
@@ -118,11 +120,11 @@ INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `create_date`, 
 (6, 'mag', 'mag@outlook.com', '1f71e0f4ac9b47cd93bf269e4017abaab9d3bd63', '2020-01-14', NULL, 3);
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `comments`
+-- Index pour la table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id_comment`),
@@ -130,72 +132,72 @@ ALTER TABLE `comments`
   ADD KEY `fk_comments_posts_idx` (`post_id`);
 
 --
--- Indexes for table `posts`
+-- Index pour la table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id_post`),
   ADD KEY `fk_posts_users_idx` (`user_id`);
 
 --
--- Indexes for table `role_users`
+-- Index pour la table `role_users`
 --
 ALTER TABLE `role_users`
   ADD PRIMARY KEY (`id_role_user`);
 
 --
--- Indexes for table `users`
+-- Index pour la table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `fk_users_role_users_idx` (`role_users_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `comments`
+-- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `role_users`
+-- AUTO_INCREMENT pour la table `role_users`
 --
 ALTER TABLE `role_users`
   MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `comments`
+-- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `fk_comments_posts` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id_post`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_comments_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `posts`
+-- Contraintes pour la table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `fk_posts_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `users`
+-- Contraintes pour la table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_users_role_users` FOREIGN KEY (`role_users_id`) REFERENCES `role_users` (`id_role_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
