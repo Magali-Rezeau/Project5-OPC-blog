@@ -49,7 +49,7 @@
                         <p><?= htmlspecialchars($comment->content); ?></p>
                         <hr>
                     <?php endforeach; ?>
-                    <form action="../public/?page=single" method="post" id="comment-form" name="comment-form" class="post-card-comment-form">
+                    <form action="../public/?page=single&id_post=<?= $post->id_post ?>" method="post" id="comment-form" name="comment-form" class="post-card-comment-form">
                         <h2>Ajouter un commentaire</h2>
                         <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                         <div class="post-card-comment-form-item">
@@ -61,8 +61,8 @@
                             <?= $form->password('password', 'Mot de passe') ?>
                         </div>
                         <div class="post-card-comment-form-item">
-                            <span class="errors"><?= isset($errors['comment']) ? $errors['comment'] : '' ?></span>
-                            <?= $form->textarea('comment', 'Commentaire') ?>
+                            <span class="errors"><?= isset($errors['content']) ? $errors['content'] : '' ?></span>
+                            <?= $form->textarea('content', 'Commentaire') ?>
                         </div>
                         <div class="post-card-comment-form-item">
                             <?= $form->submit('submit', 'Envoyer') ?>
@@ -75,3 +75,4 @@
                 </div>
             </div>
         </section>
+        

@@ -63,9 +63,9 @@ class FrontController {
 
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
-
+           
             if(empty($errors)) {
-
+                $this->commentDAO->addComment($_POST,$postId);
             } else {
               
             }
