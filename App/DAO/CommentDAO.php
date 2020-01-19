@@ -20,7 +20,8 @@ class CommentDAO extends Database {
         $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date FROM comments INNER JOIN users ON user_id = id_user WHERE post_id = ? ORDER BY comments.create_date DESC',[$postId]);
         $comments = [];
         foreach ($req as $data) { 
-            $comments[] = $this->commentObject($data);
+            $commentId = $data['id_comment'];
+            $comments[$commentId] = $this->commentObject($data);
         }
         return $comments;
     }

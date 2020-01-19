@@ -1,6 +1,7 @@
 <?php
 namespace App\Config;
 
+use App\Controller\BackController;
 use App\Controller\ErrorsController;
 use App\Controller\FrontController;
 use \Exception;
@@ -12,6 +13,7 @@ class Router {
     public function __construct() {
         $this->frontController = new FrontController();
         $this->errorsController = new ErrorsController();
+        $this->backController = new BackController();
     }
     public function run() {
         $page = $_GET['page'];
@@ -34,6 +36,12 @@ class Router {
                     $title = "Single";
                     $postId = $_GET['id_post'];
                     $this->frontController->single($postId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else if ($page === 'dashboard') {
+                    ob_start();
+                    $title = "Dashboard";
+                    $this->backController->dashboard();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } else {
