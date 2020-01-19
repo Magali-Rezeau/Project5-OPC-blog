@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\DAO\PostDAO;
 use App\Model\Form;
 use App\Controller\FormController;
 
@@ -8,11 +9,13 @@ class FrontController {
 
     private $form;
     private $validator;
+    private $postDAO;
 
     public function __construct()
     {
         $this->form = new Form($_POST);
         $this->validator = new FormController($_POST);
+        $this->postDAO = new PostDAO();
     }
     public function home()
     {   
@@ -40,5 +43,10 @@ class FrontController {
             }
         }
         require '../Views/templates/home.php';
+    }
+    public function blog()
+    {
+        $posts = $this->postDAO->getPosts();
+        require '../Views/templates/blog.php';
     }
 }
