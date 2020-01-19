@@ -54,23 +54,28 @@
         <table class="dashboard-comment-table">
             <thead class="dashboard-comment-table-head">
                 <tr class="dashboard-comment-table-head-row">
-                    <td class="dashboard-comment-table-head-cell">Id</td>
+                    <td class="dashboard-comment-table-head-cell">Id article</td>
                     <td class="dashboard-comment-table-head-cell">Auteur</td>
-                    <td class="dashboard-comment-table-head-cell">Contenu</td>
-                    <td class="dashboard-comment-table-head-cell">Titre de l'article</td>
                     <td class="dashboard-comment-table-head-cell">Date de création</td>
+                    <td class="dashboard-comment-table-head-cell">Contenu</td>
                     <td class="dashboard-comment-table-head-cell">Actions</td>
                 </tr>
             </thead>
             <tbody class="dashboard-comment-table-body">
+            <?php foreach ($comments as $comment) : ?>
                     <tr class="dashboard-comment-table-body-row">
-                        <td class="dashboard-comment-table-body-cell"></td>
-                        <td class="dashboard-comment-table-body-cell"></td>
-                        <td class="dashboard-comment-table-body-cell"></td>
-                        <td class="dashboard-comment-table-body-cell"></td>
-                        <td class="dashboard-comment-table-body-cell"></td>
+                        <td class="dashboard-comment-table-body-cell"><?= $comment->post_id; ?></td>
+                        <td class="dashboard-comment-table-body-cell"><?= $comment->author; ?></td>
+                        <td class="dashboard-comment-table-body-cell">
+                            <?php 
+                                $date = new \DateTime($comment->create_date);
+                                echo $date->format("d-m-Y"); 
+                            ?>
+                        </td>
+                        <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
                         <td class="dashboard-comment-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
                     </tr>
+                    <?php endforeach; ?>
             </tbody>
         </table>
         <div class="dashboard-user-title">

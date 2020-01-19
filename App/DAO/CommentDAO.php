@@ -13,6 +13,7 @@ class CommentDAO extends Database {
         $comment->setContent($data['content']);
         $comment->setAuthor($data['username']);
         $comment->setCreate_date($data['create_date']);
+        $comment->setPost_id($data['post_id']);
         return $comment;
     }
     public function getComments($postId)
@@ -28,4 +29,13 @@ class CommentDAO extends Database {
     public function addComment($method,$postId) {
         $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,create_date) VALUES (?,1,?, NOW())',[$method['content'],$postId]);    
     } 
+    public function getValidatedComments() {
+        $req = $this->queryDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date, comments.validation, comments.post_id FROM comments INNER JOIN users ON user_id = id_user WHERE comments.validation = "noValidate" ORDER BY comments.create_date DESC');
+        $comments = [];
+        foreach ($req as $data) { 
+            $commentId = $data['id_comment'];
+            $comments[$commentId] = $this->commentObject($data);
+        }
+        return $comments;
+    }
 }

@@ -23,6 +23,7 @@ class BackController {
     public function dashboard()
     {   
         $posts = $this->postDAO->getPosts();
+        $comments = $this->commentDAO->getValidatedComments();
         require '../Views/admin/dashboard.php';
     }
 }
