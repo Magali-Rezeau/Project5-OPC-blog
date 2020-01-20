@@ -78,7 +78,15 @@ class Router {
                     $this->backController->editPost($_POST,$postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else {
+                } else if ($page === 'deleteUser') {
+                    ob_start();
+                    $title = "Delete user";
+                    $userId = $_GET['id_user'];
+                    $this->backController->deleteUser($userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                }
+                else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

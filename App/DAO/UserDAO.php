@@ -27,4 +27,7 @@ class UserDAO extends Database {
         }
         return $users;
     }
+    public function deleteUser($userId) {
+        $req = $this->prepareDB('DELETE FROM users WHERE id_user = ?', [$userId]);
+    }
 }

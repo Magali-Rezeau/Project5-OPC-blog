@@ -100,4 +100,9 @@ class BackController {
         }
         require '../Views/admin/editPost.php'; 
     }
+    public function deleteUser($userId) {
+        $this->userDAO->deleteUser($userId);
+        header("Location: ../public/index.php?page=dashboard");
+        require '../Views/admin/dashboard.php';
+    }
 }
