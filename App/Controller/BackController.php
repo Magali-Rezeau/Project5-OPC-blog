@@ -5,6 +5,7 @@ use App\DAO\PostDAO;
 use App\DAO\CommentDAO;
 use App\Model\Form;
 use App\Controller\FormController;
+use App\DAO\UserDAO;
 
 class BackController {
 
@@ -17,6 +18,7 @@ class BackController {
     {
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
+        $this->userDAO = new UserDAO();
         $this->form = new Form($_POST);
         $this->validate = new FormController($_POST);
     }
@@ -24,6 +26,7 @@ class BackController {
     {   
         $posts = $this->postDAO->getPosts();
         $comments = $this->commentDAO->getValidatedComments();
+        $users = $this->userDAO->getUsers();
         require '../Views/admin/dashboard.php';
     }
     public function validateComment($commentId)

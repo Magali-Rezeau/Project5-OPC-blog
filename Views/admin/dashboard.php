@@ -93,14 +93,21 @@
                 </tr>
             </thead>
             <tbody class="dashboard-user-table-body">
+                <?php foreach($users as $user) : ?>
                     <tr class="dashboard-user-table-body-row">
-                        <td class="dashboard-user-table-body-cell"></td>
-                        <td class="dashboard-user-table-body-cell"></td>
-                        <td class="dashboard-user-table-body-cell"></td>
-                        <td class="dashboard-user-table-body-cell"></td>
-                        <td class="dashboard-user-table-body-cell"></td>
+                        <td class="dashboard-user-table-body-cell"><?= $user->id_user;?></td>
+                        <td class="dashboard-user-table-body-cell"><?= $user->username;?></td>
+                        <td class="dashboard-user-table-body-cell"><?= $user->email;?></td>
+                        <td class="dashboard-user-table-body-cell"><?= $user->role;?></td>
+                        <td class="dashboard-user-table-body-cell">
+                            <?php 
+                                $date = new \DateTime($user->create_date); 
+                                echo $date->format("d-m-Y"); 
+                            ?>
+                        </td>
                         <td class="dashboard-user-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
                     </tr>
+                    <?php endforeach; ?>
             </tbody>
         </table>
     </section>
