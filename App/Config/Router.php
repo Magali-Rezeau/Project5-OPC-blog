@@ -44,7 +44,15 @@ class Router {
                     $this->backController->dashboard();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else {
+                } else if ($page === 'validateComment') {
+                    ob_start();
+                    $title = "Validate Comment";
+                    $commentId = $_GET['id_comment'];
+                    $this->backController->validateComment($commentId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                }
+                else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

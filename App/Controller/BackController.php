@@ -26,4 +26,12 @@ class BackController {
         $comments = $this->commentDAO->getValidatedComments();
         require '../Views/admin/dashboard.php';
     }
+    public function validateComment($commentId)
+    {   
+        $posts = $this->postDAO->getPosts();
+        $comments = $this->commentDAO->getValidatedComments();
+        $this->commentDAO->validateComment($commentId);
+        header('Location: ../public/index.php?page=dashboard');
+        require '../Views/admin/dashboard.php';
+    }
 }

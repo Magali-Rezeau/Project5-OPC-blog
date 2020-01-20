@@ -38,4 +38,8 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
+    public function validateComment($commentId) {
+        $req = $this->prepareDB('UPDATE comments SET comments.validation = "validate" WHERE id_comment = :id_comment',
+        ['id_comment' => $commentId]);
+    }
 }

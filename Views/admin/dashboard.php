@@ -73,7 +73,7 @@
                             ?>
                         </td>
                         <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
-                        <td class="dashboard-comment-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
+                        <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></td>
                     </tr>
                     <?php endforeach; ?>
             </tbody>
