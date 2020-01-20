@@ -1,7 +1,6 @@
         <div class="header-content">
             <div class="header-content-text">
-                <h1>Bienvenue,</h1>
-                <p>Je suis <span class="font">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours Développeur d'application PHP/Symfony et cette page permet <span class="font">d' administrer les articles du blog.</span></p>
+                <h1>Dashboard</h1>
             </div>
             <div class="header-content-img-admin">
             </div>

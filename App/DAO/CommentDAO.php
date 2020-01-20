@@ -13,12 +13,11 @@ class CommentDAO extends Database {
         $comment->setContent($data['content']);
         $comment->setAuthor($data['username']);
         $comment->setCreate_date($data['create_date']);
-        $comment->setPost_id($data['post_id']);
         return $comment;
     }
     public function getComments($postId)
     {
-        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date FROM comments INNER JOIN users ON user_id = id_user WHERE post_id = ? ORDER BY comments.create_date DESC',[$postId]);
+        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
         $comments = [];
         foreach ($req as $data) { 
             $commentId = $data['id_comment'];
