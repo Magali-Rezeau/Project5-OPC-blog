@@ -41,4 +41,29 @@ class BackController {
         header('Location: ../public/index.php?page=dashboard');
         require '../Views/admin/dashboard.php';
     }
+    public function addPost($method) {
+        $form = $this->form;
+        $validate = $this->validate;
+        $validate->check('title','required', 'Ce champ est obligatoire');
+        $validate->check('content','required','Ce champ est obligatoire');
+        $validate->check('short_content','required','Ce champ est obligatoire');
+        $validate->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
+        $validate->check('author','required','Ce champ est obligatoire');
+        $validate->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+        if(!empty($method)) {
+            $errors = $validate->getErrors();
+            if(empty($errors)) {
+                if($method['author'] === "Magali") {
+                    $method['author'] = substr_replace("Magali","1",0);
+                    $this->postDAO->addPost($method);
+                    $succes = "Votre article a bien été ajouté";
+                } else if ($method['author'] === "Marie") {
+                    $method['author'] = substr_replace("Marie","2",0);
+                    $this->postDAO->addPost($method);
+                    $succes = "Votre article a bien été ajouté";
+                } 
+            }
+        }
+        require '../Views/admin/addPost.php'; 
+    }
 }

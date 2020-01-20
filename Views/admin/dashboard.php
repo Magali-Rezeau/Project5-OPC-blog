@@ -1,12 +1,12 @@
-<div class="header-content">
-    <div class="header-content-text">
-        <h1>Bienvenue,</h1>
-        <p>Je suis <span class="font">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours Développeur d'application PHP/Symfony et cette page permet <span class="font">d' administrer les articles du blog.</span></p>
-    </div>
-    <div class="header-content-img-admin">
-    </div>
-</div>
-</header>
+        <div class="header-content">
+            <div class="header-content-text">
+                <h1>Bienvenue,</h1>
+                <p>Je suis <span class="font">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours Développeur d'application PHP/Symfony et cette page permet <span class="font">d' administrer les articles du blog.</span></p>
+            </div>
+            <div class="header-content-img-admin">
+            </div>
+        </div>
+    </header>
     <section class="dashboard">
         <div class="dashboard-post-title">
             <h1>Administration des articles</h1>
@@ -62,7 +62,7 @@
                 </tr>
             </thead>
             <tbody class="dashboard-comment-table-body">
-            <?php foreach ($comments as $comment) : ?>
+                <?php foreach ($comments as $comment) : ?>
                     <tr class="dashboard-comment-table-body-row">
                         <td class="dashboard-comment-table-body-cell"><?= $comment->post_id; ?></td>
                         <td class="dashboard-comment-table-body-cell"><?= $comment->author; ?></td>
@@ -75,7 +75,7 @@
                         <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
                         <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></td>
                     </tr>
-                    <?php endforeach; ?>
+                <?php endforeach; ?>
             </tbody>
         </table>
         <div class="dashboard-user-title">

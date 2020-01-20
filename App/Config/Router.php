@@ -58,6 +58,12 @@ class Router {
                     $this->backController->deleteComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'addPost') {
+                    ob_start();
+                    $title = "Ajout post";
+                    $this->backController->addPost($_POST);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
                 } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();

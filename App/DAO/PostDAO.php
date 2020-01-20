@@ -35,4 +35,7 @@ class PostDAO extends Database {
         $post = $req->fetch();
         return $this->postObject($post); 
     }
+    public function addPost($method) {
+        $req = $this->prepareDB('INSERT INTO posts(title,content,short_content, user_id,create_date, modification_date) VALUES (?,?,?,?, NOW(), NOW())',[$method['title'],$method['content'],$method['short_content'],$method['author']]);  
+    }
 }
