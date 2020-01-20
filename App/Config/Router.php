@@ -51,8 +51,14 @@ class Router {
                     $this->backController->validateComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                }
-                else {
+                } else if ($page === 'deleteComment') {
+                    ob_start();
+                    $title = "Delete Comment";
+                    $commentId = $_GET['id_comment'];
+                    $this->backController->deleteComment($commentId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

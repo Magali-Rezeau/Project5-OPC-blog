@@ -34,4 +34,11 @@ class BackController {
         header('Location: ../public/index.php?page=dashboard');
         require '../Views/admin/dashboard.php';
     }
+    public function deleteComment($commentId) {
+        $posts = $this->postDAO->getPosts();
+        $comments = $this->commentDAO->getValidatedComments();
+        $this->commentDAO->deleteComment($commentId);
+        header('Location: ../public/index.php?page=dashboard');
+        require '../Views/admin/dashboard.php';
+    }
 }

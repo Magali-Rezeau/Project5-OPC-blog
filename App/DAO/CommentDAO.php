@@ -42,4 +42,7 @@ class CommentDAO extends Database {
         $req = $this->prepareDB('UPDATE comments SET comments.validation = "validate" WHERE id_comment = :id_comment',
         ['id_comment' => $commentId]);
     }
+    public function deleteComment($commentId) {
+        $req = $this->prepareDB('DELETE FROM comments WHERE id_comment = ?', [$commentId]);
+    }
 }
