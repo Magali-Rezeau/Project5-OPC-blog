@@ -30,4 +30,7 @@ class UserDAO extends Database {
     public function deleteUser($userId) {
         $req = $this->prepareDB('DELETE FROM users WHERE id_user = ?', [$userId]);
     }
+    public function register($method) {
+        $req = $this->prepareDB('INSERT INTO users(username, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['username'],$method['email'],sha1($method['password'])]);
+    }
 }

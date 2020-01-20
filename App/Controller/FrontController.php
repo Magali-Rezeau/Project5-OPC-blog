@@ -5,6 +5,7 @@ use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
 use App\Model\Form;
 use App\Controller\FormController;
+use App\DAO\UserDAO;
 
 class FrontController {
 
@@ -12,6 +13,7 @@ class FrontController {
     private $validator;
     private $postDAO;
     private $commentDAO;
+    private $userDAO;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class FrontController {
         $this->validator = new FormController($_POST);
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
+        $this->userDAO = new UserDAO();
     }
     public function home()
     {   
@@ -27,8 +30,8 @@ class FrontController {
         $validator = $this->validator;
         $validator->check('firstname','required', 'Vous n\'avez pas renseigné votre prénom');
         $validator->check('lastname','required', 'Vous n\'avez pas renseigné votre nom');
-        $validator->check('email','required', 'Votre email est incorrect');
-        $validator->check('email','email','Vous n\'avez pas renseigné votre email');
+        $validator->check('email','email', 'Votre email est incorrect');
+        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
         $validator->check('message','required','Vous n\'avez pas renseigné de message');
 
         if(!empty($_POST)) {
@@ -73,5 +76,22 @@ class FrontController {
         $post = $this->postDAO->getPost($postId);
         $comments = $this->commentDAO->getComments($postId);
         require '../Views/templates/single.php';
+    }
+    public function signup($method)
+    {
+        $form = $this->form;
+        $validator = $this->validator;
+        $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
+        $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
+        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
+        $validator->check('email','email', 'Votre email est incorrect');
+        if(!empty($method)) {
+            $errors = $validator->getErrors();
+            if(empty($errors)) {
+                $this->userDAO->register($method);   
+                $succes = "Votre inscription a bien été prise en compte";
+            }
+        }
+        require '../Views/templates/signup.php';
     }
 }
