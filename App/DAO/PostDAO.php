@@ -38,4 +38,7 @@ class PostDAO extends Database {
     public function addPost($method) {
         $req = $this->prepareDB('INSERT INTO posts(title,content,short_content, user_id,create_date, modification_date) VALUES (?,?,?,?, NOW(), NOW())',[$method['title'],$method['content'],$method['short_content'],$method['author']]);  
     }
+    public function deletePost($postId) {
+        $req = $this->prepareDB('DELETE FROM posts WHERE id_post = ?', [$postId]);
+    }
 }

@@ -66,4 +66,9 @@ class BackController {
         }
         require '../Views/admin/addPost.php'; 
     }
+    public function deletePost($postId) {
+        $this->postDAO->deletePost($postId);
+        header("Location: ../public/index.php?page=dashboard");
+        require '../Views/admin/dashboard.php';
+    }  
 }

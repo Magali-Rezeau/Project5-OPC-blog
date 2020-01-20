@@ -60,8 +60,15 @@ class Router {
                     require '../Views/templates/default.php';
                 } else if ($page === 'addPost') {
                     ob_start();
-                    $title = "Ajout post";
+                    $title = "Add post";
                     $this->backController->addPost($_POST);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else if ($page === 'deletePost') {
+                    ob_start();
+                    $title = "Delete post";
+                    $postId = $_GET['id_post'];
+                    $this->backController->deletePost($postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } else {
