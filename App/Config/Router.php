@@ -29,6 +29,13 @@ class Router {
                     $this->frontController->blog();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'single') {
+                    ob_start();
+                    $title = "Single";
+                    $postId = $_GET['id_post'];
+                    $this->frontController->single($postId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
                 } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();

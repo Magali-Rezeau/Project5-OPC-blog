@@ -29,4 +29,10 @@ class PostDAO extends Database {
         }
         return $posts;
     }
+    public function getPost($postId)
+    {
+        $req = $this->prepareDB('SELECT posts.id_post,posts.title, posts.short_content, posts.content, posts.create_date, posts.modification_date, users.username FROM posts INNER JOIN users ON user_id = id_user WHERE id_post = ?',[$postId]); 
+        $post = $req->fetch();
+        return $this->postObject($post); 
+    }
 }
