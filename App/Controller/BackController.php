@@ -70,5 +70,31 @@ class BackController {
         $this->postDAO->deletePost($postId);
         header("Location: ../public/index.php?page=dashboard");
         require '../Views/admin/dashboard.php';
-    }  
+    }
+    public function editPost($method,$postId) {
+        $form = $this->form;
+        $post = $this->postDAO->getPost($postId);
+        $validate = $this->validate;
+        $validate->check('title','required', 'Ce champ est obligatoire');
+        $validate->check('content','required','Ce champ est obligatoire');
+        $validate->check('short_content','required','Ce champ est obligatoire');
+        $validate->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
+        $validate->check('author','required','Ce champ est obligatoire');
+        $validate->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+        if(!empty($method)) {
+            $errors = $validate->getErrors();
+            if(empty($errors)) {
+                if($method['author'] === "Magali") {
+                    $method['author'] = substr_replace("Magali","1",0);
+                    $this->postDAO->editPost($method,$postId);
+                    $succes = "Votre article a bien été modifié";
+                } else if ($method['author'] === "Marie") {
+                    $method['author'] = substr_replace("Marie","2",0);
+                    $this->postDAO->editPost($method,$postId);
+                    $succes = "Votre article a bien été modifié"; 
+                } 
+            }
+        }
+        require '../Views/admin/editPost.php'; 
+    }
 }
