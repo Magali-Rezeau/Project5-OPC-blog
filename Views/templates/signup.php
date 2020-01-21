@@ -17,6 +17,7 @@
                 <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['username']) ? $errors['username'] : '' ?></span>
+                    <span class="errors"><?= isset($errorPseudo) ? $errorPseudo : '' ?></span>
                     <?= $form->text('username', 'Pseudo') ?>
                 </div>
                 <div class="signup-content-form-item">
@@ -43,7 +44,5 @@
                 <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>
                 <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
             </div>
-        </div>
-        <?php var_dump($_POST['email']);?>
-       
+        </div> 
     </section>

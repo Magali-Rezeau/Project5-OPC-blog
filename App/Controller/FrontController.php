@@ -82,6 +82,8 @@ class FrontController {
         $form = $this->form;
         $validator = $this->validator;
         $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
+        $validator->check('username','minLenght', 'Votre pseudo doit comporter au moins 3 caractères', 3);
+        $validator->check('username','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères', 50);
         $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
         $validator->check('email','email', 'Votre email est incorrect');
         $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas','confirm_password');
@@ -89,6 +91,8 @@ class FrontController {
         if(!empty($method)) {
         
             $errors = $validator->getErrors();
+            $errorPseudo = $this->userDAO->pseudo_user($method);
+            
             if(empty($errors)) {
                 $this->userDAO->register($method);   
                 $succes = "Votre inscription a bien été prise en compte";

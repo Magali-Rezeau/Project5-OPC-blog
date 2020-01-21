@@ -20,7 +20,7 @@ class BackController {
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
         $this->form = new Form($_POST);
-        $this->validate = new FormController($_POST);
+        $this->validator = new FormController($_POST);
     }
     public function dashboard()
     {   
@@ -46,15 +46,15 @@ class BackController {
     }
     public function addPost($method) {
         $form = $this->form;
-        $validate = $this->validate;
-        $validate->check('title','required', 'Ce champ est obligatoire');
-        $validate->check('content','required','Ce champ est obligatoire');
-        $validate->check('short_content','required','Ce champ est obligatoire');
-        $validate->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validate->check('author','required','Ce champ est obligatoire');
-        $validate->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+        $validator = $this->validator;
+        $validator->check('title','required', 'Ce champ est obligatoire');
+        $validator->check('content','required','Ce champ est obligatoire');
+        $validator->check('short_content','required','Ce champ est obligatoire');
+        $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
+        $validator->check('author','required','Ce champ est obligatoire');
+        $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
         if(!empty($method)) {
-            $errors = $validate->getErrors();
+            $errors = $validator->getErrors();
             if(empty($errors)) {
                 if($method['author'] === "Magali") {
                     $method['author'] = substr_replace("Magali","1",0);
@@ -77,15 +77,15 @@ class BackController {
     public function editPost($method,$postId) {
         $form = $this->form;
         $post = $this->postDAO->getPost($postId);
-        $validate = $this->validate;
-        $validate->check('title','required', 'Ce champ est obligatoire');
-        $validate->check('content','required','Ce champ est obligatoire');
-        $validate->check('short_content','required','Ce champ est obligatoire');
-        $validate->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validate->check('author','required','Ce champ est obligatoire');
-        $validate->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+        $validator = $this->validator;
+        $validator->check('title','required', 'Ce champ est obligatoire');
+        $validator->check('content','required','Ce champ est obligatoire');
+        $validator->check('short_content','required','Ce champ est obligatoire');
+        $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
+        $validator->check('author','required','Ce champ est obligatoire');
+        $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
         if(!empty($method)) {
-            $errors = $validate->getErrors();
+            $errors = $validator->getErrors();
             if(empty($errors)) {
                 if($method['author'] === "Magali") {
                     $method['author'] = substr_replace("Magali","1",0);
