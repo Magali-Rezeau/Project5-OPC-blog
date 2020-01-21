@@ -33,11 +33,11 @@ class UserDAO extends Database {
     public function register($method) {
         $req = $this->prepareDB('INSERT INTO users(username, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['username'],$method['email'],sha1($method['password'])]);
     }
-    public function pseudo_user($method) {
+    public function check_usernameDB($method) {
         $req= $this->prepareDB('SELECT COUNT(username) FROM users WHERE username = ?',[$method['username']]);
-        $isUnique = $req->fetchColumn();
-        if($isUnique) {
-            return 'Déja utilisé';
+        $unique = $req->fetchColumn();
+        if($unique) {
+            return 'Ce pseudo est déjà utilisé';
         }
     }
 }

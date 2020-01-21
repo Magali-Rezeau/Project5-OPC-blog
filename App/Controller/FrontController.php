@@ -91,7 +91,7 @@ class FrontController {
         if(!empty($method)) {
         
             $errors = $validator->getErrors();
-            $errorPseudo = $this->userDAO->pseudo_user($method);
+            $errorPseudo = $this->userDAO->check_usernameDB($method);
             
             if(empty($errors)) {
                 $this->userDAO->register($method);   
