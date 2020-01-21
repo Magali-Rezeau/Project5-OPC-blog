@@ -23,6 +23,12 @@ class FormController {
     public function validate_email($name) {
         return isset($this->datas[$name]) && filter_var($this->datas[$name],FILTER_VALIDATE_EMAIL);
     }
+    public function validate_minLenght($name,$value) {
+        return isset($this->datas[$name]) && strlen($this->datas[$name]) >= $value;
+    }
+    public function validate_maxLenght($name,$value) {
+        return isset($this->datas[$name]) && strlen($this->datas[$name]) < $value;
+    }
     public function getErrors() {
         return $this->errors;
     }

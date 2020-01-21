@@ -7,6 +7,7 @@ class Comment {
     private $author;
     private $content;
     private $create_date;
+    private $post_id;
 
     public function __get($get)
     {
@@ -19,6 +20,12 @@ class Comment {
     }
     public function setId_comment($id_comment) {
         $this->id_comment = $id_comment;
+    }
+    public function getPost_id() {
+        return $this->post_id;
+    }
+    public function setPost_id($post_id) {
+        $this->post_id = $post_id;
     }
     public function getAuthor() {
         return $this->author;
