@@ -16,16 +16,22 @@
             <form action="../public/index.php?page=signup" method="POST" id="signup-form" name="signup-form" class="signup-content-form">
                 <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                 <div class="signup-content-form-item">
-                    <span style="font-size:1px;"><?= isset($errors['username']) ? $errors['username'] : '' ?></span>
+                    <span class="errors"><?= isset($errors['username']) ? $errors['username'] : '' ?></span>
                     <?= $form->text('username', 'Pseudo') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <span style="font-size:1px;"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
+                    <span class="errors"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
                     <?= $form->password('password', 'Mot de passe') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <span style="font-size:1px;"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
+                    <?= $form->password('confirm_password', 'Confirmer votre mot de passe') ?>
+                </div>
+                <div class="signup-content-form-item">
+                    <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
                     <?= $form->email('email', 'Email') ?>
+                </div>
+                <div class="signup-content-form-item">
+                    <?= $form->email('confirm_email', 'Confirmer votre email') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <?= $form->submit('submit', 'S\'inscrire') ?>

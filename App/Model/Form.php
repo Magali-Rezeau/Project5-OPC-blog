@@ -10,8 +10,8 @@ class Form {
         $this->datas = $datas; 
     }
     private function input($type, $name, $label, $value = null) {
-        if(isset($this->datas[$value])) {
-            $value = $this->datas[$value];
+        if(isset($this->datas[$name])) {
+            $value = $this->datas[$name];
         } 
         if ($type === 'textarea') {
             return '<label for="'.$name.'">'.$label.'</label><textarea name="' . $name . '"  id="' . $name . '">' . $value . '</textarea>';
