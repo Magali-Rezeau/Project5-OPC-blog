@@ -83,11 +83,11 @@ class FrontController {
         $validator = $this->validator;
         $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
         $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
-        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
         $validator->check('email','email', 'Votre email est incorrect');
-        $validator->check('email','confirm_email', 'Vos emails ne correspondent pas','confirm_email');
         $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas','confirm_password');
+        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
         if(!empty($method)) {
+        
             $errors = $validator->getErrors();
             if(empty($errors)) {
                 $this->userDAO->register($method);   

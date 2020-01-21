@@ -44,4 +44,6 @@
                 <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
             </div>
         </div>
+        <?php var_dump($_POST['email']);?>
+       
     </section>

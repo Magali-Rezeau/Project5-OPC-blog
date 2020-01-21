@@ -13,6 +13,7 @@ class CommentDAO extends Database {
         $comment->setContent($data['content']);
         $comment->setAuthor($data['username']);
         $comment->setCreate_date($data['create_date']);
+        $comment->setPost_id($data['post_id']);
         return $comment;
     }
     public function getComments($postId)
