@@ -13,6 +13,7 @@ class BackController {
     private $commentDAO;
     private $form;
     private $userDAO;
+    private $validator;
 
     public function __construct()
     {

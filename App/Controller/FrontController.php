@@ -28,12 +28,8 @@ class FrontController {
         $form = $this->form;
 
         $validator = $this->validator;
-        $validator->check('firstname','required', 'Vous n\'avez pas renseigné votre prénom');
-        $validator->check('lastname','required', 'Vous n\'avez pas renseigné votre nom');
-        $validator->check('email','email', 'Votre email est incorrect');
-        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
-        $validator->check('message','required','Vous n\'avez pas renseigné de message');
-
+        $validator->check('email','email', 'Votre adresse email est incorrecte.');
+       
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
 
@@ -43,7 +39,6 @@ class FrontController {
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
                 unset($errors);
                 $succes = "Votre message a bien été envoyé";
-               
             } else {
               
             }
@@ -58,19 +53,13 @@ class FrontController {
     public function single($postId) 
     {
         $form = $this->form;
-
         $validator = $this->validator;
-        $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
-        $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
-        $validator->check('message','required','Vous n\'avez pas renseigné de commentaires');
-
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
            
             if(empty($errors)) {
                 $this->commentDAO->addComment($_POST,$postId);
-            } else {
-              
+            } else { 
             }
         }
         $post = $this->postDAO->getPost($postId);
@@ -81,26 +70,21 @@ class FrontController {
     {
         $form = $this->form;
         $validator = $this->validator;
-        $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
-        $validator->check('username','minLenght', 'Votre pseudo doit comporter au moins 3 caractères', 3);
-        $validator->check('username','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères', 50);
-        $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
-        $validator->check('email','email', 'Votre email est incorrect');
-        $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas','confirm_password');
-        $validator->check('email','required','Vous n\'avez pas renseigné votre email');
+        $validator->check('username','minLenght', 'Votre pseudo doit comporter au moins 3 caractères.', 3);
+        $validator->check('username','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères.', 50);
+        $validator->check('email','email', 'Votre adresse email est incorrecte.');
+        $validator->check('email','confirm_email', 'Vos emails ne correspondent pas.','confirm_email');
+        $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas.','confirm_password');
         if(!empty($method)) {
-        
             $errors = $validator->getErrors();
             $errorPseudo = $this->userDAO->check_usernameDB($method);
-            
             if(empty($errors)) {
                 $this->userDAO->register($method);   
                 $succes = "Votre inscription a bien été prise en compte";
+            } else {  
+               
             }
-        } else {
-           
         }
-        
         require '../Views/templates/signup.php';
     }
 }

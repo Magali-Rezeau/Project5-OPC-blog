@@ -17,9 +17,6 @@ class FormController {
             $this->errors[$name] = $message; 
         }
     }
-    public function validate_required($name) {
-        return  isset($this->datas[$name]) && $this->datas[$name] != '';
-    }
     public function validate_email($name) {
         return isset($this->datas[$name]) && filter_var($this->datas[$name],FILTER_VALIDATE_EMAIL);
     }
