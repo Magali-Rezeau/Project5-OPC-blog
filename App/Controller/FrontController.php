@@ -50,15 +50,15 @@ class FrontController {
         $posts = $this->postDAO->getPosts();
         require '../Views/templates/blog.php';
     }
-    public function single($postId) 
+    public function single($method,$postId) 
     {
         $form = $this->form;
         $validator = $this->validator;
-        if(!empty($_POST)) {
+        if(!empty($method)) {
             $errors = $validator->getErrors();
            
             if(empty($errors)) {
-                $this->commentDAO->addComment($_POST,$postId);
+                $this->commentDAO->addComment($method,$postId);
             } else { 
             }
         }
@@ -87,5 +87,27 @@ class FrontController {
             }
         }
         require '../Views/templates/signup.php';
+    }
+    public function login($method) 
+    {   
+        $form = $this->form;
+       
+        if(!empty($method)) {
+          
+            $result =  $this->userDAO->login($method);
+            
+          
+            if($result['result'] && $result['validPassword']) {
+                $succes = "Content de vous revoir";
+             
+            } else {
+              
+                echo 'votre mot de passe ou votre pseudo sont incorrectes';
+              
+            }
+           
+           
+        }
+        require '../Views/templates/login.php';
     }
 }

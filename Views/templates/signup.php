@@ -39,6 +39,7 @@
                     <?= $form->submit('submit', 'S\'inscrire') ?>
                 </div>
             </form>
+            <?php var_dump($_POST['password']) ?>
             <div class="signup-content-redir">
                 <p>Déjà inscrit ?</p>
                 <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>

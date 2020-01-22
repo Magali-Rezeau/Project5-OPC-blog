@@ -31,7 +31,7 @@ class UserDAO extends Database {
         $req = $this->prepareDB('DELETE FROM users WHERE id_user = ?', [$userId]);
     }
     public function register($method) {
-        $req = $this->prepareDB('INSERT INTO users(pseudo, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['pseudo'],$method['email'],sha1($method['password'])]);
+        $req = $this->prepareDB('INSERT INTO users(pseudo, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['pseudo'],$method['email'],password_hash($method['password'],PASSWORD_BCRYPT)]);
     }
     public function check_pseudoDB($method) {
         $req= $this->prepareDB('SELECT COUNT(pseudo) FROM users WHERE pseudo = ?',[$method['pseudo']]);
@@ -46,5 +46,11 @@ class UserDAO extends Database {
         if($unique) {
             return 'Cette adresse email est déjà utilisée.';
         }
+    }
+    public function login($method) {
+        $req= $this->prepareDB('SELECT users.id_user, users.password FROM users WHERE pseudo = ?',[$method['pseudo']]);
+        $result = $req->fetch();
+        $validPassword = password_verify($method['password'], $result['password']);
+        return ['result' => $result, 'validPassword' => $validPassword];
     }
 }

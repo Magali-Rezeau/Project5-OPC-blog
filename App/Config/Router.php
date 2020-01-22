@@ -35,7 +35,7 @@ class Router {
                     ob_start();
                     $title = "Single";
                     $postId = $_GET['id_post'];
-                    $this->frontController->single($postId);
+                    $this->frontController->single($_POST,$postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } else if ($page === 'dashboard') {
@@ -91,8 +91,13 @@ class Router {
                     $this->frontController->signup($_POST);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                }
-                else {
+                } else if ($page === 'login') {
+                    ob_start();
+                    $title = "Se connecter";
+                    $this->frontController->login($_POST);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }
