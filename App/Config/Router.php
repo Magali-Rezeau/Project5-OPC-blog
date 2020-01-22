@@ -85,6 +85,12 @@ class Router {
                     $this->backController->deleteUser($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'signup') {
+                    ob_start();
+                    $title = "S'inscrire'";
+                    $this->frontController->signup($_POST);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
                 }
                 else {
                     $title = "Erreur 404";

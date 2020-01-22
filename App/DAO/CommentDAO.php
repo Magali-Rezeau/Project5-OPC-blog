@@ -11,14 +11,14 @@ class CommentDAO extends Database {
         $comment = new Comment();
         $comment->setId_comment($data['id_comment']);
         $comment->setContent($data['content']);
-        $comment->setAuthor($data['username']);
+        $comment->setAuthor($data['pseudo']);
         $comment->setCreate_date($data['create_date']);
-        $comment->setPost_id($data['post_id']);
+        isset($data['post_id']) ? $comment->setPost_id($data['post_id']) : '';
         return $comment;
     }
     public function getComments($postId)
     {
-        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
+        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.pseudo,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
         $comments = [];
         foreach ($req as $data) { 
             $commentId = $data['id_comment'];
@@ -30,7 +30,7 @@ class CommentDAO extends Database {
         $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,create_date) VALUES (?,1,?, NOW())',[$method['content'],$postId]);    
     } 
     public function getValidatedComments() {
-        $req = $this->queryDB('SELECT comments.id_comment, comments.content, users.username,comments.create_date, comments.validation, comments.post_id FROM comments INNER JOIN users ON user_id = id_user WHERE comments.validation = "noValidate" ORDER BY comments.create_date DESC');
+        $req = $this->queryDB('SELECT comments.id_comment, comments.content, users.pseudo,comments.create_date, comments.validation, comments.post_id FROM comments INNER JOIN users ON user_id = id_user WHERE comments.validation = "noValidate" ORDER BY comments.create_date DESC');
         $comments = [];
         foreach ($req as $data) { 
             $commentId = $data['id_comment'];

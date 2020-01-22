@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  Dim 19 jan. 2020 à 19:19
+-- Généré le :  mer. 22 jan. 2020 à 07:07
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.8
 
@@ -30,7 +30,7 @@ CREATE TABLE `comments` (
   `id_comment` int(11) NOT NULL,
   `content` longtext NOT NULL,
   `create_date` datetime NOT NULL,
-  `Validation` varchar(10) NOT NULL,
+  `validation` varchar(10) NOT NULL,
   `user_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -39,7 +39,7 @@ CREATE TABLE `comments` (
 -- Déchargement des données de la table `comments`
 --
 
-INSERT INTO `comments` (`id_comment`, `content`, `create_date`, `Validation`, `user_id`, `post_id`) VALUES
+INSERT INTO `comments` (`id_comment`, `content`, `create_date`, `validation`, `user_id`, `post_id`) VALUES
 (1, 'It is actually in fact a warning, that the spot belongs to Chuck Norris and that you will be handicapped if you park there.', '2019-12-18 17:22:00', 'validate', 2, 1),
 (2, 'Chuck Norris is the reason you turn a light on when you enter a room.', '2019-12-17 15:22:00', 'validate', 1, 1),
 (3, 'ajout d\'un commentaire It is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot beIt is actually in fact a warning, that the spot be', '2020-01-19 17:11:13', 'noValidate', 1, 1);
@@ -99,7 +99,7 @@ INSERT INTO `role_users` (`id_role_user`, `entitled`) VALUES
 
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
-  `username` varchar(45) NOT NULL,
+  `pseudo` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `create_date` date NOT NULL,
@@ -111,13 +111,13 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `create_date`, `profile_picture`, `role_users_id`) VALUES
+INSERT INTO `users` (`id_user`, `pseudo`, `email`, `password`, `create_date`, `profile_picture`, `role_users_id`) VALUES
 (1, 'Magali', 'magalirezeau@gmail.com', 'root', '2019-12-12', NULL, 1),
-(2, 'Marie', 'marie@gmail.com', 'member', '2019-12-15', NULL, 2),
-(3, 'mag', 'mag@gmail.com', 'dgsdg', '2020-01-14', NULL, 1),
-(4, 'mag', 'mag@gmail.com', 'c2e67bf406bd44606019f966f70c5f70e69cc456', '2020-01-14', NULL, 1),
+(2, 'Marie', 'marie@gmail.com', 'editor', '2019-12-15', NULL, 2),
 (5, 'mag', 'mag@outlook.com', '1f71e0f4ac9b47cd93bf269e4017abaab9d3bd63', '2020-01-14', NULL, 1),
-(6, 'mag', 'mag@outlook.com', '1f71e0f4ac9b47cd93bf269e4017abaab9d3bd63', '2020-01-14', NULL, 3);
+(6, 'mag', 'mag@outlook.com', '1f71e0f4ac9b47cd93bf269e4017abaab9d3bd63', '2020-01-14', NULL, 3),
+(8, 'Bob', 'mag@gmail.com', 'f6949a8c7d5b90b4a698660bbfb9431503fbb995', '2020-01-22', NULL, 3),
+(9, 'toto', 'magalirezeau@gmail.com', '0b9c2625dc21ef05f6ad4ddf47c5f203837aa32c', '2020-01-22', NULL, 3);
 
 --
 -- Index pour les tables déchargées
@@ -165,7 +165,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `role_users`
@@ -177,7 +177,7 @@ ALTER TABLE `role_users`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées

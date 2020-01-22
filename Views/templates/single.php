@@ -53,8 +53,8 @@
                         <h2>Ajouter un commentaire</h2>
                         <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                         <div class="post-card-comment-form-item">
-                            <span class="errors"><?= isset($errors['username']) ? $errors['username'] : '' ?></span>
-                            <?= $form->text('username', 'Pseudo') ?>
+                            <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
+                            <?= $form->text('pseudo', 'Pseudo') ?>
                         </div>
                         <div class="post-card-comment-form-item">
                             <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>

@@ -5,6 +5,7 @@ use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
 use App\Model\Form;
 use App\Controller\FormController;
+use App\DAO\UserDAO;
 
 class FrontController {
 
@@ -12,6 +13,7 @@ class FrontController {
     private $validator;
     private $postDAO;
     private $commentDAO;
+    private $userDAO;
 
     public function __construct()
     {
@@ -19,18 +21,15 @@ class FrontController {
         $this->validator = new FormController($_POST);
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
+        $this->userDAO = new UserDAO();
     }
     public function home()
     {   
         $form = $this->form;
 
         $validator = $this->validator;
-        $validator->check('firstname','required', 'Vous n\'avez pas renseigné votre prénom');
-        $validator->check('lastname','required', 'Vous n\'avez pas renseigné votre nom');
-        $validator->check('email','required', 'Votre email est incorrect');
-        $validator->check('email','email','Vous n\'avez pas renseigné votre email');
-        $validator->check('message','required','Vous n\'avez pas renseigné de message');
-
+        $validator->check('email','email', 'Votre adresse email est incorrecte.');
+       
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
 
@@ -40,7 +39,6 @@ class FrontController {
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
                 unset($errors);
                 $succes = "Votre message a bien été envoyé";
-               
             } else {
               
             }
@@ -55,23 +53,39 @@ class FrontController {
     public function single($postId) 
     {
         $form = $this->form;
-
         $validator = $this->validator;
-        $validator->check('username','required', 'Vous n\'avez pas renseigné votre pseudo');
-        $validator->check('password','required', 'Vous n\'avez pas renseigné votre mot de passe');
-        $validator->check('message','required','Vous n\'avez pas renseigné de commentaires');
-
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
            
             if(empty($errors)) {
                 $this->commentDAO->addComment($_POST,$postId);
-            } else {
-              
+            } else { 
             }
         }
         $post = $this->postDAO->getPost($postId);
         $comments = $this->commentDAO->getComments($postId);
         require '../Views/templates/single.php';
+    }
+    public function signup($method)
+    {
+        $form = $this->form;
+        $validator = $this->validator;
+        $validator->check('pseudo','minLenght', 'Votre pseudo doit comporter au moins 3 caractères.', 3);
+        $validator->check('pseudo','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères.', 50);
+        $validator->check('email','email', 'Votre adresse email est incorrecte.');
+        $validator->check('email','confirm_email', 'Vos emails ne correspondent pas.','confirm_email');
+        $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas.','confirm_password');
+        if(!empty($method)) {
+            $errors = $validator->getErrors();
+            $error_pseudoDB = $this->userDAO->check_pseudoDB($method);
+            $error_emailDB = $this->userDAO->check_emailDB($method);
+            if(empty($errors) && empty($error_pseudoDB) && empty($error_emailDB)) {
+                $this->userDAO->register($method);   
+                $succes = "Votre inscription a bien été prise en compte";
+            } else {  
+               
+            }
+        }
+        require '../Views/templates/signup.php';
     }
 }

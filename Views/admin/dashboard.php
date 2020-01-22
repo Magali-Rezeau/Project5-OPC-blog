@@ -95,7 +95,7 @@
                 <?php foreach($users as $user) : ?>
                     <tr class="dashboard-user-table-body-row">
                         <td class="dashboard-user-table-body-cell"><?= $user->id_user;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->username;?></td>
+                        <td class="dashboard-user-table-body-cell"><?= $user->pseudo;?></td>
                         <td class="dashboard-user-table-body-cell"><?= $user->email;?></td>
                         <td class="dashboard-user-table-body-cell"><?= $user->role;?></td>
                         <td class="dashboard-user-table-body-cell">
