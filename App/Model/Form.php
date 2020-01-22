@@ -10,17 +10,17 @@ class Form {
         $this->datas = $datas; 
     }
     private function input($type, $name, $label, $value = null) {
-        if(isset($this->datas[$value])) {
-            $value = $this->datas[$value];
+        if(isset($this->datas[$name])) {
+            $value = $this->datas[$name];
         } 
         if ($type === 'textarea') {
-            return '<label for="'.$name.'">'.$label.'</label><textarea name="' . $name . '"  id="' . $name . '">' . $value . '</textarea>';
+            return '<label for="'.$name.'">'.$label.'</label><textarea required name="' . $name . '"  id="' . $name . '">' . $value . '</textarea>';
         } else if ($type === 'submit') { 
             
             return '<button class="btn" type="' . $type . '" id="' . $name . '">'. $label .'</button>';
         
         } else {
-            return '<label for="'.$name.'">'.$label.'</label><input type="' . $type . '" name="' . $name . '" id="' . $name . '" value ="'. $value .'">';
+            return '<label for="'.$name.'">'.$label.'</label><input required type="' . $type . '" name="' . $name . '" id="' . $name . '" value ="'. $value .'">';
         }
     }
     public function text($name, $label, $value=null) {
