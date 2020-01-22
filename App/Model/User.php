@@ -3,7 +3,7 @@ namespace App\Model;
 
 class User {
     private $id_user;
-    private $username;
+    private $pseudo;
     private $email;
     private $password;
     private $create_date;
@@ -21,11 +21,11 @@ class User {
     public function setId_user($id_user) {
         $this->id_user = $id_user;
     }
-    public function getUsername() {
-        return $this->username;
+    public function getPseudo() {
+        return $this->pseudo;
     }
-    public function setUsername($username) {
-        $this->username = $username;
+    public function setPseudo($pseudo) {
+        $this->pseudo = $pseudo;
     }
     public function getPassword() {
         return $this->password;

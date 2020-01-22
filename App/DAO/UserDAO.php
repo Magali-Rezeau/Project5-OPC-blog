@@ -10,7 +10,7 @@ class UserDAO extends Database {
     {
         $user = new User();
         $user->setId_user($data['id_user']);
-        $user->setUsername($data['username']);
+        $user->setPseudo($data['pseudo']);
         $user->setEmail($data['email']);
         $user->setPassword($data['password']);
         $user->setCreate_date($data['create_date']);
@@ -19,7 +19,7 @@ class UserDAO extends Database {
     }
     public function getUsers()
     { 
-        $req = $this->queryDB('SELECT users.id_user, users.username, users.password, users.email, users.create_date, role_users.entitled FROM users INNER JOIN role_users ON role_users_id = id_role_user ORDER BY users.create_date DESC');
+        $req = $this->queryDB('SELECT users.id_user, users.pseudo, users.password, users.email, users.create_date, role_users.entitled FROM users INNER JOIN role_users ON role_users_id = id_role_user ORDER BY users.create_date DESC');
         $users= [];
         foreach ($req as $data) {
             $userId = $data['id_user'];
@@ -31,13 +31,20 @@ class UserDAO extends Database {
         $req = $this->prepareDB('DELETE FROM users WHERE id_user = ?', [$userId]);
     }
     public function register($method) {
-        $req = $this->prepareDB('INSERT INTO users(username, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['username'],$method['email'],sha1($method['password'])]);
+        $req = $this->prepareDB('INSERT INTO users(pseudo, email, password, role_users_id, create_date) VALUES (?, ?, ?, 3, NOW())',[$method['pseudo'],$method['email'],sha1($method['password'])]);
     }
-    public function check_usernameDB($method) {
-        $req= $this->prepareDB('SELECT COUNT(username) FROM users WHERE username = ?',[$method['username']]);
+    public function check_pseudoDB($method) {
+        $req= $this->prepareDB('SELECT COUNT(pseudo) FROM users WHERE pseudo = ?',[$method['pseudo']]);
         $unique = $req->fetchColumn();
         if($unique) {
-            return 'Ce pseudo est déjà utilisé';
+            return 'Ce pseudo est déjà utilisé.';
+        }
+    }
+    public function check_emailDB($method) {
+        $req= $this->prepareDB('SELECT COUNT(email) FROM users WHERE email = ?',[$method['email']]);
+        $unique = $req->fetchColumn();
+        if($unique) {
+            return 'Cette adresse email est déjà utilisée.';
         }
     }
 }

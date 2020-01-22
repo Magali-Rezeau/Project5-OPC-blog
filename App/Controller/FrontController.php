@@ -70,15 +70,16 @@ class FrontController {
     {
         $form = $this->form;
         $validator = $this->validator;
-        $validator->check('username','minLenght', 'Votre pseudo doit comporter au moins 3 caractères.', 3);
-        $validator->check('username','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères.', 50);
+        $validator->check('pseudo','minLenght', 'Votre pseudo doit comporter au moins 3 caractères.', 3);
+        $validator->check('pseudo','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères.', 50);
         $validator->check('email','email', 'Votre adresse email est incorrecte.');
         $validator->check('email','confirm_email', 'Vos emails ne correspondent pas.','confirm_email');
         $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas.','confirm_password');
         if(!empty($method)) {
             $errors = $validator->getErrors();
-            $errorPseudo = $this->userDAO->check_usernameDB($method);
-            if(empty($errors)) {
+            $error_pseudoDB = $this->userDAO->check_pseudoDB($method);
+            $error_emailDB = $this->userDAO->check_emailDB($method);
+            if(empty($errors) && empty($error_pseudoDB) && empty($error_emailDB)) {
                 $this->userDAO->register($method);   
                 $succes = "Votre inscription a bien été prise en compte";
             } else {  

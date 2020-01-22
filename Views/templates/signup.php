@@ -16,9 +16,17 @@
             <form action="../public/index.php?page=signup" method="POST" id="signup-form" name="signup-form" class="signup-content-form">
                 <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                 <div class="signup-content-form-item">
-                    <span class="errors"><?= isset($errors['username']) ? $errors['username'] : '' ?></span>
-                    <span class="errors"><?= isset($errorPseudo) ? $errorPseudo : '' ?></span>
-                    <?= $form->text('username', 'Pseudo') ?>
+                    <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
+                    <span class="errors"><?= isset($error_pseudoDB) ? $error_pseudoDB : '' ?></span>
+                    <?= $form->text('pseudo', 'Pseudo') ?>
+                </div>
+                <div class="signup-content-form-item">
+                    <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
+                    <span class="errors"><?= isset($error_emailDB) ? $error_emailDB : '' ?></span>
+                    <?= $form->email('email', 'Email') ?>
+                </div>
+                <div class="signup-content-form-item">
+                    <?= $form->email('confirm_email', 'Confirmer votre email') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
@@ -26,13 +34,6 @@
                 </div>
                 <div class="signup-content-form-item">
                     <?= $form->password('confirm_password', 'Confirmer votre mot de passe') ?>
-                </div>
-                <div class="signup-content-form-item">
-                    <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
-                    <?= $form->email('email', 'Email') ?>
-                </div>
-                <div class="signup-content-form-item">
-                    <?= $form->email('confirm_email', 'Confirmer votre email') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <?= $form->submit('submit', 'S\'inscrire') ?>
