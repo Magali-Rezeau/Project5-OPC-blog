@@ -14,6 +14,7 @@ class CommentDAO extends Database {
         $comment->setAuthor($data['pseudo']);
         $comment->setCreate_date($data['create_date']);
         isset($data['post_id']) ? $comment->setPost_id($data['post_id']) : '';
+        $comment->setPost_id($data['post_id']);
         return $comment;
     }
     public function getComments($postId)
