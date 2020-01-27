@@ -97,6 +97,13 @@ class Router {
                     $this->frontController->login($_POST);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'profil') {
+                    ob_start();
+                    $title = "Profil";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->profil($userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
                 } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();

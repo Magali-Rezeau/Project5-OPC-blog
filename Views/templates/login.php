@@ -28,11 +28,11 @@
                 <?= $form->submit('submit', 'Se connecter') ?>
             </div>
         </form>
-    <div class="login-content-redir">
-        <p>Pas encore inscrit ?</p>
-        <button class="btn"><a href="../public/index.php?page=signup">S'inscrire</a></button>
-        <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>
-        <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
-    </div>
+        <div class="login-content-redir">
+            <p>Pas encore inscrit ?</p>
+            <button class="btn"><a href="../public/index.php?page=signup">S'inscrire</a></button>
+            <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>
+            <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
+        </div>
     </div>
 </section>

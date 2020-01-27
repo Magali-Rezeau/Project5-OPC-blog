@@ -14,6 +14,7 @@ class FrontController {
     private $postDAO;
     private $commentDAO;
     private $userDAO;
+    
 
     public function __construct()
     {
@@ -22,6 +23,7 @@ class FrontController {
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
+       
     }
     public function home()
     {   
@@ -91,15 +93,17 @@ class FrontController {
     public function login($method) 
     {   
         $form = $this->form;
-       
         if(!empty($method)) {
-          
-            $result =  $this->userDAO->login($method);
-            
-          
-            if($result['result'] && $result['validPassword']) {
-                $succes = "Content de vous revoir";
-             
+            $user =  $this->userDAO->login($method);
+            if($user && $user['user'] && $user['validPassword']) {
+                session_start();
+                $_SESSION['id_user'] = $user['user']['id_user'];
+                $_SESSION['pseudo'] = $user['user']['pseudo'];
+                if(isset($_SESSION['id_user'])) {
+                    header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']); 
+                } else {
+                    header('Location:../public/index.php?page=dashboard');
+                }
             } else {
               
                 echo 'votre mot de passe ou votre pseudo sont incorrectes';
@@ -109,5 +113,14 @@ class FrontController {
            
         }
         require '../Views/templates/login.php';
+    }
+    public function profil($userId) {
+        session_start();
+        if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId){
+            $user = $this->userDAO->getUser($userId);
+        } else {
+            header('Location:../public/index.php?page=error');
+        }
+        require '../Views/templates/profil.php';
     }
 }

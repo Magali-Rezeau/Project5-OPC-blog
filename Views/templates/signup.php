@@ -35,11 +35,16 @@
                 <div class="signup-content-form-item">
                     <?= $form->password('confirm_password', 'Confirmer votre mot de passe') ?>
                 </div>
+               
                 <div class="signup-content-form-item">
-                    <?= $form->submit('submit', 'S\'inscrire') ?>
-                </div>
+                    <?php if(isset($succes)) {
+                    echo '<button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>';
+                    } else {
+                        echo $form->submit('submit', 'S\'inscrire');
+                    }
+                ?>
+                    </div>
             </form>
-            <?php var_dump($_POST['password']) ?>
             <div class="signup-content-redir">
                 <p>Déjà inscrit ?</p>
                 <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>

@@ -12,8 +12,8 @@ class UserDAO extends Database {
         $user->setId_user($data['id_user']);
         $user->setPseudo($data['pseudo']);
         $user->setEmail($data['email']);
-        $user->setPassword($data['password']);
-        $user->setCreate_date($data['create_date']);
+        isset($data['password']) ? $user->setPassword($data['password']) : '';
+        isset($data['create_date']) ? $user->setCreate_date($data['create_date']) : '';
         $user->setRole($data['entitled']);
         return $user;
     }
@@ -48,9 +48,15 @@ class UserDAO extends Database {
         }
     }
     public function login($method) {
-        $req= $this->prepareDB('SELECT users.id_user, users.password FROM users WHERE pseudo = ?',[$method['pseudo']]);
-        $result = $req->fetch();
-        $validPassword = password_verify($method['password'], $result['password']);
-        return ['result' => $result, 'validPassword' => $validPassword];
+        $req= $this->prepareDB('SELECT users.id_user, users.password, users.pseudo FROM users WHERE pseudo = ?',[$method['pseudo']]);
+        $user = $req->fetch();
+        $validPassword = password_verify($method['password'], $user['password']);
+        return ['user' => $user, 'validPassword' => $validPassword];
+    }
+    public function getUser($userId)
+    {
+        $req = $this->prepareDB('SELECT users.id_user, users.pseudo, users.email,role_users.entitled FROM users INNER JOIN role_users ON role_users_id = id_role_user WHERE id_user = ?',[$userId]); 
+        $user = $req->fetch();
+        return $this->userObject($user); 
     }
 }
