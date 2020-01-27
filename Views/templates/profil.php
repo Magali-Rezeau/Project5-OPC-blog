@@ -5,7 +5,7 @@
             <p>Ci-dessous, vous trouverez toutes les informations relatives à votre <span class="catch">profil</span>.</p>
             <br>
             <p>Se déconnecter ?</p>
-            <button class="btn"><a href="../public/index.php?page=signup">Se déconnecter</a></button>                
+            <button class="btn"><a href="../public/index.php?page=signout">Se déconnecter</a></button>                
         </div>
         <div class="header-content-img-profil">
         </div>

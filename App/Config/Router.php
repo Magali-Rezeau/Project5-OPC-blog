@@ -104,6 +104,8 @@ class Router {
                     $this->frontController->profil($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
+                } else if ($page === 'logout') {
+                    $this->frontController->logout();
                 } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();

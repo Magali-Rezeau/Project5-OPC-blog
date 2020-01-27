@@ -123,4 +123,10 @@ class FrontController {
         }
         require '../Views/templates/profil.php';
     }
+    public function logout() {
+        session_start();
+        $_SESSION = [];
+        session_destroy();
+        header('Location:../public/?page=login');
+    }
 }
