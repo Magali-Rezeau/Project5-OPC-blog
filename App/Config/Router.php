@@ -106,7 +106,14 @@ class Router {
                     require '../Views/templates/default.php';
                 } else if ($page === 'logout') {
                     $this->frontController->logout();
-                } else {
+                } else if ($page === 'editProfil') {
+                    ob_start();
+                    $title = "Edition du profil";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->editProfil($_POST,$userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                }else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

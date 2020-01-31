@@ -23,7 +23,6 @@ class FrontController {
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
-       
     }
     public function home()
     {   
@@ -34,7 +33,6 @@ class FrontController {
        
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
-
             if(empty($errors)) {
                 $message = $_POST['message'];
                 $header = "FROM : " . $_POST['email'];
@@ -56,9 +54,9 @@ class FrontController {
     {
         $form = $this->form;
         $validator = $this->validator;
+
         if(!empty($method)) {
             $errors = $validator->getErrors();
-           
             if(empty($errors)) {
                 $this->commentDAO->addComment($method,$postId);
             } else { 
@@ -105,23 +103,74 @@ class FrontController {
                     header('Location:../public/index.php?page=dashboard');
                 }
             } else {
-              
                 echo 'votre mot de passe ou votre pseudo sont incorrectes';
-              
-            }
-           
-           
+            } 
         }
         require '../Views/templates/login.php';
     }
     public function profil($userId) {
         session_start();
+        $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId){
             $user = $this->userDAO->getUser($userId);
         } else {
             header('Location:../public/index.php?page=error');
         }
         require '../Views/templates/profil.php';
+    }
+    public function editProfil($method,$userId) {
+        session_start();
+        $form = $this->form;
+        if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
+            $user = $this->userDAO->getUser($userId);  
+        }
+        $validator = $this->validator;
+        $validator->check('pseudo','minLenght', 'Votre pseudo doit comporter au moins 3 caractères.', 3);
+        $validator->check('pseudo','maxLenght', 'Votre pseudo doit comporter moins de 50 caractères.', 50);
+        $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas.','confirm_password');
+        if(!empty($method)) {
+            if($user->pseudo != $method['pseudo']) {
+                $error_pseudoDB = $this->userDAO->check_pseudoDB($method);
+            }
+            $errors = $validator->getErrors();
+            
+            if(empty($errors) && empty($error_pseudoDB)) {
+                if(isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture']['name'])  ) {
+                    $max = 2097152;
+                    $extensionValide = array('jpg', 'gif','png','jpeg');
+                        if($_FILES['profile_picture']['size'] <= $max) {
+                            $extensionUpload = strtolower(substr(strrchr($_FILES['profile_picture']['name'], '.'), 1));
+                                if(in_array($extensionUpload, $extensionValide)) {
+                                    $path = "../public/membres/profile_picture".$_SESSION['id_user'].".".$extensionUpload;
+                                    $result = move_uploaded_file($_FILES['profile_picture']['tmp_name'], $path);
+                                        if($result) {
+                                            $this->userDAO->editUser($method,$userId,$extensionUpload);
+                                            $succes = "Votre article a bien été modifié";
+                                        } else {
+                                            echo "Une erreur est survenue lors de l'importation du fichier";
+                                        }
+                                } else {
+                                    $error = 'Votre photo de profil doit etre au format jpg, jpeg, png ou gif';
+                                }
+                        } else {
+                            $error = 'Votre photo de profil ne doit pas dépasser 2mo';
+                        }
+                } elseif($user->profile_picture && $user->profile_picture != "default.png") {
+                    $extensionUpload = strtolower(substr(strrchr($user->profile_picture, '.'), 1));
+                    $this->userDAO->editUser($method,$userId,$extensionUpload);
+                    $succes = "Votre article a bien été modifié";   
+
+                } elseif(!isset($_FILES['profile_picture']) && empty($_FILES['profile_picture']['name']) && $user->profile_picture === "default.png") {
+                    $extensionUpload = "png";
+                    $_SESSION['id_user'] = '';
+                    $this->userDAO->editUser($method,$userId,$extensionUpload);
+                    $succes = "Votre article a bien été modifié";   
+                } else {
+                    echo 'erreur';
+                }
+            }
+        }
+        require '../Views/templates/editProfil.php';
     }
     public function logout() {
         session_start();

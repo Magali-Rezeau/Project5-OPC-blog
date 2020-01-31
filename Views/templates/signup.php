@@ -18,22 +18,22 @@
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
                     <span class="errors"><?= isset($error_pseudoDB) ? $error_pseudoDB : '' ?></span>
-                    <?= $form->text('pseudo', 'Pseudo') ?>
+                    <?= $form->text('pseudo', 'Pseudo','', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
                     <span class="errors"><?= isset($error_emailDB) ? $error_emailDB : '' ?></span>
-                    <?= $form->email('email', 'Email') ?>
+                    <?= $form->email('email', 'Email','', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <?= $form->email('confirm_email', 'Confirmer votre email') ?>
+                    <?= $form->email('confirm_email', 'Confirmer votre email','', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
-                    <?= $form->password('password', 'Mot de passe') ?>
+                    <?= $form->password('password', 'Mot de passe','', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <?= $form->password('confirm_password', 'Confirmer votre mot de passe') ?>
+                    <?= $form->password('confirm_password', 'Confirmer votre mot de passe','', 'required') ?>
                 </div>
                
                 <div class="signup-content-form-item">
