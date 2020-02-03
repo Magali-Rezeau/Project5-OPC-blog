@@ -69,7 +69,7 @@
                 <span class='menu'><span class='hamburger'></span></span>
                 <ul>
                     <li>
-                        <a href='#'>
+                        <a href="../public/?page=home">
                             <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="860.000000pt" height="710.000000pt" viewBox="0 0 860.000000 710.000000" preserveAspectRatio="xMidYMid meet">
                                 <g transform="translate(0.000000,710.000000) scale(0.100000,-0.100000)" stroke="none">
                                     <path d="M0 7002 l0 -101 32 -5 c18 -2 90 -9 159 -15 202 -18 352 -71 419
@@ -124,6 +124,8 @@
                     </li>
                     <li><a href="../public/?page=home">Accueil</a></li>
                     <li><a href="../public/?page=blog">Blog</a></li>
+                    <li><a href="../public/?page=signup">S'inscrire</a></li>
+                    <li><a href="../public/?page=login">Se connecter</a></li>
                     <li><a href="../public/?page=home#contact">Contact</a></li>
                 </ul>
             </label>

@@ -29,7 +29,6 @@
                 <div class="addPost-content-form-item">
                     <?= $form->submit('submit', 'Valider') ?>
                 </div>
-                <?php var_dump($_POST);?>
             </form>
             <div class="addPost-content-redir">
                 <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>

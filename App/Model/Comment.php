@@ -15,34 +15,44 @@ class Comment {
         $this->$get = $this->$method();
         return $this->$get;
     }
-    public function getId_comment() {
+    public function getId_comment() 
+    {
         return $this->id_comment;
     }
-    public function setId_comment($id_comment) {
+    public function setId_comment($id_comment) 
+    {
         $this->id_comment = $id_comment;
     }
-    public function getPost_id() {
+    public function getPost_id() 
+    {
         return $this->post_id;
     }
-    public function setPost_id($post_id) {
+    public function setPost_id($post_id) 
+    {
         $this->post_id = $post_id;
     }
-    public function getAuthor() {
+    public function getAuthor() 
+    {
         return $this->author;
     }
-    public function setAuthor($author) {
+    public function setAuthor($author) 
+    {
         $this->author = $author;
     }
-    public function getContent() {
+    public function getContent() 
+    {
         return $this->content;
     }
-    public function setContent($content) {
+    public function setContent($content) 
+    {
         $this->content = $content;
     }
-    public function getCreate_date() {
+    public function getCreate_date() 
+    {
         return $this->create_date;
     }
-    public function setCreate_date($create_date) {
+    public function setCreate_date($create_date) 
+    {
         $this->create_date = $create_date;
     }
 }

@@ -48,12 +48,10 @@ class BackController {
     public function addPost($method) {
         $form = $this->form;
         $validator = $this->validator;
-        $validator->check('title','required', 'Ce champ est obligatoire');
-        $validator->check('content','required','Ce champ est obligatoire');
-        $validator->check('short_content','required','Ce champ est obligatoire');
+       
         $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validator->check('author','required','Ce champ est obligatoire');
         $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
@@ -79,12 +77,10 @@ class BackController {
         $form = $this->form;
         $post = $this->postDAO->getPost($postId);
         $validator = $this->validator;
-        $validator->check('title','required', 'Ce champ est obligatoire');
-        $validator->check('content','required','Ce champ est obligatoire');
-        $validator->check('short_content','required','Ce champ est obligatoire');
+      
         $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validator->check('author','required','Ce champ est obligatoire');
         $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+        
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {

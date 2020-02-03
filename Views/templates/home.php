@@ -99,19 +99,19 @@
                 <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                 <div class="contact-form-item">
                     <span class="errors"><?= isset($errors['lastname']) ? $errors['lastname'] : '' ?></span>
-                    <?= $form->text('lastname', 'Votre nom') ?>
+                    <?= $form->text('lastname', 'Votre nom','','required') ?>
                 </div>
                 <div class="contact-form-item">
                     <span class="errors"><?= isset($errors['firstname']) ? $errors['firstname'] : '' ?></span>
-                    <?= $form->text('firstname', 'Votre prénom') ?>
+                    <?= $form->text('firstname', 'Votre prénom','','required') ?>
                 </div>
                 <div class="contact-form-item">
                     <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
-                    <?= $form->email('email', 'Votre email') ?>
+                    <?= $form->email('email', 'Votre email','','required') ?>
                 </div>
                 <div class="contact-form-item">
                     <span class="errors"><?= isset($errors['message']) ? $errors['message'] : '' ?></span>
-                    <?= $form->textarea('message', 'Votre message') ?>
+                    <?= $form->textarea('message', 'Votre message','','required') ?>
                 </div>
                 <div class="contact-form-item">
                     <?= $form->submit('submit', 'Envoyer') ?>
