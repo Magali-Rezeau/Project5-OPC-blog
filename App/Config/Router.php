@@ -35,7 +35,7 @@ class Router {
                     ob_start();
                     $title = "Single";
                     $postId = $_GET['id_post'];
-                    $this->frontController->single($postId);
+                    $this->frontController->single($_POST,$postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } else if ($page === 'dashboard') {
@@ -91,8 +91,36 @@ class Router {
                     $this->frontController->signup($_POST);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                }
-                else {
+                } else if ($page === 'login') {
+                    ob_start();
+                    $title = "Se connecter";
+                    $this->frontController->login($_POST);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else if ($page === 'profil') {
+                    ob_start();
+                    $title = "Profil";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->profil($userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else if ($page === 'logout') {
+                    $this->frontController->logout();
+                } else if ($page === 'editProfil') {
+                    ob_start();
+                    $title = "Edition du profil";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->editProfil($_POST,$userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else if ($page === 'editPassword') {
+                    ob_start();
+                    $title = "Modification du mot de passe";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->editPassword($_POST,$userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

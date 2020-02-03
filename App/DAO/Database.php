@@ -20,8 +20,9 @@ abstract class Database
         }
         return $this->pdo;
     }
-    private function getPDO() {
-        try{
+    private function getPDO() 
+    {
+        try {
             $this->pdo = new PDO(self::DB_HOST, self::DB_USER, self::DB_PASS);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $this->pdo;
@@ -31,11 +32,13 @@ abstract class Database
             die ('Erreur de connection :'.$errorPdo->getMessage());
         }
     }
-    protected function queryDB($statement) {
+    protected function queryDB($statement) 
+    {
         $req = $this->checkPDO()->query($statement);
         return $req;
     }
-    protected function prepareDB($statement, $attributes) {
+    protected function prepareDB($statement, $attributes) 
+    {
         $req = $this->checkPDO()->prepare($statement);
         $req->execute($attributes);
         return $req;

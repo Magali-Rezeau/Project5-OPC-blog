@@ -26,10 +26,12 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
-    public function addComment($method,$postId) {
+    public function addComment($method,$postId) 
+    {
         $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,create_date) VALUES (?,1,?, NOW())',[$method['content'],$postId]);    
     } 
-    public function getValidatedComments() {
+    public function getValidatedComments() 
+    {
         $req = $this->queryDB('SELECT comments.id_comment, comments.content, users.pseudo,comments.create_date, comments.validation, comments.post_id FROM comments INNER JOIN users ON user_id = id_user WHERE comments.validation = "noValidate" ORDER BY comments.create_date DESC');
         $comments = [];
         foreach ($req as $data) { 
@@ -38,11 +40,13 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
-    public function validateComment($commentId) {
+    public function validateComment($commentId) 
+    {
         $req = $this->prepareDB('UPDATE comments SET comments.validation = "validate" WHERE id_comment = :id_comment',
         ['id_comment' => $commentId]);
     }
-    public function deleteComment($commentId) {
+    public function deleteComment($commentId) 
+    {
         $req = $this->prepareDB('DELETE FROM comments WHERE id_comment = ?', [$commentId]);
     }
 }
