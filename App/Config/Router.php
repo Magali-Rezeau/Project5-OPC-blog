@@ -113,7 +113,14 @@ class Router {
                     $this->frontController->editProfil($_POST,$userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                }else {
+                } else if ($page === 'editPassword') {
+                    ob_start();
+                    $title = "Modification du mot de passe";
+                    $userId = $_GET['id_user'];
+                    $this->frontController->editPassword($_POST,$userId);
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                } else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }

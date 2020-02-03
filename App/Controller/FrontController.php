@@ -172,6 +172,25 @@ class FrontController {
         }
         require '../Views/templates/editProfil.php';
     }
+    public function editPassword($method,$userId) {
+        session_start();
+        $form = $this->form;
+        if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
+            $user = $this->userDAO->getUser($userId);  
+        }
+        $validator = $this->validator;
+        $validator->check('password','confirm_password', 'Vos mots de passe ne correspondent pas.','confirm_password');
+        if(!empty($method)) {
+            $errors = $validator->getErrors();
+            if(empty($errors)) {
+                $this->userDAO->editPassword($method,$userId);   
+                $succes = "Votre mot de passe a bien été modifié";
+            } else {  
+               
+            }
+        }
+        require '../Views/templates/editPassword.php';
+    }
     public function logout() {
         session_start();
         $_SESSION = [];
