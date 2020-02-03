@@ -50,20 +50,29 @@ class FrontController {
         $posts = $this->postDAO->getPosts();
         require '../Views/templates/blog.php';
     }
-    public function single($method,$postId) 
+    public function single($method,$userId,$postId) 
     {
+        $post = $this->postDAO->getPost($postId);
+        $comments = $this->commentDAO->getComments($postId);
+       
+        if(isset($_SESSION['id_user'])) {
+            $user = $this->userDAO->getUser($userId);  
+            $_SESSION['id_user'] = $user->id_user; 
+        } else {
+            $userId = '';
+        }
+        
         $form = $this->form;
         $validator = $this->validator;
-
+        $validator->check('content','minLenght', 'Votre commentaire doit comporter au moins 3 caractères.', 3);
+        $validator->check('content','maxLenght', 'Votre commentaire doit comporter moins de 50 caractères.', 200);
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
-                $this->commentDAO->addComment($method,$postId);
-            } else { 
-            }
+                $this->commentDAO->addComment($method,$userId,$postId);
+                $succes = "Votre commentaire sera visible dès la validation de celui-ci par l'administrateur";
+            } 
         }
-        $post = $this->postDAO->getPost($postId);
-        $comments = $this->commentDAO->getComments($postId);
         require '../Views/templates/single.php';
     }
     public function signup($method)
@@ -94,7 +103,7 @@ class FrontController {
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
             if($user && $user['user'] && $user['validPassword']) {
-                session_start();
+          
                 $_SESSION['id_user'] = $user['user']['id_user'];
                 $_SESSION['pseudo'] = $user['user']['pseudo'];
                 if(isset($_SESSION['id_user'])) {
@@ -109,7 +118,7 @@ class FrontController {
         require '../Views/templates/login.php';
     }
     public function profil($userId) {
-        session_start();
+       
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId){
             $user = $this->userDAO->getUser($userId);
@@ -119,7 +128,7 @@ class FrontController {
         require '../Views/templates/profil.php';
     }
     public function editProfil($method,$userId) {
-        session_start();
+        
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
             $user = $this->userDAO->getUser($userId);  
@@ -173,7 +182,7 @@ class FrontController {
         require '../Views/templates/editProfil.php';
     }
     public function editPassword($method,$userId) {
-        session_start();
+        
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
             $user = $this->userDAO->getUser($userId);  
@@ -192,7 +201,6 @@ class FrontController {
         require '../Views/templates/editPassword.php';
     }
     public function logout() {
-        session_start();
         $_SESSION = [];
         session_destroy();
         header('Location:../public/?page=login');

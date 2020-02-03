@@ -9,9 +9,6 @@
         </div>
         <?php if($user->profile_picture) : ?>
             <img src="../public/membres/profile_picture<?= $user->profile_picture?>" width="300">
-            <?php else : ?>
-                <div class="header-content-img-profil">
-        </div>
         <?php endif; ?>
         </div>
     </header>

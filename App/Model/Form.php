@@ -35,7 +35,7 @@ class Form {
     }
     public function textarea($name, $label,$value=null,$option=null) 
     {
-        return $this->input('textarea', $name, $label,$value,$option);
+        return $this->input('textarea', $name, $label, $value, $option);
     }
     public function file($name, $label,$value=null,$option=null) 
     {

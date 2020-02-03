@@ -5,6 +5,7 @@ class Comment {
 
     private $id_comment;
     private $author;
+    private $profile_picture;
     private $content;
     private $create_date;
     private $post_id;
@@ -38,6 +39,14 @@ class Comment {
     public function setAuthor($author) 
     {
         $this->author = $author;
+    }
+    public function getProfile_picture() 
+    {
+        return $this->profile_picture;
+    }
+    public function setProfile_picture($profile_picture) 
+    {
+        $this->profile_picture = $profile_picture;
     }
     public function getContent() 
     {
