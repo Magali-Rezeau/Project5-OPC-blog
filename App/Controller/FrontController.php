@@ -103,13 +103,17 @@ class FrontController {
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
             if($user && $user['user'] && $user['validPassword']) {
-          
                 $_SESSION['id_user'] = $user['user']['id_user'];
                 $_SESSION['pseudo'] = $user['user']['pseudo'];
                 if(isset($_SESSION['id_user'])) {
-                    header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']); 
+                   if($_SESSION['id_user'] === '1'){
+                        header('Location:../public/index.php?page=dashboard');
+                    } else if($_SESSION['id_user'] === '2'){
+                        header('Location:../public/index.php?page=editorDashboard');
+                    } else {
+                        header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']);
+                    }
                 } else {
-                    header('Location:../public/index.php?page=dashboard');
                 }
             } else {
                 echo 'votre mot de passe ou votre pseudo sont incorrectes';

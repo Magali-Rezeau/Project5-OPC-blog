@@ -30,6 +30,11 @@ class BackController {
         $users = $this->userDAO->getUsers();
         require '../Views/admin/dashboard.php';
     }
+    public function editorDashboard()
+    {   
+        $posts = $this->postDAO->getPosts();
+        require '../Views/admin/editorDashboard.php';
+    }
     public function validateComment($commentId)
     {   
         $posts = $this->postDAO->getPosts();
