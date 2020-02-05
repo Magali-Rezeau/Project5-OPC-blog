@@ -1,11 +1,23 @@
         <div class="header-content">
             <div class="header-content-text">
+                <div class="header-content-text-message">
+                    <span class="succes">
+                        <?= isset($succes_signup) ? $succes_signup : '' ?>
+                    </span>
+                    <span class="errors">
+                        <?= isset($error_signup) ? $error_signup : '' ?>
+                    </span>
+                </div>
+                <?php if(isset($succes_signup)): ?>
+                    <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>
+                <?php else : ?>
                 <h1>S'inscrire</h1>
                 <br>
                 <p>Pour vous inscrire, merci de remplir <span class="catch">le formulaire</span> ci-dessous.</p>
                 <br>
                 <p>Déjà inscrit ?</p>
                 <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>
+                <?php endif; ?>
             </div>
             <div class="header-content-img-signup">
             </div>
@@ -18,32 +30,26 @@
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
                     <span class="errors"><?= isset($error_pseudoDB) ? $error_pseudoDB : '' ?></span>
-                    <?= $form->text('pseudo', 'Pseudo','', 'required') ?>
+                    <?= $form->text('pseudo', 'Pseudo', '', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
                     <span class="errors"><?= isset($error_emailDB) ? $error_emailDB : '' ?></span>
-                    <?= $form->email('email', 'Email','', 'required') ?>
+                    <?= $form->email('email', 'Email', '', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <?= $form->email('confirm_email', 'Confirmer votre email','', 'required') ?>
+                    <?= $form->email('confirm_email', 'Confirmer votre email', '', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
                     <span class="errors"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
-                    <?= $form->password('password', 'Mot de passe','', 'required') ?>
+                    <?= $form->password('password', 'Mot de passe', '', 'required') ?>
                 </div>
                 <div class="signup-content-form-item">
-                    <?= $form->password('confirm_password', 'Confirmer votre mot de passe','', 'required') ?>
+                    <?= $form->password('confirm_password', 'Confirmer votre mot de passe', '', 'required') ?>
                 </div>
-               
                 <div class="signup-content-form-item">
-                    <?php if(isset($succes)) {
-                    echo '<button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>';
-                    } else {
-                        echo $form->submit('submit', 'S\'inscrire');
-                    }
-                ?>
-                    </div>
+                    <?= $form->submit('submit', 'S\'inscrire'); ?>
+                </div>
             </form>
             <div class="signup-content-redir">
                 <p>Déjà inscrit ?</p>

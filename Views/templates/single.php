@@ -1,5 +1,13 @@
         <div class="header-content">
             <div class="header-content-text">
+                <div class="header-content-text-message">
+                    <span class="succes">
+                        <?= isset($succes_addComment) ? $succes_addComment : '' ?>
+                    </span>
+                    <span class="errors">
+                        <?= isset($error_addComment) ? $error_addComment : '' ?>
+                    </span>
+                </div>
                 <h1>Bienvenue,</h1>
                 <p>Je suis <span class="catch">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours <span class="catch">Développeur d'application PHP/Symfony</span> et cette page est un <span class="catch">blog</span> développé en php.</p>
             </div>

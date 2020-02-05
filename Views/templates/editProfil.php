@@ -12,7 +12,9 @@
         <?php endif; ?>
         </div>
     </header>
-
+            <?php var_dump($user->profile_picture) ?>
+            <?php var_dump($_FILES) ?>
+            <?php var_dump($_FILES['profile_picture']) ?>
     <section id="editProfil" class="editProfil">
         <div class="editProfil-content">
             <form method="post" enctype="multipart/form-data" action="../public/index.php?page=editProfil&id_user=<?= $user->id_user ?>" class="editProfil-content-form">

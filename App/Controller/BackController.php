@@ -25,16 +25,13 @@ class BackController {
     }
     public function dashboard()
     {   
-          session_start();
-            $posts = $this->postDAO->getPosts();
-            $comments = $this->commentDAO->getValidatedComments();
-            $users = $this->userDAO->getUsers();
-        
+        $posts = $this->postDAO->getPosts();
+        $comments = $this->commentDAO->getValidatedComments();
+        $users = $this->userDAO->getUsers();
         require '../Views/admin/dashboard.php';
     }
     public function editorDashboard()
     {   
-        session_start();
         $posts = $this->postDAO->getPosts();
         require '../Views/admin/editorDashboard.php';
     }
@@ -46,60 +43,58 @@ class BackController {
         header('Location: ../public/index.php?page=dashboard');
         require '../Views/admin/dashboard.php';
     }
-    public function deleteComment($commentId) {
+    public function deleteComment($commentId) 
+    {
         $posts = $this->postDAO->getPosts();
         $comments = $this->commentDAO->getValidatedComments();
         $this->commentDAO->deleteComment($commentId);
         header('Location: ../public/index.php?page=dashboard');
         require '../Views/admin/dashboard.php';
     }
-    public function addPost($method) {
-        session_start();
+    public function addPost($method) 
+    {
         $form = $this->form;
         $validator = $this->validator;
-       
-        $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
-
+        $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
+        $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
                 if($method['author'] === "Magali") {
-                    $method['author'] = substr_replace("Magali","1",0);
+                    $method['author'] = substr_replace("Magali", "1", 0);
                     $this->postDAO->addPost($method);
-                    $succes = "Votre article a bien été ajouté";
-                } else if ($method['author'] === "Marie") {
-                    $method['author'] = substr_replace("Marie","2",0);
+                    $succes_addPost = "Votre article a bien été ajouté";
+                } elseif($method['author'] === "Marie") {
+                    $method['author'] = substr_replace("Marie", "2", 0);
                     $this->postDAO->addPost($method);
-                    $succes = "Votre article a bien été ajouté";
+                    $succes_addPost = "Votre article a bien été ajouté";
                 } 
             }
         }
         require '../Views/admin/addPost.php'; 
     }
-    public function deletePost($postId) {
+    public function deletePost($postId) 
+    {
         $this->postDAO->deletePost($postId);
         header("Location: ../public/index.php?page=dashboard");
         require '../Views/admin/dashboard.php';
     }
-    public function editPost($method,$postId) {
-        session_start();
+    public function editPost($method,$postId) 
+    {
         $form = $this->form;
         $post = $this->postDAO->getPost($postId);
         $validator = $this->validator;
-      
-        $validator->check('short_content','maxLenght','Ce champ doit comporter moins de 300 caractères',300);
-        $validator->check('title','minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
-        
+        $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
+        $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
                 if($method['author'] === "Magali") {
-                    $method['author'] = substr_replace("Magali","1",0);
+                    $method['author'] = substr_replace("Magali", "1", 0);
                     $this->postDAO->editPost($method,$postId);
                     $succes = "Votre article a bien été modifié";
-                } else if ($method['author'] === "Marie") {
-                    $method['author'] = substr_replace("Marie","2",0);
+                } elseif($method['author'] === "Marie") {
+                    $method['author'] = substr_replace("Marie", "2", 0);
                     $this->postDAO->editPost($method,$postId);
                     $succes = "Votre article a bien été modifié"; 
                 } 
@@ -107,7 +102,8 @@ class BackController {
         }
         require '../Views/admin/editPost.php'; 
     }
-    public function deleteUser($userId) {
+    public function deleteUser($userId) 
+    {
         $this->userDAO->deleteUser($userId);
         header("Location: ../public/index.php?page=dashboard");
         require '../Views/admin/dashboard.php';

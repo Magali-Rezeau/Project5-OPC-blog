@@ -16,118 +16,128 @@ class Router {
         $this->backController = new BackController();
     }
     public function run() {
-        $page = $_GET['page'];
         try { 
-            if (isset($page)) {
-                if ($page === 'home') {
+            $page = $_GET['page'];
+            if(isset($page)) {
+                if($page === 'home') {
                     ob_start();
                     $title = "Page d'accueil";
                     $this->frontController->home();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'blog') {
+                } elseif($page === 'blog') {
                     ob_start();
                     $title = "Blog";
                     $this->frontController->blog();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'single') {
+                } elseif($page === 'single') {
                     ob_start();
                     $title = "Single";
                     $postId = $_GET['id_post'];
-                    isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId='';
-                    $this->frontController->single($_POST,$userId,$postId);
+                    $method = $_POST;
+                    $userId = $_SESSION['id_user'];
+                    $this->frontController->single($method, $userId, $postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'dashboard') {
+                } elseif($page === 'dashboard') {
                     ob_start();
                     $title = "Dashboard";
                     $this->backController->dashboard();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'editorDashboard') {
+                } elseif($page === 'editorDashboard') {
                     ob_start();
                     $title = "Editor Dashboard";
                     $this->backController->editorDashboard();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                }else if ($page === 'validateComment') {
+                } elseif($page === 'validateComment') {
                     ob_start();
                     $title = "Validate Comment";
                     $commentId = $_GET['id_comment'];
                     $this->backController->validateComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'deleteComment') {
+                } elseif($page === 'deleteComment') {
                     ob_start();
                     $title = "Delete Comment";
                     $commentId = $_GET['id_comment'];
                     $this->backController->deleteComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'addPost') {
+                } elseif($page === 'addPost') {
                     ob_start();
                     $title = "Add post";
                     $this->backController->addPost($_POST);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'deletePost') {
+                } elseif($page === 'deletePost') {
                     ob_start();
                     $title = "Delete post";
                     $postId = $_GET['id_post'];
                     $this->backController->deletePost($postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'editPost') {
+                } elseif($page === 'editPost') {
                     ob_start();
                     $title = "Edit post";
                     $postId = $_GET['id_post'];
-                    $this->backController->editPost($_POST,$postId);
+                    $method = $_POST;
+                    $this->backController->editPost($method, $postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'deleteUser') {
+                } elseif($page === 'deleteUser') {
                     ob_start();
                     $title = "Delete user";
                     $userId = $_GET['id_user'];
                     $this->backController->deleteUser($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'signup') {
+                } elseif($page === 'signup') {
                     ob_start();
                     $title = "S'inscrire'";
-                    $this->frontController->signup($_POST);
+                    $method = $_POST;
+                    $this->frontController->signup($method);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'login') {
+                } elseif($page === 'login') {
                     ob_start();
                     $title = "Se connecter";
-                    $this->frontController->login($_POST);
+                    $method = $_POST;
+                    $this->frontController->login($method);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'profil') {
+                } elseif($page === 'profil') {
                     ob_start();
                     $title = "Profil";
                     $userId = $_GET['id_user'];
                     $this->frontController->profil($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'logout') {
+                } elseif($page === 'logout') {
                     $this->frontController->logout();
-                } else if ($page === 'editProfil') {
+                } elseif($page === 'editProfil') {
                     ob_start();
                     $title = "Edition du profil";
                     $userId = $_GET['id_user'];
-                    $this->frontController->editProfil($_POST,$userId);
+                    $method = $_POST;
+                    $this->frontController->editProfil($method, $userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'editPassword') {
+                } elseif($page === 'editPassword') {
                     ob_start();
                     $title = "Modification du mot de passe";
                     $userId = $_GET['id_user'];
-                    $this->frontController->editPassword($_POST,$userId);
+                    $method = $_POST;
+                    $this->frontController->editPassword($method, $userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else {
+                } elseif($page === 'pageNotFound') {
+                    $title = "Erreur 404";
+                    $this->errorsController->errorPageNotFound();
+                }
+                else {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 }
@@ -138,7 +148,7 @@ class Router {
                 $content = ob_get_clean();
                 require '../Views/templates/default.php';
             }
-        } catch (Exception $e) {
+        } catch(Exception $e) {
             $title = "Erreur 500";
             $this->errorsController->errorServer();
         }
