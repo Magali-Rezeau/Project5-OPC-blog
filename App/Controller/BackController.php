@@ -25,13 +25,16 @@ class BackController {
     }
     public function dashboard()
     {   
-        $posts = $this->postDAO->getPosts();
-        $comments = $this->commentDAO->getValidatedComments();
-        $users = $this->userDAO->getUsers();
+          session_start();
+            $posts = $this->postDAO->getPosts();
+            $comments = $this->commentDAO->getValidatedComments();
+            $users = $this->userDAO->getUsers();
+        
         require '../Views/admin/dashboard.php';
     }
     public function editorDashboard()
     {   
+        session_start();
         $posts = $this->postDAO->getPosts();
         require '../Views/admin/editorDashboard.php';
     }
@@ -51,6 +54,7 @@ class BackController {
         require '../Views/admin/dashboard.php';
     }
     public function addPost($method) {
+        session_start();
         $form = $this->form;
         $validator = $this->validator;
        
@@ -79,6 +83,7 @@ class BackController {
         require '../Views/admin/dashboard.php';
     }
     public function editPost($method,$postId) {
+        session_start();
         $form = $this->form;
         $post = $this->postDAO->getPost($postId);
         $validator = $this->validator;

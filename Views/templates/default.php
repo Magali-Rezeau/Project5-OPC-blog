@@ -218,9 +218,9 @@
                 <p>&copy; Magali Rézeau - 2019 &nbsp;&nbsp;<a href="#">Mentions légales</a></p>
             </div>
             <div class="footer-admin-link">
-            <?php if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '1') : ?>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN'): ?>
                     <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
-                <?php elseif(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '2') : ?>
+                <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR'): ?>
                     <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
                 <?php endif; ?> 
             </div>

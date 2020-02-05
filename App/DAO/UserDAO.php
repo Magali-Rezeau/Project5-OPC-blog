@@ -54,7 +54,7 @@ class UserDAO extends Database {
     }
     public function login($method) 
     {
-        $req= $this->prepareDB('SELECT users.id_user, users.password, users.pseudo FROM users WHERE pseudo = ?',[$method['pseudo']]);
+        $req = $this->prepareDB('SELECT users.id_user, users.password, users.pseudo, role_users.entitled FROM users INNER JOIN role_users ON id_role_user = role_users_id WHERE pseudo = ?',[$method['pseudo']]);
         $user = $req->fetch();
         $validPassword = password_verify($method['password'], $user['password']);
         return ['user' => $user, 'validPassword' => $validPassword];

@@ -1,6 +1,6 @@
         <div class="header-content">
             <div class="header-content-text">
-                <h1>Dashboard de l'éditeur</h1>
+                <h1>Dashboard</h1>
             </div>
             <div class="header-content-img-admin">
             </div>
@@ -9,7 +9,6 @@
     <section class="dashboard">
         <div class="dashboard-post-title">
             <h1>Administration des articles</h1>
-            <?php var_dump($_SESSION); ?>
         </div>
         <div class="dashboard-btn-addPost">
             <button class="btn"><a href="../public/index.php?page=addPost">Ajouter un article</a></button>
