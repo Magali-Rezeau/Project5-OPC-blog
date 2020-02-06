@@ -25,7 +25,8 @@ class FrontController {
         $this->userDAO = new UserDAO();
     }
     public function home()
-    {   
+    {   session_start();
+       
         $form = $this->form;
 
         $validator = $this->validator;
@@ -102,14 +103,17 @@ class FrontController {
         $form = $this->form;
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
+            session_start();
             if($user && $user['user'] && $user['validPassword']) {
-          
                 $_SESSION['id_user'] = $user['user']['id_user'];
                 $_SESSION['pseudo'] = $user['user']['pseudo'];
-                if(isset($_SESSION['id_user'])) {
-                    header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']); 
-                } else {
+                $_SESSION['role'] = $user['user']['entitled'];
+                if($_SESSION['role'] === 'ADMIN') {
                     header('Location:../public/index.php?page=dashboard');
+                } elseif($_SESSION['role'] === 'EDITOR') {
+                    header('Location:../public/index.php?page=editorDashboard');
+                } else {
+                    header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']); 
                 }
             } else {
                 echo 'votre mot de passe ou votre pseudo sont incorrectes';
@@ -118,7 +122,7 @@ class FrontController {
         require '../Views/templates/login.php';
     }
     public function profil($userId) {
-       
+       session_start();
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId){
             $user = $this->userDAO->getUser($userId);
@@ -128,7 +132,7 @@ class FrontController {
         require '../Views/templates/profil.php';
     }
     public function editProfil($method,$userId) {
-        
+        session_start();
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
             $user = $this->userDAO->getUser($userId);  
@@ -182,7 +186,7 @@ class FrontController {
         require '../Views/templates/editProfil.php';
     }
     public function editPassword($method,$userId) {
-        
+        session_start();
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
             $user = $this->userDAO->getUser($userId);  

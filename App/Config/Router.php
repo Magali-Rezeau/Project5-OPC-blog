@@ -45,7 +45,13 @@ class Router {
                     $this->backController->dashboard();
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
-                } else if ($page === 'validateComment') {
+                } else if ($page === 'editorDashboard') {
+                    ob_start();
+                    $title = "Editor Dashboard";
+                    $this->backController->editorDashboard();
+                    $content = ob_get_clean();
+                    require '../Views/templates/default.php';
+                }else if ($page === 'validateComment') {
                     ob_start();
                     $title = "Validate Comment";
                     $commentId = $_GET['id_comment'];

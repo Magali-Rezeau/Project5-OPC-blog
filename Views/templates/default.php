@@ -217,6 +217,13 @@
             <div class="footer-copyright">
                 <p>&copy; Magali Rézeau - 2019 &nbsp;&nbsp;<a href="#">Mentions légales</a></p>
             </div>
+            <div class="footer-admin-link">
+                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN'): ?>
+                    <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
+                <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR'): ?>
+                    <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
+                <?php endif; ?> 
+            </div>
         </footer>
         <script src="../public/js/cookiechoices.js"></script><script>document.addEventListener('DOMContentLoaded', function(event){cookieChoices.showCookieConsentBar('Ce site utilise des cookies pour vous offrir le meilleur service. En poursuivant votre navigation, vous acceptez l’utilisation des cookies.', 'J’accepte', 'En savoir plus', 'http://www.projet-5.magalirezeau.com/mentions-legales/');});</script>
 </body>
