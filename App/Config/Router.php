@@ -35,7 +35,8 @@ class Router {
                     ob_start();
                     $title = "Single";
                     $postId = $_GET['id_post'];
-                    $this->frontController->single($_POST,$postId);
+                    isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId='';
+                    $this->frontController->single($_POST,$userId,$postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } else if ($page === 'dashboard') {

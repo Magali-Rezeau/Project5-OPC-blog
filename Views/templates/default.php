@@ -124,8 +124,13 @@
                     </li>
                     <li><a href="../public/?page=home">Accueil</a></li>
                     <li><a href="../public/?page=blog">Blog</a></li>
+                    <?php if(isset($_SESSION['id_user'])) : ?>
+                        <li><a href="../public/?page=profil&id_user=<?=$_SESSION['id_user']?>">Profil</a></li>
+                    <li><a href="../public/?page=logout">Se déconnecter</a></li>
+                    <?php else : ?>
                     <li><a href="../public/?page=signup">S'inscrire</a></li>
                     <li><a href="../public/?page=login">Se connecter</a></li>
+                    <?php endif; ?>
                     <li><a href="../public/?page=home#contact">Contact</a></li>
                 </ul>
             </label>

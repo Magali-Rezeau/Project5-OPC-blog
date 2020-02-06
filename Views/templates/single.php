@@ -34,40 +34,56 @@
                     <p><?= htmlspecialchars($post->content); ?></p>
                 </div>
                 <div class="post-card-comment">
-                    <h1>Commentaires</h1>
-                    <hr>
-                    <?php foreach ($comments as $comment) : ?>
-                        <h3><span class="catch"><?= htmlspecialchars($comment->author); ?></span></h3>
-                        <h4>Le
-                            <span class="catch">
-                                <?php
-                                $date = new \DateTime($comment->create_date);
-                                echo $date->format("d-m-Y à h:m:s");
-                                ?>
-                            </span>
-                        </h4>
-                        <p><?= htmlspecialchars($comment->content); ?></p>
+                    <div class="post-card-comment-title">
+                        <h1>Commentaires</h1>
                         <hr>
-                    <?php endforeach; ?>
-                    <form action="../public/?page=single&id_post=<?= $post->id_post ?>" method="post" id="comment-form" name="comment-form" class="post-card-comment-form">
-                        <h2>Ajouter un commentaire</h2>
-                        <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
-                        <div class="post-card-comment-form-item">
-                            <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
-                            <?= $form->text('pseudo', 'Pseudo') ?>
-                        </div>
-                        <div class="post-card-comment-form-item">
-                            <span class="errors"><?= isset($errors['email']) ? $errors['email'] : '' ?></span>
-                            <?= $form->password('password', 'Mot de passe') ?>
-                        </div>
-                        <div class="post-card-comment-form-item">
-                            <span class="errors"><?= isset($errors['content']) ? $errors['content'] : '' ?></span>
-                            <?= $form->textarea('content', 'Commentaire') ?>
-                        </div>
-                        <div class="post-card-comment-form-item">
-                            <?= $form->submit('submit', 'Envoyer') ?>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="post-card-comment-content">
+                        <?php foreach ($comments as $comment) : ?>
+                            <div class="post-card-comment-content-profil">
+                                <img src="../public/membres/profile_picture<?= $comment->profile_picture ?>">
+                                <h3><span class="catch"><?= htmlspecialchars($comment->author); ?></span></h3>
+                            </div>
+                            <div class="post-card-comment-content-text">
+                                <h4>Le
+                                    <span class="catch">
+                                        <?php
+                                        $date = new \DateTime($comment->create_date);
+                                        echo $date->format("d-m-Y à h:m:s");
+                                        ?>
+                                    </span>
+                                </h4>
+                                <p><?= htmlspecialchars($comment->content); ?></p>
+                            </div>
+                            <hr>
+                        <?php endforeach; ?>
+                        <?php if(isset($_SESSION['id_user'])) : ?>
+                            <h2>Ajouter un commentaire</h2>
+                            <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
+                            <div class="post-card-comment-content-add">
+                                <div class="post-card-comment-content-add-profil">
+                                    <img src="../public/membres/profile_picture<?= $user->profile_picture ?>">
+                                    <h3><span class="catch"><?= htmlspecialchars($user->pseudo) ?></span></h3>
+                                </div>
+                                <form action="../public/index.php?page=single&id_post=<?= $post->id_post ?>" method="post" id="comment-form" name="comment-form" class="post-card-comment-content-add-form">
+                               
+                                    <div class="post-card-comment-content-add-form-item">
+                                        <span class="errors"><?= isset($errors['content']) ? $errors['content'] : '' ?></span>
+                                        <?= $form->textarea('content', 'Commentaire','','required') ?>
+                                    </div>
+                                    <div class="post-card-comment-content-add-form-item">
+                                        <?= $form->submit('submit', 'Envoyer') ?>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php else : ?>
+                            <div class="post-card-comment-redir">
+                                <p>Vous devez être connecté pour ajouter un commentaire.</p>
+                                <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>
+                                <button class="btn"><a href="../public/index.php?page=signup">S'inscrire</a></button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <div class="post-card-redir">
                     <button class="btn"><a href="../public/?page=blog">Blog</a></button>
@@ -75,4 +91,3 @@
                 </div>
             </div>
         </section>
-        

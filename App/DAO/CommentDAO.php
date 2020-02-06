@@ -12,6 +12,7 @@ class CommentDAO extends Database {
         $comment->setId_comment($data['id_comment']);
         $comment->setContent($data['content']);
         $comment->setAuthor($data['pseudo']);
+        isset($data['profile_picture']) ? $comment->setProfile_picture($data['profile_picture']): '';
         $comment->setCreate_date($data['create_date']);
         isset($data['post_id']) ? $comment->setPost_id($data['post_id']) : '';
         $comment->setPost_id($data['post_id']);
@@ -19,7 +20,7 @@ class CommentDAO extends Database {
     }
     public function getComments($postId)
     {
-        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.pseudo,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
+        $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.pseudo, users.profile_picture,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
         $comments = [];
         foreach ($req as $data) { 
             $commentId = $data['id_comment'];
@@ -27,9 +28,9 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
-    public function addComment($method,$postId) 
+    public function addComment($method,$userId,$postId) 
     {
-        $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,create_date) VALUES (?,1,?, NOW())',[$method['content'],$postId]);    
+        $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,validation,create_date) VALUES (?,?,?,"noValidate", NOW())',[$method['content'],$userId,$postId]);    
     } 
     public function getValidatedComments() 
     {
