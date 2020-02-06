@@ -1,7 +1,6 @@
         <div class="header-content">
             <div class="header-content-text">
-                <h1>Bienvenue,</h1>
-                <p>Je suis <span class="font">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours Développeur d'application PHP/Symfony et cette page permet <span class="font">d' administrer les articles du blog.</span></p>
+                <h1>Ajout d'un article</h1>
             </div>
             <div class="header-content-img-admin">
             </div>
@@ -31,7 +30,11 @@
                 </div>
             </form>
             <div class="addPost-content-redir">
-                <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
+                <?php if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '1') : ?>
+                    <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
+                <?php elseif(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '2') : ?>
+                    <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
+                <?php endif; ?> 
                 <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>
                 <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
             </div>
