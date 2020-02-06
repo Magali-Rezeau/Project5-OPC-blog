@@ -148,42 +148,43 @@ class FrontController {
                             $extensionUpload = strtolower(substr(strrchr($_FILES['profile_picture']['name'], '.'), 1));
                                 if(in_array($extensionUpload, $extensionValide)) {
                                     $path = "../public/membres/profile_picture".$_SESSION['id_user'].".".$extensionUpload;
+                                   
                                     $result = move_uploaded_file($_FILES['profile_picture']['tmp_name'], $path);
                                         if($result) {
                                             $this->userDAO->editUser($method,$userId,$extensionUpload);
                                             $succes_editProfil = "Votre profil a bien été modifié.";
                                         } else {
                                             $error_upload = "Une erreur est survenue lors de l'importation du fichier.";
-                                            echo 'error';
+                                            $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
                                         }
                                 } else {
-                                    echo 'error';
                                     $error_format = "Votre photo de profil doit être au format jpg, jpeg, png ou gif.";
+                                    $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
                                 }
                         } else {
                             $error_weight = "Votre photo de profil ne doit pas dépasser 2mo";
+                            $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
                         }
-                } elseif($user->profile_picture && $user->profile_picture != "default.png") {
+                } elseif(isset($user->profile_picture) && $user->profile_picture != "default.png") {
                     $extensionUpload = strtolower(substr(strrchr($user->profile_picture, '.'), 1));
                     $this->userDAO->editUser($method,$userId,$extensionUpload);
                     $succes_editProfil = "Votre profil a bien été modifié.";
 
-                } elseif(!isset($_FILES['profile_picture']) && empty($_FILES['profile_picture']['name']) && $user->profile_picture === "default.png") {
-                    $extensionUpload = "png";
-                    $_SESSION['id_user'] = '';
+                }  elseif(isset($_FILES['profile_picture']) && !empty($_FILES['profile_picture']['name']) && $user->profile_picture === "default.png") {
+                    $extensionUpload = "png";  
+                    $_SESSION['id_user'] = '';    
                     $this->userDAO->editUser($method,$userId,$extensionUpload);
                     $succes_editProfil = "Votre profil a bien été modifié.";  
-                } else {
-                    echo 'error';
                 }
+
             } else {
-                echo 'error';
+                $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
             }
         }
         require '../Views/templates/editProfil.php';
     }
-    public function editPassword($method,$userId) {
-       
+    public function editPassword($method,$userId) 
+    {
         $form = $this->form;
         if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId) { 
             $user = $this->userDAO->getUser($userId);  
@@ -194,9 +195,9 @@ class FrontController {
             $errors = $validator->getErrors();
             if(empty($errors)) {
                 $this->userDAO->editPassword($method,$userId);   
-                $succes = "Votre mot de passe a bien été modifié";
+                $succes_editPassword = "Votre mot de passe a bien été modifié";
             } else {  
-               
+                $error_editPassword = "Votre mot de passe a bien été modifié";
             }
         }
         require '../Views/templates/editPassword.php';
@@ -204,6 +205,6 @@ class FrontController {
     public function logout() {
         $_SESSION = [];
         session_destroy();
-        header('Location:../public/?page=login');
+        header('Location:../public/index.php?page=login');
     }
 }

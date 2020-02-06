@@ -10,7 +10,7 @@
                 <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>  
             </div>
             <?php if($user->profile_picture) : ?>
-                <img src="../public/membres/profile_picture<?= $user->profile_picture?>" width="300">
+                <img class="header-content-profile-picture" src="../public/membres/profile_picture<?= $user->profile_picture?>">
             <?php else : ?>
                 <div class="header-content-img-profil"></div>
             <?php endif; ?>
@@ -34,9 +34,9 @@
                 <div class="profil-content-form-item">
                     <?php  
                         $create_date = new \DateTime($user->create_date);  
-                        $create_date_format = $create_date->format("d-m-Y"); 
+                        $format_create_date = $create_date->format("d-m-Y"); 
                     ?>
-                    <?= $form->text('create_date', 'Date de création', $create_date_format, 'readonly="readonly"') ?>
+                    <?= $form->text('create_date', 'Date de création', $format_create_date, 'readonly="readonly"') ?>
                 </div>
                 <div class="profil-content-form-item">
                     <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>

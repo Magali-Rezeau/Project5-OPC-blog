@@ -1,6 +1,24 @@
         <div class="header-content">
             <div class="header-content-text">
+                <div class="header-content-text-message">
+                    <span class="succes">
+                        <?= isset($succes_addPost) ? $succes_addPost : '' ?>
+                    </span>
+                    <span class="errors">
+                        <?= isset($error_addPost) ? $error_addPost : '' ?>
+                    </span>
+                    <span class="errors">
+                        <?= isset($error_authorAddPost) ? $error_authorAddPost : '' ?>
+                    </span>
+                </div>
                 <h1>Ajout d'un article</h1>
+                <?php if(isset($succes_addPost)) : ?>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN'): ?>
+                        <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
+                    <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR'): ?>
+                        <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
+                    <?php endif; ?>
+                <?php endif; ?>
             </div>
             <div class="header-content-img-admin">
             </div>
@@ -9,32 +27,29 @@
     <section class="addPost">
         <div class="addPost-content">
             <form method="post" action="../public/index.php?page=addPost" class="addPost-content-form">
-                <span class="succes">
-                    <?= isset($succes_addPost) ? $succes_addPost : '' ?>
+                <span class="errors">
+                    <?= isset($errors['title']) ? $errors['title'] : '' ?>
                 </span>
-                <div class="addPost-content-form-item">                               
-                    <span class="errors">
-                        <?= isset($errors['title']) ? $errors['title'] : '' ?>
-                    </span> 
-                    <?= $form->text('title', 'Titre') ?> 
+                <div class="addPost-content-form-item">                                
+                    <?= $form->text('title', 'Titre', '', 'required') ?> 
                 </div>
-                <div class="addPost-content-form-item"> 
-                    <span class="errors">
-                        <?= isset($errors['author']) ? $errors['author'] : '' ?>
-                    </span>             
-                    <?= $form->text('author', 'Auteur') ?>
+                <span class="errors">
+                    <?= isset($errors['author']) ? $errors['author'] : '' ?>
+                </span>
+                <div class="addPost-content-form-item">            
+                    <?= $form->text('author', 'Auteur', '', 'required') ?>
                 </div>
+                <span class="errors">
+                    <?= isset($errors['short_content']) ? $errors['short_content'] : '' ?>
+                </span> 
+                <div class="addPost-content-form-item">                             
+                    <?= $form->textarea('short_content', 'Short_content', '', 'required') ?>
+                </div>
+                <span class="errors">
+                    <?= isset($errors['content']) ? $errors['content'] : '' ?>
+                </span>
                 <div class="addPost-content-form-item">
-                    <span class="errors">
-                        <?= isset($errors['short_content']) ? $errors['short_content'] : '' ?>
-                    </span>                              
-                    <?= $form->textarea('short_content', 'Short_content') ?>
-                </div>
-                <div class="addPost-content-form-item">
-                    <span class="errors">
-                        <?= isset($errors['content']) ? $errors['content'] : '' ?>
-                    </span>
-                    <?= $form->textarea('content', 'Content') ?>
+                    <?= $form->textarea('content', 'Content', '', 'required') ?>
                 </div>
                 <div class="addPost-content-form-item">
                     <?= $form->submit('submit', 'Valider') ?>

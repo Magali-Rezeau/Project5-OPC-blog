@@ -20,13 +20,16 @@
     <section id="login" class="login">
         <div class="login-content">
             <form action="../public/index.php?page=login" method="POST" id="login-form" name="login-form" class="login-content-form">
+                <span class="errors">
+                    <?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?>
+                </span>
                 <div class="login-content-form-item">
-                <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
-                    <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>
                     <?= $form->text('pseudo', 'Pseudo','','required') ?>
                 </div>
+                <span class="errors">
+                    <?= isset($errors['password']) ? $errors['password'] : '' ?>
+                </span>
                 <div class="login-content-form-item">
-                    <span class="errors"><?= isset($errors['password']) ? $errors['password'] : '' ?></span>
                     <?= $form->password('password', 'Mot de passe','','required') ?>
                 </div>
                 <div class="login-content-form-item">

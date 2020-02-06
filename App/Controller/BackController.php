@@ -60,15 +60,15 @@ class BackController {
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
-                if($method['author'] === "Magali") {
-                    $method['author'] = substr_replace("Magali", "1", 0);
+                if($method['author'] === $_SESSION['pseudo']) {
+                    $method['author'] = substr_replace($_SESSION['pseudo'], $_SESSION['id_user'], 0);
                     $this->postDAO->addPost($method);
-                    $succes_addPost = "Votre article a bien été ajouté";
-                } elseif($method['author'] === "Marie") {
-                    $method['author'] = substr_replace("Marie", "2", 0);
-                    $this->postDAO->addPost($method);
-                    $succes_addPost = "Votre article a bien été ajouté";
-                } 
+                    $succes_addPost = "Votre article a bien été ajouté.";
+                } else {
+                    $error_authorAddPost = "Le champ auteur est mal renseigné.";
+                }
+            } else {
+                $error_addPost = "Une erreur est survenue.";
             }
         }
         require '../Views/admin/addPost.php'; 
@@ -76,7 +76,14 @@ class BackController {
     public function deletePost($postId) 
     {
         $this->postDAO->deletePost($postId);
-        header("Location: ../public/index.php?page=dashboard");
+        if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN') {
+            header("Location: ../public/index.php?page=dashboard");
+        } elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR') {
+            header("Location: ../public/index.php?page=editorDashboard");
+        } else {
+            $error_deletePost = "Une erreur est survenue lors de la suppression d'un article.";
+        }
+       
         require '../Views/admin/dashboard.php';
     }
     public function editPost($method,$postId) 

@@ -50,33 +50,42 @@
                         <?php foreach ($comments as $comment) : ?>
                             <div class="post-card-comment-content-profil">
                                 <img src="../public/membres/profile_picture<?= $comment->profile_picture ?>">
-                                <h3><span class="catch"><?= htmlspecialchars($comment->author); ?></span></h3>
+                                <h3>
+                                    <span class="catch">
+                                        <?= $comment->author ?>
+                                    </span>
+                                </h3>
                             </div>
                             <div class="post-card-comment-content-text">
                                 <h4>Le
                                     <span class="catch">
                                         <?php
                                         $date = new \DateTime($comment->create_date);
-                                        echo $date->format("d-m-Y à h:m:s");
+                                        $format_date = $date->format("d-m-Y à h:m:s");
+                                        echo $format_date;
                                         ?>
                                     </span>
                                 </h4>
-                                <p><?= htmlspecialchars($comment->content); ?></p>
+                                <p><?= $comment->content ?></p>
                             </div>
                             <hr>
                         <?php endforeach; ?>
                         <?php if(isset($_SESSION['id_user'])) : ?>
                             <h2>Ajouter un commentaire</h2>
-                            <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
                             <div class="post-card-comment-content-add">
                                 <div class="post-card-comment-content-add-profil">
                                     <img src="../public/membres/profile_picture<?= $user->profile_picture ?>">
-                                    <h3><span class="catch"><?= htmlspecialchars($user->pseudo) ?></span></h3>
+                                    <h3>
+                                        <span class="catch">
+                                            <?= ucfirst($user->pseudo) ?>
+                                        </span>
+                                    </h3>
                                 </div>
                                 <form action="../public/index.php?page=single&id_post=<?= $post->id_post ?>" method="post" id="comment-form" name="comment-form" class="post-card-comment-content-add-form">
-                               
+                                    <span class="errors">
+                                        <?= isset($errors['content']) ? $errors['content'] : '' ?>
+                                    </span>
                                     <div class="post-card-comment-content-add-form-item">
-                                        <span class="errors"><?= isset($errors['content']) ? $errors['content'] : '' ?></span>
                                         <?= $form->textarea('content', 'Commentaire','','required') ?>
                                     </div>
                                     <div class="post-card-comment-content-add-form-item">
@@ -94,8 +103,8 @@
                     </div>
                 </div>
                 <div class="post-card-redir">
-                    <button class="btn"><a href="../public/?page=blog">Blog</a></button>
-                    <button class="btn"><a href="../public/?page=home">Accueil</a></button>
+                    <button class="btn"><a href="../public/index.php?page=blog">Blog</a></button>
+                    <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>
                 </div>
             </div>
         </section>

@@ -1,5 +1,10 @@
         <div class="header-content">
             <div class="header-content-text">
+                <div class="header-content-text-message">
+                    <span class="errors">
+                        <?= isset($error_deletePost) ? $error_deletePost : '' ?>
+                    </span>
+                </div>
                 <h1>Dashboard</h1>
             </div>
             <div class="header-content-img-admin">

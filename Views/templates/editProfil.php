@@ -1,36 +1,61 @@
         <div class="header-content">
             <div class="header-content-text">
-                <h1>Bienvenue <?= ucfirst($user->pseudo) ?>,</h1>
+                <div class="header-content-text-message">
+                    <span class="succes">
+                        <?= isset($succes_editProfil) ? $succes_editProfil : '' ?>
+                    </span>
+                    <span class="errors">
+                        <?= isset($error_editProfil) ? $error_editProfil : '' ?>
+                    </span>
+                </div>
                 <br>
-                <p>Vous pouvez modifier votre pseudo, votre mot de passe et votre photo de profil.</p>
-                <br>
-                <p>Se déconnecter ?</p>
-                <button class="btn"><a href="../public/index.php?page=signout">Se déconnecter</a></button>                
-        </div>
-        <?php if($user->profile_picture) : ?>
-            <img src="../public/membres/profile_picture<?= $user->profile_picture?>" width="300">
-        <?php endif; ?>
+                <?php if(isset($succes_editProfil)): ?>
+                    <h1><?= ucfirst($user->pseudo) ?>,</h1>
+                    <p>Vous pouvez retourner sur votre profil ou vous déconnecter.</p>
+                    <button class="btn"><a href="../public/index.php?page=profil">Profil</a></button>
+                    <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>
+                <?php else : ?>
+                    <h1>Bienvenue <?= ucfirst($user->pseudo) ?>,</h1>
+                    <p>Vous pouvez modifier votre pseudo, votre mot de passe et votre photo de profil.</p>
+                    <br>
+                    <p>Se déconnecter ?</p>
+                    <button class="btn"><a href="../public/index.php?page=signout">Se déconnecter</a></button>  
+                <?php endif; ?>              
+            </div>
+            <?php if($user->profile_picture) : ?>
+                <img class="header-content-profile-picture" src="../public/membres/profile_picture<?= $user->profile_picture?>">
+            <?php else : ?>
+                <div class="header-content-img-profil"></div>
+            <?php endif; ?>
         </div>
     </header>
-            <?php var_dump($user->profile_picture) ?>
-            <?php var_dump($_FILES) ?>
-            <?php var_dump($_FILES['profile_picture']) ?>
     <section id="editProfil" class="editProfil">
         <div class="editProfil-content">
             <form method="post" enctype="multipart/form-data" action="../public/index.php?page=editProfil&id_user=<?= $user->id_user ?>" class="editProfil-content-form">
             <h1 class="editProfil-content-form-title">Modifier votre profil</h1>
-                <span class="succes"><?= isset($succes) ? $succes : '' ?></span>
+                <span class="errors">
+                    <?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?>
+                </span>  
+                <span class="errors">
+                    <?= isset($error_pseudoDB) ? $error_pseudoDB : '' ?>
+                </span>       
                 <div class="editProfil-content-form-item">
-                    <span class="errors"><?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?></span>  
-                    <span class="errors"><?= isset($errors['pseudoDB']) ? $errors['pseudoDB'] : '' ?></span>           
                     <?= $form->text('pseudo', 'Modifier votre pseudo', $user->pseudo, 'required') ?>
                 </div>
                 <div class="editProfil-content-form-item">
                     <h3>Modifier votre mot de passe</h3>
                     <button class="btn btn-editPassword"><a href="../public/index.php?page=editPassword&id_user=<?= $user->id_user ?>">Modifier</a></button>
                 </div>
+                <span class="errors">
+                        <?= isset($error_weight) ? $error_weight : '' ?>
+                </span>
+                <span class="errors">
+                    <?= isset($error_upload) ? $error_upload : '' ?>
+                </span>
+                <span class="errors">
+                    <?= isset($error_format) ? $error_format : '' ?>
+                </span>
                 <div class="editProfil-content-form-item">
-                    <span class="errors"><?= isset($errors['content']) ? $errors['content'] : '' ?></span>
                     <?= $form->file('profile_picture', 'Modifier votre photo de profil', $user->profile_picture) ?>
                 </div>
                 <div class="editProfil-content-form-item">

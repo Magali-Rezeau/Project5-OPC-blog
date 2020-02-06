@@ -1,5 +1,4 @@
         <div class="header-content">
-           
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
@@ -106,28 +105,28 @@
             <div class="contact-content-form">
                 <h1>Contact</h1>
                 <form action="../public/index.php?page=home" method="post" id="contact-form" name="contact-form" class="contact-form">
+                    <span class="errors">
+                        <?= isset($errors['lastname']) ? $errors['lastname'] : '' ?>
+                    </span>
                     <div class="contact-form-item">
-                        <span class="errors">
-                            <?= isset($errors['lastname']) ? $errors['lastname'] : '' ?>
-                        </span>
                         <?= $form->text('lastname', 'Votre nom', '', 'required') ?>
                     </div>
+                    <span class="errors">
+                        <?= isset($errors['firstname']) ? $errors['firstname'] : '' ?>
+                    </span>
                     <div class="contact-form-item">
-                        <span class="errors">
-                            <?= isset($errors['firstname']) ? $errors['firstname'] : '' ?>
-                        </span>
                         <?= $form->text('firstname', 'Votre prénom', '', 'required') ?>
                     </div>
+                    <span class="errors">
+                        <?= isset($errors['email']) ? $errors['email'] : '' ?>
+                    </span>
                     <div class="contact-form-item">
-                        <span class="errors">
-                            <?= isset($errors['email']) ? $errors['email'] : '' ?>
-                        </span>
                         <?= $form->email('email', 'Votre email', '', 'required') ?>
                     </div>
+                    <span class="errors">
+                        <?= isset($errors['message']) ? $errors['message'] : '' ?>
+                    </span>
                     <div class="contact-form-item">
-                        <span class="errors">
-                            <?= isset($errors['message']) ? $errors['message'] : '' ?>
-                        </span>
                         <?= $form->textarea('message', 'Votre message', '', 'required') ?>
                     </div>
                     <div class="contact-form-item">
