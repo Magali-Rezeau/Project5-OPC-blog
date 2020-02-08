@@ -8,9 +8,6 @@
                 <br>
                 <p>Se déconnecter ?</p>
                 <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>  
-                <?php var_dump($_SESSION) ?>
-                <?php var_dump($_SESSION['role']) ?>
-
             </div>
             <?php if($user->profile_picture) : ?>
                 <img src="../public/membres/profile_picture<?= $user->profile_picture?>" width="300">
