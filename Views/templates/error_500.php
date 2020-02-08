@@ -16,7 +16,7 @@
         <div class="errorserver-500">
             <h1>Oops!</h1>
             <h2>500 - Our server is on a break</h2>
-            <button class="btn"><a href="../public/?page=home">Retour à la page d'accueil</a></button>
+            <button class="btn"><a href="../public/index.php?page=home">Retour à la page d'accueil</a></button>
         </div>
     </section>
 </body>

@@ -9,33 +9,38 @@
     </header>
     <section class="blog">
         <div class="blog-card">
-            <?php
-            foreach($posts as $post) :
-                ?>
+            <?php foreach($posts as $post) : ?>
                 <div class="blog-card-content">
-                    <h2><?= htmlspecialchars($post->title); ?></h2>
-                    <h4>Par <span class="catch"><?= htmlspecialchars($post->author); ?></span> le 
+                    <h2>
+                        <?= $post->title ?>
+                    </h2>
+                    <h4>Par 
+                        <span class="catch">
+                            <?= $post->author ?>
+                        </span> le 
                         <span class="catch">
                             <?php 
                                 $date = new \DateTime($post->create_date); 
-                                echo $date->format("d-m-Y"); 
+                                $format_date = $date->format("d-m-Y"); 
+                                echo $format_date;
                             ?>
                         </span>
                         <br>Modifié le 
                         <span class="catch">
                             <?php 
-                                $modification_date = new \DateTime($post->modification_date); 
-                                echo $modification_date->format("d-m-Y"); 
+                                $modification_date = new \DateTime($post->modification_date);
+                                $format_modification_date = $modification_date->format("d-m-Y"); 
+                                echo $format_modification_date;
                             ?>
                         </span>
                     </h4>
                     <hr>
-                    <p><?= htmlspecialchars($post->short_content); ?></p>
+                    <p>
+                        <?= $post->short_content ?>
+                    </p>
                     <button class="btn"><a href="<?= $post->getUrl(); ?>" >Lire la suite</a></button>
                 </div> 
-            <?php
-            endforeach;
-            ?>
+            <?php endforeach; ?>
         </div>
     </section>
     

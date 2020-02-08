@@ -23,11 +23,11 @@ class Form {
     }
     public function text($name, $label, $value=null, $option=null) 
     {
-       return $this->input('text', $name, $label,$value, $option);
+       return $this->input('text', $name, $label, $value, $option);
     }
-    public function email($name, $label,$value=null, $option=null) 
+    public function email($name, $label, $value=null, $option=null) 
     {
-        return $this->input('email', $name, $label,$value,$option);
+        return $this->input('email', $name, $label, $value, $option);
     }
     public function password($name, $label, $value=null, $option=null) 
     {
@@ -39,10 +39,10 @@ class Form {
     }
     public function file($name, $label,$value=null,$option=null) 
     {
-        return $this->input('file', $name, $label,$value);
+        return $this->input('file', $name, $label, $value);
     }
-    public function submit($name, $label,$value=null) 
+    public function submit($name, $label, $value=null) 
     {
-        return $this->input('submit', $name, $label,$value);
+        return $this->input('submit', $name, $label, $value);
     }
 }
