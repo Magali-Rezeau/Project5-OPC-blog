@@ -14,7 +14,6 @@ class FrontController {
     private $postDAO;
     private $commentDAO;
     private $userDAO;
-    private $errorsController;
     
     public function __construct()
     {
@@ -25,15 +24,25 @@ class FrontController {
         $this->userDAO = new UserDAO();
     }
     public function home()
-    {   
+    {  
         $form = $this->form;
         $validator = $this->validator;
         $validator->check('email','email', 'Votre adresse email est incorrecte.');
+        $filter = array(
+            'firstname' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'lastname' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'firstname' => FILTER_SANITIZE_STRING,
+            'lastname' => FILTER_SANITIZE_STRING,
+            'email' => FILTER_VALIDATE_EMAIL,
+            'message' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'message' => FILTER_SANITIZE_STRING,
+        );
+        $_POST = filter_input_array(INPUT_POST,$filter); 
         if(!empty($_POST)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
-                $message = htmlspecialchars($_POST['message']);
-                $header = "FROM : " . htmlspecialchars($_POST['email']);
+                $message = $_POST['message'];
+                $header = "FROM : " . $_POST['email'];
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
                 $succes_emailSent = "Votre message a bien été envoyé.";
             } else {
@@ -59,6 +68,11 @@ class FrontController {
         $validator = $this->validator;
         $validator->check('content','minLenght', 'Votre commentaire doit comporter au moins 3 caractères.', 3);
         $validator->check('content','maxLenght', 'Votre commentaire doit comporter moins de 50 caractères.', 200);
+        $filter = array(
+            'content' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'content' => FILTER_SANITIZE_STRING,
+        );
+        $method = filter_input_array(INPUT_POST,$filter); 
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {

@@ -36,7 +36,7 @@ class Router {
                     $title = "Single";
                     $postId = $_GET['id_post'];
                     $method = $_POST;
-                    $userId = $_SESSION['id_user'];
+                    isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId = '';
                     $this->frontController->single($method, $userId, $postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';

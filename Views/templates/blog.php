@@ -12,11 +12,11 @@
             <?php foreach($posts as $post) : ?>
                 <div class="blog-card-content">
                     <h2>
-                        <?= htmlspecialchars($post->title); ?>
+                        <?= $post->title ?>
                     </h2>
                     <h4>Par 
                         <span class="catch">
-                            <?= htmlspecialchars($post->author); ?>
+                            <?= $post->author ?>
                         </span> le 
                         <span class="catch">
                             <?php 
@@ -28,7 +28,7 @@
                         <br>Modifié le 
                         <span class="catch">
                             <?php 
-                                $modification_date = new \DateTime($post->modification_date); 
+                                $modification_date = new \DateTime($post->modification_date);
                                 $format_modification_date = $modification_date->format("d-m-Y"); 
                                 echo $format_modification_date;
                             ?>
@@ -36,7 +36,7 @@
                     </h4>
                     <hr>
                     <p>
-                        <?= htmlspecialchars($post->short_content); ?>
+                        <?= $post->short_content ?>
                     </p>
                     <button class="btn"><a href="<?= $post->getUrl(); ?>" >Lire la suite</a></button>
                 </div> 
