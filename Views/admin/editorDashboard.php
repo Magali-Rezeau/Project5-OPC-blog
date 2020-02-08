@@ -33,14 +33,16 @@
                         <td class="dashboard-post-table-body-cell">
                             <?php 
                                 $date = new \DateTime($post->create_date);
-                                echo $date->format("d-m-Y"); 
+                                $format_date = $date->format("d-m-Y"); 
                             ?>
+                            <?= $format_date ?>
                         </td>
                         <td class="dashboard-post-table-body-cell">
                             <?php
                                 $modification_date = new \DateTime($post->modification_date);
-                                echo $modification_date->format("d-m-Y");   
+                                $format_modification_date = $modification_date->format("d-m-Y");   
                             ?>
+                            <?= $format_modification_date ?>
                         </td>
                         <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
                     </tr>

@@ -24,15 +24,17 @@
                         <span class="catch">
                             <?php
                             $date = new \DateTime($post->create_date);
-                            echo $date->format("d-m-Y");
-                            ?>
+                            $format_date = $date->format("d-m-Y");
+                            ?> 
+                            <?= $format_date ?>
                         </span>
                         <br>Modifié le
                         <span class="catch">
                             <?php
                             $modification_date = new \DateTime($post->modification_date);
-                            echo $modification_date->format("d-m-Y");
+                            $format_modification_date = $modification_date->format("d-m-Y");
                             ?>
+                            <?= $format_modification_date ?>
                         </span>
                     </h3>
                 </div>
@@ -62,8 +64,8 @@
                                         <?php
                                         $date = new \DateTime($comment->create_date);
                                         $format_date = $date->format("d-m-Y à h:m:s");
-                                        echo $format_date;
                                         ?>
+                                        <?= $format_date ?>
                                     </span>
                                 </h4>
                                 <p><?= $comment->content ?></p>

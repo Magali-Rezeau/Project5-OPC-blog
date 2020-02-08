@@ -22,16 +22,17 @@
                             <?php 
                                 $date = new \DateTime($post->create_date); 
                                 $format_date = $date->format("d-m-Y"); 
-                                echo $format_date;
                             ?>
+                            <?= $format_date ?>
+                            
                         </span>
                         <br>Modifié le 
                         <span class="catch">
                             <?php 
                                 $modification_date = new \DateTime($post->modification_date);
                                 $format_modification_date = $modification_date->format("d-m-Y"); 
-                                echo $format_modification_date;
                             ?>
+                            <?= $format_modification_date ?>
                         </span>
                     </h4>
                     <hr>

@@ -38,14 +38,16 @@
                         <td class="dashboard-post-table-body-cell">
                             <?php 
                                 $date = new \DateTime($post->create_date);
-                                echo $date->format("d-m-Y"); 
+                                $format_date = $date->format("d-m-Y"); 
                             ?>
+                            <?= $format_date ?>
                         </td>
                         <td class="dashboard-post-table-body-cell">
                             <?php
                                 $modification_date = new \DateTime($post->modification_date);
-                                echo $modification_date->format("d-m-Y");   
+                                $format_modification_date = $modification_date->format("d-m-Y");
                             ?>
+                            <?= $format_modification_date ?>   
                         </td>
                         <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
                     </tr>
@@ -73,8 +75,9 @@
                         <td class="dashboard-comment-table-body-cell">
                             <?php 
                                 $date = new \DateTime($comment->create_date);
-                                echo $date->format("d-m-Y"); 
+                                $format_date = $date->format("d-m-Y");
                             ?>
+                            <?= $format_date ?>
                         </td>
                         <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
                         <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></td>
@@ -106,8 +109,9 @@
                         <td class="dashboard-user-table-body-cell">
                             <?php 
                                 $date = new \DateTime($user->create_date); 
-                                echo $date->format("d-m-Y"); 
+                                $format_date = $date->format("d-m-Y");
                             ?>
+                            <?= $format_date ?>
                         </td>
                         <td class="dashboard-user-table-body-cell">
                             <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a>
