@@ -191,9 +191,8 @@ class FrontController {
                     $succes_editProfil = "Votre profil a bien été modifié.";  
                 }
 
-            } else {
-                $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
-            }
+            } 
+            $error_editProfil = "Une erreur est survenue lors de la modification de votre profil."; 
         }
         require '../Views/templates/editProfil.php';
     }
@@ -211,7 +210,7 @@ class FrontController {
                 $this->userDAO->editPassword($method,$userId);   
                 $succes_editPassword = "Votre mot de passe a bien été modifié";
             } else {  
-                $error_editPassword = "Votre mot de passe a bien été modifié";
+                $error_editPassword = "Une erreur est survenue lors de la modification de votre mot de passe.";
             }
         }
         require '../Views/templates/editPassword.php';

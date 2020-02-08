@@ -136,11 +136,9 @@ class Router {
                 } elseif($page === 'pageNotFound') {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
-                }
-                else {
+                } 
                     $title = "Erreur 404";
-                    $this->errorsController->errorPageNotFound();
-                }
+                    $this->errorsController->errorPageNotFound();  
             } else {
                 ob_start();
                 $title = "Page d'accueil";
