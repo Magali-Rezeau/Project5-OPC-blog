@@ -1,5 +1,10 @@
         <div class="header-content">
             <div class="header-content-text">
+                <div class="header-content-text-message">
+                    <span class="errors">
+                        <?= isset($error_deletePost) ? $error_deletePost : '' ?>
+                    </span>
+                </div>
                 <h1>Dashboard</h1>
             </div>
             <div class="header-content-img-admin">
@@ -104,7 +109,9 @@
                                 echo $date->format("d-m-Y"); 
                             ?>
                         </td>
-                        <td class="dashboard-user-table-body-cell"><!--<button class="btn"><a href="../public/index.php?page=editUser&id_user=<?= $user->id_user ?>">Modifier</a></button>--><button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a></td>
+                        <td class="dashboard-user-table-body-cell">
+                            <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
             </tbody>

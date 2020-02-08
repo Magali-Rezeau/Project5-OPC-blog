@@ -65,7 +65,8 @@ class UserDAO extends Database {
         $user = $req->fetch();
         return $this->userObject($user); 
     }
-    public function editUser($method,$userId,$extensionUpload) {  
+    public function editUser($method, $userId, $extensionUpload) 
+    {  
         $req = $this->prepareDB('UPDATE users SET pseudo = :pseudo, profile_picture = :profile_picture WHERE id_user = :id_user',
         ['pseudo' =>$method['pseudo'], 'profile_picture'=>$_SESSION['id_user']. ".". $extensionUpload,'id_user' => $userId]);
     }
