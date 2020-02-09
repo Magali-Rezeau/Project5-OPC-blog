@@ -46,7 +46,9 @@
                         <?php 
                             $shortContent = isset($post->short_content)?htmlspecialchars($post->short_content):'';
                         ?>
-                        <?= $shortContent ?>
+                        <?= 
+                            $shortContent 
+                        ?>
                     </p>
                     <button class="btn"><a href="<?= $post->getUrl(); ?>" >Lire la suite</a></button>
                 </div> 
