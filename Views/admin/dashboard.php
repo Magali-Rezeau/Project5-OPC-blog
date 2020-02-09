@@ -2,7 +2,7 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="errors">
-                        <?= isset($error_deletePost) ? $error_deletePost : '' ?>
+                        <?= isset($error_deletePost) ? htmlspecialchars($error_deletePost) : '' ?>
                     </span>
                 </div>
                 <h1>Dashboard</h1>
@@ -32,24 +32,24 @@
             <tbody class="dashboard-post-table-body">
                 <?php foreach ($posts as $post) : ?>
                     <tr class="dashboard-post-table-body-row">
-                        <td class="dashboard-post-table-body-cell"><?= $post->id_post; ?> </td>
-                        <td class="dashboard-post-table-body-cell"><?= $post->author; ?> </td>
-                        <td class="dashboard-post-table-body-cell"><?= $post->title; ?></td>
+                        <td class="dashboard-post-table-body-cell"><?= is_int($post->id_post)?$post->id_post:'' ?> </td>
+                        <td class="dashboard-post-table-body-cell"><?= htmlspecialchars($post->author) ?> </td>
+                        <td class="dashboard-post-table-body-cell"><?= htmlspecialchars($post->title) ?></td>
                         <td class="dashboard-post-table-body-cell">
                             <?php 
                                 $date = new \DateTime($post->create_date);
                                 $format_date = $date->format("d-m-Y"); 
                             ?>
-                            <?= $format_date ?>
+                            <?= htmlspecialchars($format_date) ?>
                         </td>
                         <td class="dashboard-post-table-body-cell">
                             <?php
                                 $modification_date = new \DateTime($post->modification_date);
                                 $format_modification_date = $modification_date->format("d-m-Y");
                             ?>
-                            <?= $format_modification_date ?>   
+                            <?= htmlspecialchars($format_modification_date) ?>   
                         </td>
-                        <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
+                        <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= is_int($post->id_post)?$post->id_post:'' ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= is_int($post->id_post)?$post->id_post:'' ?>">Supprimer</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -70,17 +70,17 @@
             <tbody class="dashboard-comment-table-body">
                 <?php foreach ($comments as $comment) : ?>
                     <tr class="dashboard-comment-table-body-row">
-                        <td class="dashboard-comment-table-body-cell"><?= $comment->post_id; ?></td>
-                        <td class="dashboard-comment-table-body-cell"><?= $comment->author; ?></td>
+                        <td class="dashboard-comment-table-body-cell"><?= is_int($comment->post_id)?$comment->post_id:'' ?></td>
+                        <td class="dashboard-comment-table-body-cell"><?= htmlspecialchars($comment->author) ?></td>
                         <td class="dashboard-comment-table-body-cell">
                             <?php 
                                 $date = new \DateTime($comment->create_date);
                                 $format_date = $date->format("d-m-Y");
                             ?>
-                            <?= $format_date ?>
+                            <?= htmlspecialchars($format_date) ?>
                         </td>
-                        <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
-                        <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></td>
+                        <td class="dashboard-comment-table-body-cell"><?= htmlspecialchars($comment->content) ?></td>
+                        <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= is_int($comment->id_comment)?$comment->id_comment:'' ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= is_int($comment->id_comment)?$comment->id_comment:'' ?>">Supprimer</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -102,19 +102,19 @@
             <tbody class="dashboard-user-table-body">
                 <?php foreach($users as $user) : ?>
                     <tr class="dashboard-user-table-body-row">
-                        <td class="dashboard-user-table-body-cell"><?= $user->id_user;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->pseudo;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->email;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->role;?></td>
+                        <td class="dashboard-user-table-body-cell"><?= is_int($user->id_user)?$user->di_user:'' ?></td>
+                        <td class="dashboard-user-table-body-cell"><?= htmlspecialchars($user->pseudo) ?></td>
+                        <td class="dashboard-user-table-body-cell"><?= htmlspecialchars($user->email) ?></td>
+                        <td class="dashboard-user-table-body-cell"><?= htmlspecialchars($user->role) ?></td>
                         <td class="dashboard-user-table-body-cell">
                             <?php 
                                 $date = new \DateTime($user->create_date); 
                                 $format_date = $date->format("d-m-Y");
                             ?>
-                            <?= $format_date ?>
+                            <?= htmlspecialchars($format_date) ?>
                         </td>
                         <td class="dashboard-user-table-body-cell">
-                            <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a>
+                            <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= is_int($user->id_user)?$user->di_user:'' ?>">Supprimer</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

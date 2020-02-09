@@ -2,14 +2,15 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_addComment) ? $succes_addComment : '' ?>
+                        <?= isset($succes_addComment) ? htmlspecialchars($succes_addComment) : '' ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_addComment) ? $error_addComment : '' ?>
+                        <?= isset($error_addComment) ? htmlspecialchars($error_addComment) : '' ?>
                     </span>
                 </div>
                 <h1>Bienvenue,</h1>
-                <p>Je suis <span class="catch">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours <span class="catch">Développeur d'application PHP/Symfony</span> et cette page est un <span class="catch">blog</span> développé en php.</p>
+                <br>
+                <p>Découvrez l'article <span class="catch"><?= htmlspecialchars($post->title) ?></span>.</p>
             </div>
             <div class="header-content-img-blog">
             </div>
@@ -34,7 +35,7 @@
                             $modification_date = new \DateTime($post->modification_date);
                             $format_modification_date = $modification_date->format("d-m-Y");
                             ?>
-                            <?= $format_modification_date ?>
+                            <?= htmlspecialchars($format_modification_date) ?>
                         </span>
                     </h3>
                 </div>
@@ -51,10 +52,10 @@
                     <div class="post-card-comment-content">
                         <?php foreach ($comments as $comment) : ?>
                             <div class="post-card-comment-content-profil">
-                                <img src="../public/membres/profile_picture<?= $comment->profile_picture ?>">
+                                <img src="../public/membres/profile_picture<?= htmlspecialchars($comment->profile_picture) ?>">
                                 <h3>
                                     <span class="catch">
-                                        <?= $comment->author ?>
+                                        <?= htmlspecialchars($comment->author) ?>
                                     </span>
                                 </h3>
                             </div>
@@ -65,10 +66,10 @@
                                         $date = new \DateTime($comment->create_date);
                                         $format_date = $date->format("d-m-Y à h:m:s");
                                         ?>
-                                        <?= $format_date ?>
+                                        <?= htmlspecialchars($format_date) ?>
                                     </span>
                                 </h4>
-                                <p><?= $comment->content ?></p>
+                                <p><?= htmlspecialchars($comment->content) ?></p>
                             </div>
                             <hr>
                         <?php endforeach; ?>
@@ -79,7 +80,7 @@
                                     <img src="../public/membres/profile_picture<?= $user->profile_picture ?>">
                                     <h3>
                                         <span class="catch">
-                                            <?= ucfirst($user->pseudo) ?>
+                                            <?= htmlspecialchars(ucfirst($user->pseudo)) ?>
                                         </span>
                                     </h3>
                                 </div>
