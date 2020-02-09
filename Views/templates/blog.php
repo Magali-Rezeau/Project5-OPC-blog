@@ -12,7 +12,7 @@
             <?php foreach($posts as $post) : ?>
                 <div class="blog-card-content">
                     <h2>
-                        <?= htmlspecialchars($post->title) ?>
+                        <?= isset($post->title)?htmlspecialchars($post->title):'' ?>
                     </h2>
                     <h4>Par 
                         <span class="catch">

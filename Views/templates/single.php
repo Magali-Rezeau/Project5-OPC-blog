@@ -10,7 +10,7 @@
                 </div>
                 <h1>Bienvenue,</h1>
                 <br>
-                <p>Découvrez l'article <span class="catch"><?= htmlspecialchars($post->title) ?></span>.</p>
+                <p>Découvrez l'article <span class="catch"><?= isset($post->title)?htmlspecialchars($post->title):'' ?></span>.</p>
             </div>
             <div class="header-content-img-blog">
             </div>
