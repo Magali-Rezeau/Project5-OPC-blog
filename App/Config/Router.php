@@ -21,8 +21,8 @@ class Router {
     }
     public function run() {
         try { 
-            $page = $_GET['page'];
-            
+            $page = $this->request->getGet('page');
+           
             if(isset($page)) {
                 if($page === 'home') {
                     ob_start();
@@ -39,7 +39,7 @@ class Router {
                 } elseif($page === 'single') {
                     ob_start();
                     $title = "Single";
-                    $postId = $_GET['id_post'];
+                    $postId =$this->request->getGet('id_post');
                     $method = $this->request->getPost();
                     isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId = '';
                     $this->frontController->single($method, $userId, $postId);
@@ -60,14 +60,14 @@ class Router {
                 } elseif($page === 'validateComment') {
                     ob_start();
                     $title = "Validate Comment";
-                    $commentId = $_GET['id_comment'];
+                    $commentId = $this->request->getGet('id_comment');
                     $this->backController->validateComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } elseif($page === 'deleteComment') {
                     ob_start();
                     $title = "Delete Comment";
-                    $commentId = $_GET['id_comment'];
+                    $commentId = $this->request->getGet('id_comment');
                     $this->backController->deleteComment($commentId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -80,14 +80,14 @@ class Router {
                 } elseif($page === 'deletePost') {
                     ob_start();
                     $title = "Delete post";
-                    $postId = $_GET['id_post'];
+                    $postId = $this->request->getGet('id_post');
                     $this->backController->deletePost($postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } elseif($page === 'editPost') {
                     ob_start();
                     $title = "Edit post";
-                    $postId = $_GET['id_post'];
+                    $postId = $this->request->getGet('id_post');
                     $method = $this->request->getPost();
                     $this->backController->editPost($method, $postId);
                     $content = ob_get_clean();
@@ -95,7 +95,7 @@ class Router {
                 } elseif($page === 'deleteUser') {
                     ob_start();
                     $title = "Delete user";
-                    $userId = $_GET['id_user'];
+                    $userId = $this->request->getGet('id_user');
                     $this->backController->deleteUser($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -116,7 +116,7 @@ class Router {
                 } elseif($page === 'profil') {
                     ob_start();
                     $title = "Profil";
-                    $userId = $_GET['id_user'];
+                    $userId = $this->request->getGet('id_user');
                     $this->frontController->profil($userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -133,7 +133,7 @@ class Router {
                 } elseif($page === 'editPassword') {
                     ob_start();
                     $title = "Modification du mot de passe";
-                    $userId = $_GET['id_user'];
+                    $userId = $this->request->getGet('id_user');
                     $method = $this->request->getPost();
                     $this->frontController->editPassword($method, $userId);
                     $content = ob_get_clean();

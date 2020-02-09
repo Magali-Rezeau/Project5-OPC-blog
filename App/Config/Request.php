@@ -7,21 +7,20 @@ class Request {
     private $post;
     private $session;
 
-    public function __construct()
+    public function getGet($key = null)
     {
-      
-        $this->post = $_POST;
-        $this->session = $_SESSION;
-    }
-    public function getGet()
-    {
-       
-            return $this->get;
+        if($key) {
+            return isset($_GET[$key])?$_GET[$key]:null;
+         }
+         return isset($_GET)?$_GET:null;
        
     }
-    public function getPost()
+    public function getPost($key=null)
     {
-        return $this->post;
+        if($key) {
+           return isset($_POST[$key])?$_POST[$key]:null;
+        }
+        return isset($_POST)?$_POST:null;
     }
     
 }
