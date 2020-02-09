@@ -10,19 +10,13 @@
     <section class="blog">
         <div class="blog-card">
             <?php foreach($posts as $post) : ?>
-                <?php 
-                   
-                    $author = isset($post->author)?htmlspecialchars($post->author):'';
-                ?>
                 <div class="blog-card-content">
                     <h2>
-                        <?php $title = isset($post->title)?htmlspecialchars($post->title):''; ?>
-                        <?= $title ?>
+                        <?= htmlspecialchars($post->title) ?>
                     </h2>
                     <h4>Par 
                         <span class="catch">
-                            <?php $author = isset($post->author)?htmlspecialchars($post->author):''; ?> 
-                            <?= $author ?>
+                            <?= htmlspecialchars($post->author) ?>
                         </span> le 
                         <span class="catch">
                             <?php 
@@ -43,14 +37,9 @@
                     </h4>
                     <hr>
                     <p>
-                        <?php 
-                            $shortContent = isset($post->short_content)?htmlspecialchars($post->short_content):'';
-                        ?>
-                        <?= 
-                            $shortContent 
-                        ?>
+                        <?= htmlspecialchars($post->short_content) ?>
                     </p>
-                    <button class="btn"><a href="<?= $post->getUrl(); ?>" >Lire la suite</a></button>
+                    <button class="btn"><a href="<?= $post->getUrl() ?>" >Lire la suite</a></button>
                 </div> 
             <?php endforeach; ?>
         </div>

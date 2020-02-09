@@ -10,7 +10,7 @@
                 </div>
                 <h1>Bienvenue,</h1>
                 <br>
-                <p>Découvrez l'article <span class="catch"><?= isset($post->title)?htmlspecialchars($post->title):'' ?></span>.</p>
+                <p>Découvrez l'article <span class="catch"><?= htmlspecialchars($post->title) ?></span>.</p>
             </div>
             <div class="header-content-img-blog">
             </div>
@@ -27,7 +27,7 @@
                             $date = new \DateTime($post->create_date);
                             $format_date = $date->format("d-m-Y");
                             ?> 
-                            <?= $format_date ?>
+                            <?= htmlspecialchars($format_date) ?>
                         </span>
                         <br>Modifié le
                         <span class="catch">
@@ -40,9 +40,9 @@
                     </h3>
                 </div>
                 <div class="post-card-content">
-                    <p><?= htmlspecialchars($post->short_content); ?></p>
+                    <p><?= htmlspecialchars($post->short_content) ?></p>
                     <hr>
-                    <p><?= htmlspecialchars($post->content); ?></p>
+                    <p><?= htmlspecialchars($post->content) ?></p>
                 </div>
                 <div class="post-card-comment">
                     <div class="post-card-comment-title">
@@ -77,7 +77,7 @@
                             <h2>Ajouter un commentaire</h2>
                             <div class="post-card-comment-content-add">
                                 <div class="post-card-comment-content-add-profil">
-                                    <img src="../public/membres/profile_picture<?= $user->profile_picture ?>">
+                                    <img src="../public/membres/profile_picture<?= htmlspecialchars($user->profile_picture) ?>">
                                     <h3>
                                         <span class="catch">
                                             <?= htmlspecialchars(ucfirst($user->pseudo)) ?>
