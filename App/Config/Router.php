@@ -1,6 +1,7 @@
 <?php
 namespace App\Config;
 
+use App\Config\Request;
 use App\Controller\BackController;
 use App\Controller\ErrorsController;
 use App\Controller\FrontController;
@@ -9,15 +10,19 @@ use \Exception;
 class Router {
     private $frontController;
     private $errorsController;
+    private $backController;
+    private $request;
 
     public function __construct() {
         $this->frontController = new FrontController();
         $this->errorsController = new ErrorsController();
         $this->backController = new BackController();
+        $this->request = new Request();
     }
     public function run() {
         try { 
             $page = $_GET['page'];
+            
             if(isset($page)) {
                 if($page === 'home') {
                     ob_start();
@@ -35,7 +40,7 @@ class Router {
                     ob_start();
                     $title = "Single";
                     $postId = $_GET['id_post'];
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId = '';
                     $this->frontController->single($method, $userId, $postId);
                     $content = ob_get_clean();
@@ -69,7 +74,7 @@ class Router {
                 } elseif($page === 'addPost') {
                     ob_start();
                     $title = "Add post";
-                    $this->backController->addPost($_POST);
+                    $this->backController->addPost($this->request->getPost());
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } elseif($page === 'deletePost') {
@@ -83,7 +88,7 @@ class Router {
                     ob_start();
                     $title = "Edit post";
                     $postId = $_GET['id_post'];
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     $this->backController->editPost($method, $postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -97,14 +102,14 @@ class Router {
                 } elseif($page === 'signup') {
                     ob_start();
                     $title = "S'inscrire'";
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     $this->frontController->signup($method);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
                 } elseif($page === 'login') {
                     ob_start();
                     $title = "Se connecter";
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     $this->frontController->login($method);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -121,7 +126,7 @@ class Router {
                     ob_start();
                     $title = "Edition du profil";
                     $userId = $_GET['id_user'];
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     $this->frontController->editProfil($method, $userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';
@@ -129,7 +134,7 @@ class Router {
                     ob_start();
                     $title = "Modification du mot de passe";
                     $userId = $_GET['id_user'];
-                    $method = $_POST;
+                    $method = $this->request->getPost();
                     $this->frontController->editPassword($method, $userId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';

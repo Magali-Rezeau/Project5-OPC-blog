@@ -1,6 +1,7 @@
 <?php 
 namespace App\Controller;
 
+use App\Config\Request;
 use App\DAO\PostDAO;
 use App\DAO\CommentDAO;
 use App\Model\Form;
@@ -14,14 +15,17 @@ class BackController {
     private $form;
     private $userDAO;
     private $validator;
+    private $request;
+    
 
     public function __construct()
     {
+        $this->request = new Request();
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
-        $this->form = new Form($_POST);
-        $this->validator = new FormController($_POST);
+        $this->form = new Form($this->request->getPost());
+        $this->validator = new FormController($this->request->getPost());
     }
     public function dashboard()
     {   

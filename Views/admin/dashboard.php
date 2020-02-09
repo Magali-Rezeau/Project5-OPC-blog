@@ -32,7 +32,7 @@
             <tbody class="dashboard-post-table-body">
                 <?php foreach ($posts as $post) : ?>
                     <tr class="dashboard-post-table-body-row">
-                        <td class="dashboard-post-table-body-cell"><?= is_int($post->id_post)?$post->id_post:'' ?> </td>
+                        <td class="dashboard-post-table-body-cell"><?= $post->id_post ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= htmlspecialchars($post->author) ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= htmlspecialchars($post->title) ?></td>
                         <td class="dashboard-post-table-body-cell">
@@ -49,7 +49,7 @@
                             ?>
                             <?= htmlspecialchars($format_modification_date) ?>   
                         </td>
-                        <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= is_int($post->id_post)?$post->id_post:'' ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= is_int($post->id_post)?$post->id_post:'' ?>">Supprimer</a></td>
+                        <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

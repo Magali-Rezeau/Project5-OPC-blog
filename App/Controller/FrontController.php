@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Config\Request;
 use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
 use App\Model\Form;
@@ -14,11 +15,13 @@ class FrontController {
     private $postDAO;
     private $commentDAO;
     private $userDAO;
+    private $request;
     
     public function __construct()
     {
-        $this->form = new Form($_POST);
-        $this->validator = new FormController($_POST);
+        $this->request = new Request();
+        $this->form = new Form($this->request->getPost());
+        $this->validator = new FormController($this->request->getPost());
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
@@ -37,8 +40,9 @@ class FrontController {
             'message' => FILTER_SANITIZE_SPECIAL_CHARS,
             'message' => FILTER_SANITIZE_STRING,
         );
-        $_POST = filter_input_array(INPUT_POST,$filter); 
-        if(!empty($_POST)) {
+        $method = $this->request->getPost();
+        $method = filter_input_array(INPUT_POST,$filter); 
+        if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
                 $message = $_POST['message'];
