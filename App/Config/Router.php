@@ -41,7 +41,7 @@ class Router {
                     $title = "Single";
                     $postId =$this->request->getGet('id_post');
                     $method = $this->request->getPost();
-                    isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId = '';
+                    $userId = $_SESSION['id_user'];
                     $this->frontController->single($method, $userId, $postId);
                     $content = ob_get_clean();
                     require '../Views/templates/default.php';

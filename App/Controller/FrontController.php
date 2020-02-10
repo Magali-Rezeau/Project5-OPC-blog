@@ -31,22 +31,13 @@ class FrontController {
         $form = $this->form;
         $validator = $this->validator;
         $validator->check('email','email', 'Votre adresse email est incorrecte.');
-        $filter = array(
-            'firstname' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'lastname' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'firstname' => FILTER_SANITIZE_STRING,
-            'lastname' => FILTER_SANITIZE_STRING,
-            'email' => FILTER_VALIDATE_EMAIL,
-            'message' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'message' => FILTER_SANITIZE_STRING,
-        );
         $method = $this->request->getPost();
-        $method = filter_input_array(INPUT_POST,$filter); 
+         
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
-                $message = $_POST['message'];
-                $header = "FROM : " . $_POST['email'];
+                $message = $this->request->getPost('message');
+                $header = "FROM : " . $this->request->getPost('email');
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
                 $succes_emailSent = "Votre message a bien été envoyé.";
             } else {
@@ -72,11 +63,6 @@ class FrontController {
         $validator = $this->validator;
         $validator->check('content','minLenght', 'Votre commentaire doit comporter au moins 3 caractères.', 3);
         $validator->check('content','maxLenght', 'Votre commentaire doit comporter moins de 50 caractères.', 200);
-        $filter = array(
-            'content' => FILTER_SANITIZE_SPECIAL_CHARS,
-            'content' => FILTER_SANITIZE_STRING,
-        );
-        $method = filter_input_array(INPUT_POST,$filter); 
         if(!empty($method)) {
             $errors = $validator->getErrors();
             if(empty($errors)) {
@@ -112,6 +98,7 @@ class FrontController {
     }
     public function login($method) 
     {   
+        
         $form = $this->form;
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
@@ -194,10 +181,10 @@ class FrontController {
                     $this->userDAO->editUser($method,$userId,$extensionUpload);
                     $succes_editProfil = "Votre profil a bien été modifié.";  
                 }
-
             } 
-            $error_editProfil = "Une erreur est survenue lors de la modification de votre profil."; 
-        }
+                $error_editProfil = "Une erreur est survenue lors de la modification de votre profil."; 
+        } 
+            $error_editProfil = "Aucune modification a été apportée à votre profil. Veuillez modifier un champ avant de valider."; 
         require '../Views/templates/editProfil.php';
     }
     public function editPassword($method,$userId) 
@@ -219,7 +206,8 @@ class FrontController {
         }
         require '../Views/templates/editPassword.php';
     }
-    public function logout() {
+    public function logout() 
+    {
         $_SESSION = [];
         session_destroy();
         header('Location:../public/index.php?page=login');
