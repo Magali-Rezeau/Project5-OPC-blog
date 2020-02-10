@@ -1,6 +1,7 @@
 <?php 
 namespace App\Controller;
 
+use App\Controller\ErrorsController;
 use App\Config\Request;
 use App\DAO\PostDAO;
 use App\DAO\CommentDAO;
@@ -16,8 +17,7 @@ class BackController {
     private $userDAO;
     private $validator;
     private $request;
-    
-
+  
     public function __construct()
     {
         $this->request = new Request();
@@ -27,96 +27,140 @@ class BackController {
         $this->form = new Form($this->request->getPost());
         $this->validator = new FormController($this->request->getPost());
     }
+    private function sessionLoggedAdmin() {
+        return isset($_SESSION['id_user']) && isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN';
+    }
+    private function sessionLoggedEditor() {
+        return isset($_SESSION['id_user']) && isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR';
+    }
+    private function redirection() {
+        if($this->sessionLoggedAdmin()) {
+            header('Location: ../public/index.php?page=dashboard');
+        } else if($this->sessionLoggedEditor()) {
+            header("Location: ../public/index.php?page=editorDashboard");
+        } else {
+            header('Location:../public/index.php?page=pageNotFound');
+        }  
+    }
     public function dashboard()
     {   
-        $posts = $this->postDAO->getPosts();
-        $comments = $this->commentDAO->getValidatedComments();
-        $users = $this->userDAO->getUsers();
-        require '../Views/admin/dashboard.php';
+        if($this->sessionLoggedAdmin()) {
+            $posts = $this->postDAO->getPosts();
+            $comments = $this->commentDAO->getValidatedComments();
+            $users = $this->userDAO->getUsers();
+        } else {
+            $this->redirection();
+        }
+        require '../Views/admin/dashboard.php'; 
     }
     public function editorDashboard()
     {   
-        $posts = $this->postDAO->getPosts();
+        if($this->sessionLoggedEditor()) {
+            $posts = $this->postDAO->getPosts();
+        } else {
+            $this->redirection();
+        }
         require '../Views/admin/editorDashboard.php';
     }
     public function validateComment($commentId)
     {   
-        $posts = $this->postDAO->getPosts();
-        $comments = $this->commentDAO->getValidatedComments();
-        $this->commentDAO->validateComment($commentId);
-        header('Location: ../public/index.php?page=dashboard');
+        if($this->sessionLoggedAdmin()) {
+            $posts = $this->postDAO->getPosts();
+            $comments = $this->commentDAO->getValidatedComments();
+            $this->commentDAO->validateComment($commentId);
+            $this->redirection();
+        } else {
+            $this->redirection();
+        }
         require '../Views/admin/dashboard.php';
     }
     public function deleteComment($commentId) 
     {
-        $posts = $this->postDAO->getPosts();
-        $comments = $this->commentDAO->getValidatedComments();
-        $this->commentDAO->deleteComment($commentId);
-        header('Location: ../public/index.php?page=dashboard');
+        if($this->sessionLoggedAdmin()) {
+            $posts = $this->postDAO->getPosts();
+            $comments = $this->commentDAO->getValidatedComments();
+            $this->commentDAO->deleteComment($commentId);
+            $this->redirection();
+        }
+        else {
+            $this->redirection();
+        }
         require '../Views/admin/dashboard.php';
     }
     public function addPost($method) 
     {
-        $form = $this->form;
-        $validator = $this->validator;
-        $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
-        $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
-        if(!empty($method)) {
-            $errors = $validator->getErrors();
-            if(empty($errors)) {
-                if($method['author'] === $_SESSION['pseudo']) {
-                    $method['author'] = substr_replace($_SESSION['pseudo'], $_SESSION['id_user'], 0);
-                    $this->postDAO->addPost($method);
-                    $succes_addPost = "Votre article a bien été ajouté.";
+        if ($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+            $form = $this->form;
+            $validator = $this->validator;
+            $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
+            $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+            if (!empty($method)) {
+                $errors = $validator->getErrors();
+                if (empty($errors)) {
+                    if ($method['author'] === $_SESSION['pseudo']) {
+                        $method['author'] = substr_replace($_SESSION['pseudo'], $_SESSION['id_user'], 0);
+                        $this->postDAO->addPost($method);
+                        $succes_addPost = "Votre article a bien été ajouté.";
+                    } else {
+                        $error_authorAddPost = "Le champ auteur est mal renseigné.";
+                    }
                 } else {
-                    $error_authorAddPost = "Le champ auteur est mal renseigné.";
+                    $error_addPost = "Une erreur est survenue.";
                 }
-            } else {
-                $error_addPost = "Une erreur est survenue.";
             }
+        } else {
+            $this->redirection();
         }
         require '../Views/admin/addPost.php'; 
     }
     public function deletePost($postId) 
     {
-        $this->postDAO->deletePost($postId);
-        if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN') {
-            header("Location: ../public/index.php?page=dashboard");
-        } elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR') {
-            header("Location: ../public/index.php?page=editorDashboard");
+        if($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+            $this->postDAO->deletePost($postId);
+            $this->redirection();
         } else {
-            $error_deletePost = "Une erreur est survenue lors de la suppression d'un article.";
+            $this->redirection();
         }
-       
         require '../Views/admin/dashboard.php';
     }
     public function editPost($method,$postId) 
     {
-        $form = $this->form;
-        $post = $this->postDAO->getPost($postId);
-        $validator = $this->validator;
-        $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
-        $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
-        if(!empty($method)) {
-            $errors = $validator->getErrors();
-            if(empty($errors)) {
-                if($method['author'] === "Magali") {
-                    $method['author'] = substr_replace("Magali", "1", 0);
-                    $this->postDAO->editPost($method,$postId);
-                    $succes = "Votre article a bien été modifié";
-                } elseif($method['author'] === "Marie") {
-                    $method['author'] = substr_replace("Marie", "2", 0);
-                    $this->postDAO->editPost($method,$postId);
-                    $succes = "Votre article a bien été modifié"; 
-                } 
+        if ($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+            $form = $this->form;
+            $post = $this->postDAO->getPost($postId);
+            $validator = $this->validator;
+            $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
+            $validator->check('title', 'minLenght', 'Le titre doit comporter au moins 3 caractères', 3);
+            if (!empty($method)) {
+                $errors = $validator->getErrors();
+                if (empty($errors)) {
+                    if ($method['author'] === "Magali") {
+                        $method['author'] = substr_replace("Magali", "1", 0);
+                        $this->postDAO->editPost($method, $postId);
+                        $succes_editPost = "Votre article a bien été modifié";
+                    } elseif ($method['author'] === "Marie") {
+                        $method['author'] = substr_replace("Marie", "2", 0);
+                        $this->postDAO->editPost($method, $postId);
+                        $succes_editPost = "Votre article a bien été modifié";
+                    }
+                } else {
+                    $error_editPost = "Une erreur est survenue lors de la modification de votre article.";
+                }
             }
+        } else {
+            $this->redirection();
         }
         require '../Views/admin/editPost.php'; 
     }
     public function deleteUser($userId) 
     {
-        $this->userDAO->deleteUser($userId);
-        header("Location: ../public/index.php?page=dashboard");
+        if($this->sessionLoggedAdmin()) {
+            $this->userDAO->deleteUser($userId);
+            $this->redirection();
+        }
+        else {
+            $this->redirection();
+        }
         require '../Views/admin/dashboard.php';
     }
 }

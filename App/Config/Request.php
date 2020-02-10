@@ -11,11 +11,9 @@ class Request {
             return isset($_GET[$key])?$_GET[$key]:null;
          }
          return isset($_GET)?$_GET:null;
-       
     }
     public function getPost($key=null)
-    {  
-        
+    {   
         $_POST = array_map('htmlspecialchars',$_POST);
         $_POST = array_map('trim',$_POST);
         if($key) {

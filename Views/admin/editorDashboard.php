@@ -1,6 +1,6 @@
         <div class="header-content">
             <div class="header-content-text">
-                <h1>Dashboard</h1>
+                <h1>Dashboard du rédacteur</h1>
             </div>
             <div class="header-content-img-admin">
             </div>

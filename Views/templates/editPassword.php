@@ -12,7 +12,7 @@
                 <?php if(isset($succes_editPassword)): ?>
                     <h1><?= ucfirst($user->pseudo) ?>,</h1>
                     <p>Vous pouvez retourner sur votre profil ou vous déconnecter.</p>
-                    <button class="btn"><a href="../public/index.php?page=profil">Profil</a></button>
+                    <button class="btn"><a href="../public/index.php?page=profil&id_user=<?= $user->id_user ?>">Profil</a></button>
                     <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>
                 <?php else : ?>
                     <h1>Bienvenue <?= ucfirst($user->pseudo) ?>,</h1>
@@ -34,7 +34,7 @@
     <section id="editPassword" class="editPassword">
         <div class="editPassword-content">
             <form method="post" enctype="multipart/form-data" action="../public/index.php?page=editPassword&id_user=<?= $user->id_user ?>" class="editPassword-content-form">
-                <h1 class="editPassword-content-form-title">Profil de <?= ucfirst($user->pseudo) ?></h1>
+                <h1 class="editPassword-content-form-title">Modifier votre mot de passe</h1>
                 <span class="errors">
                     <?= isset($errors['password']) ? $errors['password'] : '' ?>
                 </span>

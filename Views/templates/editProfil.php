@@ -10,9 +10,8 @@
                 </div>
                 <br>
                 <?php if(isset($succes_editProfil)): ?>
-                    <h1><?= ucfirst($user->pseudo) ?>,</h1>
                     <p>Vous pouvez retourner sur votre profil ou vous déconnecter.</p>
-                    <button class="btn"><a href="../public/index.php?page=profil">Profil</a></button>
+                    <button class="btn"><a href="../public/index.php?page=profil&id_user=<?= $user->id_user ?>">Profil</a></button>
                     <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>
                 <?php else : ?>
                     <h1>Bienvenue <?= ucfirst($user->pseudo) ?>,</h1>
