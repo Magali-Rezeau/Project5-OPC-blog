@@ -9,7 +9,7 @@ use App\Model\Form;
 use App\Controller\FormController;
 use App\DAO\UserDAO;
 
-class BackController {
+class AdminController {
 
     private $postDAO;
     private $commentDAO;

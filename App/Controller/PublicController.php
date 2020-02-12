@@ -9,7 +9,7 @@ use App\Model\Form;
 use App\Controller\FormController;
 use App\DAO\UserDAO;
 
-class FrontController {
+class PublicController {
 
     private $form;
     private $validator;
