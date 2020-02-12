@@ -1,6 +1,7 @@
 <?php
 namespace App\Config;
 
+use App\Config\Session\Session;
 use App\Config\Request;
 use App\Controller\AdminController;
 use App\Controller\ErrorsController;
@@ -14,13 +15,15 @@ class Router {
     private $adminController;
     private $memberController;
     private $request;
+    private $session;
 
     public function __construct() {
         $this->publicController = new PublicController();
         $this->errorsController = new ErrorsController();
         $this->memberController = new MemberController();
-        $this->admincontroller = new AdminController();
+        $this->adminController = new AdminController();
         $this->request = new Request();
+        $this->session = new Session();
     }
     public function run() {
 
@@ -37,7 +40,7 @@ class Router {
                 } elseif ($page === 'single') {
                     $title = "Single";
                     $method = $this->request->getPost();
-                    isset($_SESSION['id_user']) ? $userId = $_SESSION['id_user'] : $userId = null;
+                    $userId = $this->session->get('id_user');
                     $postId = $this->request->getGet('id_post');
                     $this->publicController->single($method, $userId, $postId);
                 } elseif ($page === 'dashboard') {
@@ -52,7 +55,8 @@ class Router {
                     $this->adminController->validateComment($commentId);
                 } elseif ($page === 'deleteComment') {
                     $title = "Delete Comment";
-                    $this->adminController->deleteComment($this->request->getGet('id_comment'));
+                    $commentId = $this->request->getGet('id_comment');
+                    $this->adminController->deleteComment($commentId);
                 } elseif ($page === 'addPost') {
                     $title = "Add post";
                     $this->adminController->addPost($this->request->getPost());

@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Config\Session\Session;
+use App\Config\Session\UserSession;
 use App\Controller\ErrorsController;
 use App\Config\Request;
 use App\DAO\CommentDAO;
@@ -13,10 +15,10 @@ class MemberController {
 
     private $form;
     private $validator;
-    private $postDAO;
-    private $commentDAO;
     private $userDAO;
     private $request;
+    private $session;
+    private $userSession;
     
     public function __construct()
     {
@@ -26,10 +28,8 @@ class MemberController {
         $this->postDAO = new PostDAO();
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
-    }
-    private function sessionLogged($userId) 
-    {
-        return isset($_SESSION['id_user']) && $_SESSION['id_user'] === $userId;
+        $this->userSession = new UserSession();
+        $this->session = new Session();
     }
     public function login($method) 
     {   
@@ -55,7 +55,7 @@ class MemberController {
     }
     public function profil($userId) 
     {
-        if($this->sessionLogged($userId)){
+        if($this->userSession->logged($userId)){
             $form = $this->form;
             $user = $this->userDAO->getUser($userId);
         } else {
@@ -65,7 +65,7 @@ class MemberController {
     }
     public function editProfil($method,$userId) 
     {
-        if ($this->sessionLogged($userId)) {
+        if ($this->userSession->logged($userId)) {
             $user = $this->userDAO->getUser($userId);
             $form = $this->form;
             $validator = $this->validator;
@@ -121,7 +121,7 @@ class MemberController {
     }
     public function editPassword($method,$userId) 
     { 
-        if ($this->sessionLogged($userId)) {
+        if ($this->userSession->logged($userId)) {
             $form = $this->form;
             $user = $this->userDAO->getUser($userId);
             $validator = $this->validator;
@@ -142,8 +142,6 @@ class MemberController {
     }
     public function logout() 
     {
-        $_SESSION = [];
-        session_destroy();
-        header('Location:../public/index.php?page=login');
+        $this->session->destroy();
     }
 }

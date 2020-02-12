@@ -1,6 +1,7 @@
 <?php 
 namespace App\Controller;
 
+use App\Config\Session\UserSession;
 use App\Controller\ErrorsController;
 use App\Config\Request;
 use App\DAO\PostDAO;
@@ -17,6 +18,7 @@ class AdminController {
     private $userDAO;
     private $validator;
     private $request;
+    private $userSession;
   
     public function __construct()
     {
@@ -26,70 +28,56 @@ class AdminController {
         $this->userDAO = new UserDAO();
         $this->form = new Form($this->request->getPost());
         $this->validator = new FormController($this->request->getPost());
-    }
-    private function sessionLoggedAdmin() {
-        return isset($_SESSION['id_user']) && isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN';
-    }
-    private function sessionLoggedEditor() {
-        return isset($_SESSION['id_user']) && isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR';
-    }
-    private function redirection() {
-        if($this->sessionLoggedAdmin()) {
-            header('Location: ../public/index.php?page=dashboard');
-        } else if($this->sessionLoggedEditor()) {
-            header("Location: ../public/index.php?page=editorDashboard");
-        } else {
-            header('Location:../public/index.php?page=pageNotFound');
-        }  
+        $this->userSession = new UserSession();
     }
     public function dashboard()
     {   
-        if($this->sessionLoggedAdmin()) {
+        if($this->userSession->admin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $users = $this->userDAO->getUsers();
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/dashboard.php'; 
     }
     public function editorDashboard()
     {   
-        if($this->sessionLoggedEditor()) {
+        if($this->userSession->admin()) {
             $posts = $this->postDAO->getPosts();
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/editorDashboard.php';
     }
     public function validateComment($commentId)
     {   
-        if($this->sessionLoggedAdmin()) {
+        if($this->userSession->admin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $this->commentDAO->validateComment($commentId);
-            $this->redirection();
+            $this->userSession->redirection();
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/dashboard.php';
     }
     public function deleteComment($commentId) 
     {
-        if($this->sessionLoggedAdmin()) {
+        if($this->userSession->admin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $this->commentDAO->deleteComment($commentId);
-            $this->redirection();
+            $this->userSession->redirection();
         }
         else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/dashboard.php';
     }
     public function addPost($method) 
     {
-        if ($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+        if ($this->userSession->admin() || $this->userSession->editor()) {
             $form = $this->form;
             $validator = $this->validator;
             $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
@@ -109,23 +97,23 @@ class AdminController {
                 }
             }
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/addPost.php'; 
     }
     public function deletePost($postId) 
     {
-        if($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+        if($this->userSession->admin() || $this->userSession->editor()) {
             $this->postDAO->deletePost($postId);
-            $this->redirection();
+            $this->userSession->redirection();
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/dashboard.php';
     }
     public function editPost($method,$postId) 
     {
-        if ($this->sessionLoggedAdmin() || $this->sessionLoggedEditor()) {
+        if ($this->userSession->admin() || $this->userSession->editor()) {
             $form = $this->form;
             $post = $this->postDAO->getPost($postId);
             $validator = $this->validator;
@@ -148,18 +136,18 @@ class AdminController {
                 }
             }
         } else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/editPost.php'; 
     }
     public function deleteUser($userId) 
     {
-        if($this->sessionLoggedAdmin()) {
+        if($this->userSession->admin()) {
             $this->userDAO->deleteUser($userId);
-            $this->redirection();
+            $this->userSession->redirection();
         }
         else {
-            $this->redirection();
+            $this->userSession->redirection();
         }
         require '../Views/admin/dashboard.php';
     }
