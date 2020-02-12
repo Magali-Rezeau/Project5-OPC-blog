@@ -1,6 +1,7 @@
 <?php 
 namespace App\Controller;
 
+use App\Config\Session\Session;
 use App\Config\Session\UserSession;
 use App\Controller\ErrorsController;
 use App\Config\Request;
@@ -19,6 +20,7 @@ class AdminController {
     private $validator;
     private $request;
     private $userSession;
+    private $session;
   
     public function __construct()
     {
@@ -29,13 +31,16 @@ class AdminController {
         $this->form = new Form($this->request->getPost());
         $this->validator = new FormController($this->request->getPost());
         $this->userSession = new UserSession();
+        $this->session = new Session();
     }
     public function dashboard()
     {   
+       
         if($this->userSession->admin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $users = $this->userDAO->getUsers();
+          
         } else {
             $this->userSession->redirection();
         }
@@ -43,7 +48,7 @@ class AdminController {
     }
     public function editorDashboard()
     {   
-        if($this->userSession->admin()) {
+        if($this->userSession->editor()) {
             $posts = $this->postDAO->getPosts();
         } else {
             $this->userSession->redirection();
@@ -85,8 +90,8 @@ class AdminController {
             if (!empty($method)) {
                 $errors = $validator->getErrors();
                 if (empty($errors)) {
-                    if ($method['author'] === $_SESSION['pseudo']) {
-                        $method['author'] = substr_replace($_SESSION['pseudo'], $_SESSION['id_user'], 0);
+                    if ($method['author'] === $this->session->get('pseudo')) {
+                        $method['author'] = substr_replace($this->session->get('pseudo'), $this->session->get('id_user'), 0);
                         $this->postDAO->addPost($method);
                         $succes_addPost = "Votre article a bien été ajouté.";
                     } else {

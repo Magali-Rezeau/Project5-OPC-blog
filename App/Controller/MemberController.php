@@ -33,6 +33,7 @@ class MemberController {
     }
     public function login($method) 
     {   
+        var_dump($this->userSession->admin());
         $form = $this->form;
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
@@ -40,13 +41,14 @@ class MemberController {
                 $_SESSION['id_user'] = $user['user']['id_user'];
                 $_SESSION['pseudo'] = $user['user']['pseudo'];
                 $_SESSION['role'] = $user['user']['entitled'];
-                if($_SESSION['role'] === 'ADMIN') {
-                    header('Location:../public/index.php?page=dashboard');
-                } elseif($_SESSION['role'] === 'EDITOR') {
-                    header('Location:../public/index.php?page=editorDashboard');
-                } else {
-                    header('Location:../public/index.php?page=profil&id_user='.$_SESSION['id_user']); 
+                if($this->userSession->admin()) {
+                    header('Location:../public/index.php?page=dashboard'); 
+                } elseif($this->userSession->editor()) {
+                    header('Location:../public/index.php?page=editorDashboard'); 
+                }else {
+                    header('Location:../public/index.php?page=profil&id_user='.$this->session->get('id_user')); 
                 }
+                
             } else {
                 $error_login = "Votre mot de passe ou votre pseudo sont incorrectes.";
             } 
