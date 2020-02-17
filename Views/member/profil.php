@@ -40,7 +40,7 @@
                 </div>
                 <div class="profil-content-form-item">
                     <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>
-                    <button class="btn"><a href="../public/index.php?page=editProfil&id_user=<?= $_SESSION['id_user'] ?>">Modifier</a></button>
+                    <button class="btn"><a href="../public/index.php?page=editProfil&id_user=<?= $this->session->get('id_user') ?>">Modifier</a></button>
                 </div>
             </form>   
             <div class="profil-content-redir">

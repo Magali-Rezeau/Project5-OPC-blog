@@ -1,6 +1,7 @@
 <?php
 namespace App\Config;
 
+use App\Config\Session\UserSession;
 use App\Config\Session\Session;
 use App\Config\Request;
 use App\Controller\AdminController;
@@ -16,6 +17,7 @@ class Router {
     private $memberController;
     private $request;
     private $session;
+    private $userSession;
 
     public function __construct() {
         $this->publicController = new PublicController();
@@ -24,6 +26,7 @@ class Router {
         $this->adminController = new AdminController();
         $this->request = new Request();
         $this->session = new Session();
+        $this->userSession = new UserSession();
     }
     public function run() {
 

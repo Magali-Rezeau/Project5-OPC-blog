@@ -124,16 +124,16 @@
                     </li>
                     <li><a href="../public/index.php?page=home">Accueil</a></li>
                     <li><a href="../public/index.php?page=blog">Blog</a></li>
-                    <?php if(isset($_SESSION['id_user'])) : ?>
-                        <li><a href="../public/index.php?page=profil&id_user=<?=$_SESSION['id_user']?>">Profil</a></li>
+                    <?php if($this->session->check('id_user')) : ?>
+                        <li><a href="../public/index.php?page=profil&id_user=<?=$this->session->get('id_user')?>">Profil</a></li>
                         <li><a href="../public/index.php?page=logout">Se déconnecter</a></li>
                     <?php else : ?>
                     <li><a href="../public/index.php?page=signup">S'inscrire</a></li>
                     <li><a href="../public/index.php?page=login">Se connecter</a></li>
                     <?php endif; ?>
-                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN') : ?>
+                    <?php if($this->userSession->checkAdmin()) : ?>
                     <li><a href="../public/index.php?page=dashboard">Dashboard</a></li>
-                    <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR') : ?>
+                    <?php elseif($this->userSession->checkEditor()) : ?>
                     <li><a href="../public/index.php?page=editorDashboard">Dashboard</a></li>
                     <?php endif; ?> 
                     <li><a href="../public/index.php?page=home#contact">Contact</a></li>
@@ -223,9 +223,9 @@
                 <p>&copy; Magali Rézeau - 2019 &nbsp;&nbsp;<a href="#">Mentions légales</a></p>
             </div>
             <div class="footer-admin-link">
-                <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN'): ?>
+                <?php if($this->userSession->checkAdmin()): ?>
                     <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
-                <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR'): ?>
+                <?php elseif($this->userSession->checkEditor()): ?>
                     <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
                 <?php endif; ?> 
             </div>
