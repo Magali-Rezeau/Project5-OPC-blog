@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Config\Session\Session;
 use App\Config\Session\UserSession;
-use App\Controller\ErrorsController;
 use App\Config\Request;
 use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
@@ -28,6 +28,7 @@ class PublicController {
         $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
         $this->userSession = new UserSession();
+        $this->session = new Session();
     }
     public function home()
     {  
@@ -46,35 +47,14 @@ class PublicController {
                 $error_emailSent = "Une erreur est survenue lors de l'envoie de votre message.";
             }
         }
-        require '../Views/templates/home.php';
+        require '../Views/public/home.php';
     }
     public function blog()
     {
         $posts = $this->postDAO->getPosts();
-        require '../Views/templates/blog.php';
+        require '../Views/public/blog.php';
     }
-    public function single($method, $userId, $postId) 
-    {
-        $post = $this->postDAO->getPost($postId);
-        $comments = $this->commentDAO->getComments($postId);
-        if($this->userSession->logged($userId)) {
-            $user = $this->userDAO->getUser($userId);
-            $form = $this->form;
-            $validator = $this->validator;
-            $validator->check('content', 'minLenght', 'Votre commentaire doit comporter au moins 3 caractères.', 3);
-            $validator->check('content', 'maxLenght', 'Votre commentaire doit comporter moins de 50 caractères.', 200);
-            if (!empty($method)) {
-                $errors = $validator->getErrors();
-                if (empty($errors)) {
-                    $this->commentDAO->addComment($method, $userId, $postId);
-                    $succes_addComment = "Votre commentaire sera visible dès la validation de celui-ci par l'administrateur.";
-                } else {
-                    $error_addComment = "Une erreur est survenue lors de l'envoie de votre commentaire.";
-                }
-            }
-        } 
-        require '../Views/templates/single.php';
-    }
+   
     public function signup($method)
     {
         $form = $this->form;
@@ -95,6 +75,6 @@ class PublicController {
                 $error_signup = "Une erreur est survenue lors de votre inscription. Veuillez vérifier les champs saisies";
             }
         }
-        require '../Views/templates/signup.php';
+        require '../Views/public/signup.php';
     }
 }

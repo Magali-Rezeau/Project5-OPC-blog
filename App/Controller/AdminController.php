@@ -35,12 +35,10 @@ class AdminController {
     }
     public function dashboard()
     {   
-       
-        if($this->userSession->admin()) {
+        if($this->userSession->checkAdmin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $users = $this->userDAO->getUsers();
-          
         } else {
             $this->userSession->redirection();
         }
@@ -48,7 +46,7 @@ class AdminController {
     }
     public function editorDashboard()
     {   
-        if($this->userSession->editor()) {
+        if($this->userSession->checkEditor()) {
             $posts = $this->postDAO->getPosts();
         } else {
             $this->userSession->redirection();
@@ -57,7 +55,7 @@ class AdminController {
     }
     public function validateComment($commentId)
     {   
-        if($this->userSession->admin()) {
+        if($this->userSession->checkAdmin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $this->commentDAO->validateComment($commentId);
@@ -69,7 +67,7 @@ class AdminController {
     }
     public function deleteComment($commentId) 
     {
-        if($this->userSession->admin()) {
+        if($this->userSession->checkAdmin()) {
             $posts = $this->postDAO->getPosts();
             $comments = $this->commentDAO->getValidatedComments();
             $this->commentDAO->deleteComment($commentId);
@@ -82,7 +80,7 @@ class AdminController {
     }
     public function addPost($method) 
     {
-        if ($this->userSession->admin() || $this->userSession->editor()) {
+        if ($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
             $form = $this->form;
             $validator = $this->validator;
             $validator->check('short_content', 'maxLenght', 'Ce champ doit comporter moins de 300 caractères', 300);
@@ -90,17 +88,12 @@ class AdminController {
             if (!empty($method)) {
                 $errors = $validator->getErrors();
                 if (empty($errors)) {
-                    if ($method['author'] === $this->session->get('pseudo')) {
-                        $method['author'] = substr_replace($this->session->get('pseudo'), $this->session->get('id_user'), 0);
-                        $this->postDAO->addPost($method);
-                        $succes_addPost = "Votre article a bien été ajouté.";
-                    } else {
-                        $error_authorAddPost = "Le champ auteur est mal renseigné.";
-                    }
+                    $this->postDAO->addPost($method);
+                    $this->session->set('addPost',"Votre article a bien été ajouté.");
                 } else {
-                    $error_addPost = "Une erreur est survenue.";
+                    $this->session->set('error_addPost',"Une erreur est survenue lors de l'ajout d'un article.");
                 }
-            }
+            }           
         } else {
             $this->userSession->redirection();
         }
@@ -108,17 +101,17 @@ class AdminController {
     }
     public function deletePost($postId) 
     {
-        if($this->userSession->admin() || $this->userSession->editor()) {
+        if($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
             $this->postDAO->deletePost($postId);
             $this->userSession->redirection();
         } else {
-            $this->userSession->redirection();
+            $this->session->set('error_deletePost',"Une erreur est survenue lors de la suppression d'un article.");
         }
         require '../Views/admin/dashboard.php';
     }
     public function editPost($method,$postId) 
     {
-        if ($this->userSession->admin() || $this->userSession->editor()) {
+        if ($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
             $form = $this->form;
             $post = $this->postDAO->getPost($postId);
             $validator = $this->validator;
@@ -127,17 +120,10 @@ class AdminController {
             if (!empty($method)) {
                 $errors = $validator->getErrors();
                 if (empty($errors)) {
-                    if ($method['author'] === "Magali") {
-                        $method['author'] = substr_replace("Magali", "1", 0);
-                        $this->postDAO->editPost($method, $postId);
-                        $succes_editPost = "Votre article a bien été modifié";
-                    } elseif ($method['author'] === "Marie") {
-                        $method['author'] = substr_replace("Marie", "2", 0);
-                        $this->postDAO->editPost($method, $postId);
-                        $succes_editPost = "Votre article a bien été modifié";
-                    }
+                    $this->postDAO->editPost($method, $postId);
+                    $this->session->set('editPost',"Votre article a bien été modifié.");
                 } else {
-                    $error_editPost = "Une erreur est survenue lors de la modification de votre article.";
+                    $this->session->set('error_editPost',"Une erreur est survenue lors de la modification de votre article.");
                 }
             }
         } else {
@@ -147,7 +133,7 @@ class AdminController {
     }
     public function deleteUser($userId) 
     {
-        if($this->userSession->admin()) {
+        if($this->userSession->checkAdmin()) {
             $this->userDAO->deleteUser($userId);
             $this->userSession->redirection();
         }

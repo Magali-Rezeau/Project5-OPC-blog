@@ -1,7 +1,5 @@
         <div class="header-content">
             <div class="header-content-text">
-                <div class="header-content-text-message">
-                </div>
                 <h1>Dashboard de l'administrateur</h1>
             </div>
             <div class="header-content-img-admin">
@@ -46,7 +44,10 @@
                             ?>
                             <?= $format_modification_date ?>   
                         </td>
-                        <td class="dashboard-post-table-body-cell"><button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button><button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></td>
+                        <td class="dashboard-post-table-body-cell">
+                            <button class="btn"><a href="../public/index.php?page=editPost&id_post=<?= $post->id_post ?>">Modifier</a></button>
+                            <button class="btn"><a href="../public/index.php?page=deletePost&id_post=<?= $post->id_post ?>">Supprimer</a></button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -77,7 +78,10 @@
                             <?= $format_date ?>
                         </td>
                         <td class="dashboard-comment-table-body-cell"><?= $comment->content; ?></td>
-                        <td class="dashboard-comment-table-body-cell"><button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button><button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></td>
+                        <td class="dashboard-comment-table-body-cell">
+                            <button class="btn" ><a href="../public/index.php?page=validateComment&id_comment=<?= $comment->id_comment ?>">Valider</a></button>
+                            <button class="btn"><a href="../public/index.php?page=deleteComment&id_comment=<?= $comment->id_comment ?>">Supprimer</a></button>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -111,6 +115,7 @@
                             <?= $format_date ?>
                         </td>
                         <td class="dashboard-user-table-body-cell">
+                            <button class="btn"><a href="../public/index.php?page=editRoleUser&id_user=<?= $user->id_user ?>">Modifier</a></button>
                             <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a>
                         </td>
                     </tr>

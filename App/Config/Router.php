@@ -40,9 +40,9 @@ class Router {
                 } elseif ($page === 'single') {
                     $title = "Single";
                     $method = $this->request->getPost();
-                    $userId = $this->session->get('id_user');
+                    $this->session->check('id_user') ? $userId = $this->session->get('id_user') : $userId = null;
                     $postId = $this->request->getGet('id_post');
-                    $this->publicController->single($method, $userId, $postId);
+                    $this->memberController->single($method, $userId, $postId);
                 } elseif ($page === 'dashboard') {
                     $title = "Dashboard";
                     $this->adminController->dashboard();
@@ -59,7 +59,8 @@ class Router {
                     $this->adminController->deleteComment($commentId);
                 } elseif ($page === 'addPost') {
                     $title = "Add post";
-                    $this->adminController->addPost($this->request->getPost());
+                    $method = $this->request->getPost();
+                    $this->adminController->addPost($method);
                 } elseif ($page === 'deletePost') {
                     $title = "Delete post";
                     $postId = $this->request->getGet('id_post');
@@ -69,7 +70,7 @@ class Router {
                     $postId = $this->request->getGet('id_post');
                     $method = $this->request->getPost();
                     $this->adminController->editPost($method, $postId);
-                } elseif ($page === 'deleteUser') {  ob_start();
+                } elseif ($page === 'deleteUser') {  
                     $title = "Delete user";
                     $userId = $this->request->getGet('id_user');
                     $this->adminController->deleteUser($userId);
@@ -108,7 +109,7 @@ class Router {
                 $this->publicController->home();
             }
             $content = ob_get_clean();
-            require '../Views/templates/default.php';
+            require '../Views/public/default.php';
         } catch (Exception $e) {
             $this->errorsController->errorServer();
         }

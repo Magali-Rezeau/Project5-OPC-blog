@@ -31,9 +31,30 @@ class MemberController {
         $this->userSession = new UserSession();
         $this->session = new Session();
     }
+    public function single($method, $userId, $postId) 
+    {
+        $post = $this->postDAO->getPost($postId);
+        $comments = $this->commentDAO->getComments($postId);
+        if($this->userSession->checkLogged($userId)) {
+            $user = $this->userDAO->getUser($userId);
+            $form = $this->form;
+            $validator = $this->validator;
+            $validator->check('content', 'minLenght', 'Votre commentaire doit comporter au moins 3 caractères.', 3);
+            $validator->check('content', 'maxLenght', 'Votre commentaire doit comporter moins de 50 caractères.', 200);
+            if (!empty($method)) {
+                $errors = $validator->getErrors();
+                if (empty($errors)) {
+                    $this->commentDAO->addComment($method, $userId, $postId);
+                    $this->session->set('addComment',"Votre commentaire sera visible dès la validation de celui-ci par l'administrateur.");
+                } else {
+                    $this->session->set('error_addComment',"Une erreur est survenue lors de l'envoie de votre commentaire.");
+                }
+            }
+        } 
+        require '../Views/member/single.php';
+    }
     public function login($method) 
     {   
-        var_dump($this->userSession->admin());
         $form = $this->form;
         if(!empty($method)) {
             $user =  $this->userDAO->login($method);
@@ -41,33 +62,26 @@ class MemberController {
                 $_SESSION['id_user'] = $user['user']['id_user'];
                 $_SESSION['pseudo'] = $user['user']['pseudo'];
                 $_SESSION['role'] = $user['user']['entitled'];
-                if($this->userSession->admin()) {
-                    header('Location:../public/index.php?page=dashboard'); 
-                } elseif($this->userSession->editor()) {
-                    header('Location:../public/index.php?page=editorDashboard'); 
-                }else {
-                    header('Location:../public/index.php?page=profil&id_user='.$this->session->get('id_user')); 
-                }
-                
+                $this->userSession->redirection();
             } else {
                 $error_login = "Votre mot de passe ou votre pseudo sont incorrectes.";
             } 
         }
-        require '../Views/templates/login.php';
+        require '../Views/member/login.php';
     }
     public function profil($userId) 
     {
-        if($this->userSession->logged($userId)){
+        if($this->userSession->checkLogged($userId)){
             $form = $this->form;
             $user = $this->userDAO->getUser($userId);
         } else {
-            header('Location:../public/index.php?page=pageNotFound');
+            $this->userSession->redirection();
         }
-        require '../Views/templates/profil.php';
+        require '../Views/member/profil.php';
     }
     public function editProfil($method,$userId) 
     {
-        if ($this->userSession->logged($userId)) {
+        if ($this->userSession->checkLogged($userId)) {
             $user = $this->userDAO->getUser($userId);
             $form = $this->form;
             $validator = $this->validator;
@@ -88,42 +102,42 @@ class MemberController {
                             }
                             $extensionUpload = strtolower(substr(strrchr($_FILES['profile_picture']['name'], '.'), 1));
                             if (in_array($extensionUpload, $extensionValide)) {
-                                $path = "../public/membres/profile_picture" . $_SESSION['id_user'] . "." . $extensionUpload;
+                                $path = "../public/profile_pictures/profile_picture" . $_SESSION['id_user'] . "." . $extensionUpload;
                                 $result = move_uploaded_file($_FILES['profile_picture']['tmp_name'], $path);
                                 if ($result) {
                                     $this->userDAO->editUser($method, $userId, $extensionUpload);
-                                    $succes_editProfil = "Votre profil a bien été modifié.";
+                                    $this->userSession->redirection();
                                 } else {
                                     $error_upload = "Une erreur est survenue lors de l'importation du fichier.";
-                                    $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
+                                    $this->session->set('error_editProfil', "Une erreur est survenue lors de la modification de votre mot de passe."); 
                                 }
                             } else {
                                 $error_format = "Votre photo de profil doit être au format jpg, jpeg, png ou gif.";
-                                $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
+                                $this->session->set('error_editProfil', "Une erreur est survenue lors de la modification de votre profil.");
                             }
                         } else {
                             $error_weight = "Votre photo de profil ne doit pas dépasser 2mo";
-                            $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
+                            $this->session->set('error_editProfil', "Une erreur est survenue lors de la modification de votre profil.");
                         }
                     } elseif (isset($_FILES['profile_picture']) && empty($_FILES['profile_picture']['name'])) {
                         $extensionUpload = "png";
                         $_SESSION['id_user'] = "default";
                         $this->userDAO->editUser($method, $userId, $extensionUpload);
-                        $succes_editProfil = "Votre profil a bien été modifié.";
+                        $this->userSession->redirection();
                         $_SESSION['id_user'] = $user->id_user;
                     }
                 } else {
-                    $error_editProfil = "Une erreur est survenue lors de la modification de votre profil.";
+                    $this->session->set('error_editProfil', "Une erreur est survenue lors de la modification de votre profilk.");
                 }
             }
         } else {
-            header('Location:../public/index.php?page=pageNotFound');
+            $this->userSession->redirection();
         }
-        require '../Views/templates/editProfil.php';
+        require '../Views/member/editProfil.php';
     }
     public function editPassword($method,$userId) 
     { 
-        if ($this->userSession->logged($userId)) {
+        if ($this->userSession->checkLogged($userId)) {
             $form = $this->form;
             $user = $this->userDAO->getUser($userId);
             $validator = $this->validator;
@@ -132,18 +146,19 @@ class MemberController {
                 $errors = $validator->getErrors();
                 if (empty($errors)) {
                     $this->userDAO->editPassword($method, $userId);
-                    $succes_editPassword = "Votre mot de passe a bien été modifié";
+                    $this->session->set('editPassword', "Votre mot de passe a bien été modifié.");
                 } else {
-                    $error_editPassword = "Une erreur est survenue lors de la modification de votre mot de passe.";
+                    $this->session->set('error_editPassword', "Une erreur est survenue lors de la modification de votre mot de passe.");
                 }
             }
         } else {
-            header('Location:../public/index.php?page=pageNotFound');
+            $this->userSession->redirection();
         }
-        require '../Views/templates/editPassword.php';
+        require '../Views/member/editPassword.php';
     }
     public function logout() 
     {
         $this->session->destroy();
     }
+    
 }

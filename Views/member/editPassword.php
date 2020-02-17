@@ -1,16 +1,16 @@
         <div class="header-content">
             <div class="header-content-text">
-                <div class="header-content-text-message">
+            <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_editPassword) ? $succes_editPassword : '' ?>
+                        <?= $this->session->show('editPassword') ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_editPassword) ? $error_editPassword : '' ?>
+                        <?= $this->session->show('error_editPassword') ?>
                     </span>
                 </div>
                 <br>
-                <?php if(isset($succes_editPassword)): ?>
-                    <h1><?= ucfirst($user->pseudo) ?>,</h1>
+                <?php if(!empty($method) && empty($errors)): ?>
+                    <h1>Bienvenue <?= ucfirst($user->pseudo) ?>,</h1>
                     <p>Vous pouvez retourner sur votre profil ou vous déconnecter.</p>
                     <button class="btn"><a href="../public/index.php?page=profil&id_user=<?= $user->id_user ?>">Profil</a></button>
                     <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>
@@ -24,7 +24,7 @@
                 <?php endif; ?>                 
             </div>
             <?php if($user->profile_picture) : ?>
-                <img class="header-content-profile-picture" src="../public/membres/profile_picture<?= $user->profile_picture?>">
+                <img class="header-content-profile-picture" src="../public/profile_pictures/profile_picture<?= $user->profile_picture?>">
             <?php else : ?>
                 <div class="header-content-img-profil"></div>
             <?php endif; ?>

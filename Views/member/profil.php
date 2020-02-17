@@ -10,7 +10,7 @@
                 <button class="btn"><a href="../public/index.php?page=logout">Se déconnecter</a></button>  
             </div>
             <?php if($user->profile_picture) : ?>
-                <img class="header-content-profile-picture" src="../public/membres/profile_picture<?= $user->profile_picture?>">
+                <img class="header-content-profile-picture" src="../public/profile_pictures/profile_picture<?= $user->profile_picture?>">
             <?php else : ?>
                 <div class="header-content-img-profil"></div>
             <?php endif; ?>

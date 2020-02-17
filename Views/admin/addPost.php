@@ -2,20 +2,17 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_addPost) ? $succes_addPost : '' ?>
+                        <?= $this->session->show('addPost') ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_addPost) ? $error_addPost : '' ?>
-                    </span>
-                    <span class="errors">
-                        <?= isset($error_authorAddPost) ? $error_authorAddPost : '' ?>
+                        <?= $this->session->show('error_addPost') ?>
                     </span>
                 </div>
                 <h1>Ajout d'un article</h1>
-                <?php if(isset($succes_addPost)) : ?>
-                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN'): ?>
+                <?php if(!empty($method) && empty($errors)): ?>
+                    <?php if($this->userSession->checkAdmin()): ?>
                         <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
-                    <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR'): ?>
+                    <?php elseif($this->userSession->checkEditor()): ?>
                         <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -34,12 +31,6 @@
                     <?= $form->text('title', 'Titre', '', 'required') ?> 
                 </div>
                 <span class="errors">
-                    <?= isset($errors['author']) ? $errors['author'] : '' ?>
-                </span>
-                <div class="addPost-content-form-item">            
-                    <?= $form->text('author', 'Auteur', '', 'required') ?>
-                </div>
-                <span class="errors">
                     <?= isset($errors['short_content']) ? $errors['short_content'] : '' ?>
                 </span> 
                 <div class="addPost-content-form-item">                             
@@ -56,9 +47,9 @@
                 </div>
             </form>
             <div class="addPost-content-redir">
-                <?php if(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '1') : ?>
+                <?php if($this->userSession->checkAdmin()) : ?>
                     <button class="btn"><a href="../public/index.php?page=dashboard">Dashboard</a></button>
-                <?php elseif(isset($_SESSION['id_user']) && $_SESSION['id_user'] === '2') : ?>
+                <?php elseif($this->userSession->checkEditor()) : ?>
                     <button class="btn"><a href="../public/index.php?page=editorDashboard">Dashboard</a></button>
                 <?php endif; ?> 
                 <button class="btn"><a href="../public/index.php?page=home">Accueil</a></button>

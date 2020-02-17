@@ -128,9 +128,14 @@
                         <li><a href="../public/index.php?page=profil&id_user=<?=$_SESSION['id_user']?>">Profil</a></li>
                         <li><a href="../public/index.php?page=logout">Se déconnecter</a></li>
                     <?php else : ?>
-                        <li><a href="../public/index.php?page=signup">S'inscrire</a></li>
-                        <li><a href="../public/index.php?page=login">Se connecter</a></li>
+                    <li><a href="../public/index.php?page=signup">S'inscrire</a></li>
+                    <li><a href="../public/index.php?page=login">Se connecter</a></li>
                     <?php endif; ?>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'ADMIN') : ?>
+                    <li><a href="../public/index.php?page=dashboard">Dashboard</a></li>
+                    <?php elseif(isset($_SESSION['role']) && $_SESSION['role'] === 'EDITOR') : ?>
+                    <li><a href="../public/index.php?page=editorDashboard">Dashboard</a></li>
+                    <?php endif; ?> 
                     <li><a href="../public/index.php?page=home#contact">Contact</a></li>
                 </ul>
             </label>

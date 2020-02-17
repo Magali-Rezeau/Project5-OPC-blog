@@ -6,7 +6,6 @@ class Request {
     public function getGet($key = null)
     {
         $_GET = array_map('htmlspecialchars',$_GET);
-        $_GET = array_map('trim',$_GET);
         if($key) {
             return isset($_GET[$key])?$_GET[$key]:null;
          }
@@ -15,7 +14,6 @@ class Request {
     public function getPost($key=null)
     {   
         $_POST = array_map('htmlspecialchars',$_POST);
-        $_POST = array_map('trim',$_POST);
         if($key) {
            return isset($_POST[$key])?$_POST[$key]:null;
         }

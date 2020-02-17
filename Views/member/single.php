@@ -2,10 +2,10 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_addComment) ? $succes_addComment : '' ?>
+                        <?= $this->session->show('addComment') ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_addComment) ? $error_addComment : '' ?>
+                        <?= $this->session->show('error_addComment') ?>
                     </span>
                 </div>
                 <h1>Bienvenue,</h1>
@@ -52,7 +52,7 @@
                     <div class="post-card-comment-content">
                         <?php foreach ($comments as $comment) : ?>
                             <div class="post-card-comment-content-profil">
-                                <img src="../public/membres/profile_picture<?= $comment->profile_picture ?>">
+                                <img src="../public/profile_pictures/profile_picture<?= $comment->profile_picture ?>">
                                 <h3>
                                     <span class="catch">
                                         <?= $comment->author ?>
@@ -73,11 +73,11 @@
                             </div>
                             <hr>
                         <?php endforeach; ?>
-                        <?php if(isset($_SESSION['id_user'])) : ?>
+                        <?php if(!empty($userId)) : ?>
                             <h2>Ajouter un commentaire</h2>
                             <div class="post-card-comment-content-add">
                                 <div class="post-card-comment-content-add-profil">
-                                    <img src="../public/membres/profile_picture<?= $user->profile_picture ?>">
+                                    <img src="../public/profile_pictures/profile_picture<?= $user->profile_picture ?>">
                                     <h3>
                                         <span class="catch">
                                             <?= ucfirst($user->pseudo) ?>

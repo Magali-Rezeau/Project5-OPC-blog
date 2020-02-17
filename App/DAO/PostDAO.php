@@ -36,7 +36,7 @@ class PostDAO extends Database {
     }
     public function addPost($method) 
     {
-        $req = $this->prepareDB('INSERT INTO posts(title,content,short_content, user_id,create_date, modification_date) VALUES (?,?,?,?, NOW(), NOW())',[$method['title'],$method['content'],$method['short_content'],$method['author']]);  
+        $req = $this->prepareDB('INSERT INTO posts(title,content,short_content, user_id,create_date, modification_date) VALUES (?,?,?,?, NOW(), NOW())',[$method['title'],$method['content'],$method['short_content'],$_SESSION['id_user']]);  
     }
     public function deletePost($postId) 
     {
@@ -45,6 +45,6 @@ class PostDAO extends Database {
     public function editPost($method,$postId) 
     {
         $req = $this->prepareDB('UPDATE posts SET title = :title,content = :content,short_content=:short_content, user_id=:user_id, modification_date = NOW() WHERE id_post=:id_post',
-        ['title' =>$method['title'],'content'=>$method['content'],'short_content'=>$method['short_content'],'user_id'=>$method['author'], 'id_post' => $postId]);  
+        ['title' =>$method['title'],'content'=>$method['content'],'short_content'=>$method['short_content'],'user_id'=>$_SESSION['id_user'], 'id_post' => $postId]);  
     } 
 }
