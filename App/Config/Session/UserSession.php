@@ -6,7 +6,8 @@ use App\Config\Session\Session;
 
 class UserSession extends Session {
     
-    public function checkAdmin() {
+    public function checkAdmin() 
+    {
         return $this->check('id_user') && $this->setStrict('role','ADMIN');    
     }
     public function checkEditor() 

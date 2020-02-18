@@ -6,6 +6,13 @@ use App\Model\Comment;
 
 class CommentDAO extends Database {
 
+    /**
+     * create comment object
+     *
+     * @param  string $data
+     *
+     * @return object
+     */
     private function commentObject($data)
     {
         $comment = new Comment();
@@ -17,6 +24,13 @@ class CommentDAO extends Database {
         isset($data['post_id']) ? $comment->setPost_id($data['post_id']) : '';
         return $comment;
     }
+    /**
+     * get all validated comments from a post
+     *
+     * @param  integer $postId
+     *
+     * @return array
+     */
     public function getComments($postId)
     {
         $req = $this->prepareDB('SELECT comments.id_comment, comments.content, users.pseudo, users.profile_picture,comments.create_date, comments.validation FROM comments INNER JOIN users ON user_id = id_user WHERE comments.post_id = ? AND comments.validation = "validate" ORDER BY comments.create_date DESC',[$postId]);
@@ -27,10 +41,24 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
+    /**
+     * add a comment in DB
+     *
+     * @param  mixed $method
+     * @param  integer $userId
+     * @param  integer $postId
+     *
+     * @return void
+     */
     public function addComment($method,$userId,$postId) 
     {
         $req = $this->prepareDB('INSERT INTO comments(content, user_id, post_id,validation,create_date) VALUES (?,?,?,"noValidate", NOW())',[$method['content'],$userId,$postId]);    
     } 
+    /**
+     * get all not validated comments
+     *
+     * @return void
+     */
     public function getValidatedComments() 
     {
         $req = $this->queryDB('SELECT comments.id_comment, comments.content, users.pseudo,comments.create_date, comments.validation, comments.post_id FROM comments INNER JOIN users ON user_id = id_user WHERE comments.validation = "noValidate" ORDER BY comments.create_date DESC');
@@ -41,11 +69,25 @@ class CommentDAO extends Database {
         }
         return $comments;
     }
+    /**
+     * update validation comments by administrator in DB
+     *
+     * @param  integer $commentId
+     *
+     * @return void
+     */
     public function validateComment($commentId) 
     {
         $req = $this->prepareDB('UPDATE comments SET comments.validation = "validate" WHERE id_comment = :id_comment',
         ['id_comment' => $commentId]);
     }
+    /**
+     * delete comments in DB
+     *
+     * @param  integer $commentId
+     *
+     * @return void
+     */
     public function deleteComment($commentId) 
     {
         $req = $this->prepareDB('DELETE FROM comments WHERE id_comment = ?', [$commentId]);

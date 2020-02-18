@@ -6,6 +6,13 @@ use App\Model\Post;
 
 class PostDAO extends Database {
 
+    /**
+     * create post object
+     *
+     * @param  string $data
+     *
+     * @return object
+     */
     private function postObject($data)
     {
         $post = new Post();
@@ -18,6 +25,11 @@ class PostDAO extends Database {
         $post->setModification_date($data['modification_date']);
         return $post;
     }
+    /**
+     * get all blog posts
+     *
+     * @return object
+     */
     public function getPosts()
     {
         $req = $this->queryDB('SELECT posts.id_post,posts.title, posts.short_content, posts.create_date, posts.modification_date, users.pseudo FROM posts INNER JOIN users ON user_id = id_user ORDER BY posts.modification_date DESC');
@@ -28,20 +40,49 @@ class PostDAO extends Database {
         }
         return $posts;
     }
+    /**
+     * get one blog posts
+     *
+     * @param  integer $postId
+     *
+     * @return object
+     */
     public function getPost($postId)
     {
         $req = $this->prepareDB('SELECT posts.id_post,posts.title, posts.short_content, posts.content, posts.create_date, posts.modification_date, users.pseudo FROM posts INNER JOIN users ON user_id = id_user WHERE id_post = ?',[$postId]); 
         $post = $req->fetch();
         return $this->postObject($post); 
     }
+    /**
+     * add blog post in DB
+     *
+     * @param  mixed $method
+     *
+     * @return void
+     */
     public function addPost($method) 
     {
         $req = $this->prepareDB('INSERT INTO posts(title,content,short_content, user_id,create_date, modification_date) VALUES (?,?,?,?, NOW(), NOW())',[$method['title'],$method['content'],$method['short_content'],$_SESSION['id_user']]);  
     }
+    /**
+     * delete blog post in DB
+     *
+     * @param  integer $postId
+     *
+     * @return void
+     */
     public function deletePost($postId) 
     {
         $req = $this->prepareDB('DELETE FROM posts WHERE id_post = ?', [$postId]);
     }
+    /**
+     * update modification to the blog post
+     *
+     * @param  mixed $method
+     * @param  integer $postId
+     *
+     * @return void
+     */
     public function editPost($method,$postId) 
     {
         $req = $this->prepareDB('UPDATE posts SET title = :title,content = :content,short_content=:short_content, user_id=:user_id, modification_date = NOW() WHERE id_post=:id_post',

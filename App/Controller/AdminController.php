@@ -33,6 +33,11 @@ class AdminController {
         $this->userSession = new UserSession();
         $this->session = new Session();
     }
+    /**
+     * acces to the dashboard only by the administrator
+     *
+     * @return void
+     */
     public function dashboard()
     {   
         if($this->userSession->checkAdmin()) {
@@ -44,6 +49,11 @@ class AdminController {
         }
         require '../Views/admin/dashboard.php'; 
     }
+    /**
+     * acces to the editorDashboard only by the editor
+     *
+     * @return void
+     */
     public function editorDashboard()
     {   
         if($this->userSession->checkEditor()) {
@@ -53,6 +63,13 @@ class AdminController {
         }
         require '../Views/admin/editorDashboard.php';
     }
+    /**
+     * validation of comments by administrator
+     *
+     * @param  mixed $commentId
+     *
+     * @return void
+     */
     public function validateComment($commentId)
     {   
         if($this->userSession->checkAdmin()) {
@@ -65,6 +82,13 @@ class AdminController {
         }
         require '../Views/admin/dashboard.php';
     }
+    /**
+     * delete of comments by administrator
+     *
+     * @param  mixed $commentId
+     *
+     * @return void
+     */
     public function deleteComment($commentId) 
     {
         if($this->userSession->checkAdmin()) {
@@ -78,6 +102,13 @@ class AdminController {
         }
         require '../Views/admin/dashboard.php';
     }
+    /**
+     * add post by the administrator or the editor
+     *
+     * @param  mixed $method
+     *
+     * @return void
+     */
     public function addPost($method) 
     {
         if ($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
@@ -99,6 +130,13 @@ class AdminController {
         }
         require '../Views/admin/addPost.php'; 
     }
+    /**
+     * delete post by the administrator or the editor
+     *
+     * @param  mixed $postId
+     *
+     * @return void
+     */
     public function deletePost($postId) 
     {
         if($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
@@ -109,6 +147,14 @@ class AdminController {
         }
         require '../Views/admin/dashboard.php';
     }
+    /**
+     * edit post by the administrator or the editor
+     *
+     * @param  mixed $method
+     * @param  mixed $postId
+     *
+     * @return void
+     */
     public function editPost($method,$postId) 
     {
         if ($this->userSession->checkAdmin() || $this->userSession->checkEditor()) {
@@ -131,6 +177,13 @@ class AdminController {
         }
         require '../Views/admin/editPost.php'; 
     }
+    /**
+     * delete user by the administrator 
+     *
+     * @param  mixed $userId
+     *
+     * @return void
+     */
     public function deleteUser($userId) 
     {
         if($this->userSession->checkAdmin()) {

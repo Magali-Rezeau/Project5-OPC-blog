@@ -2,13 +2,13 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_signup) ? $succes_signup : '' ?>
+                        <?= $this->session->show('signup') ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_signup) ? $error_signup : '' ?>
+                        <?= $this->session->show('error_signup') ?>
                     </span>
                 </div>
-                <?php if(isset($succes_signup)): ?>
+                <?php if(empty($errors) && !empty($method)): ?>
                     <button class="btn"><a href="../public/index.php?page=login">Se connecter</a></button>
                 <?php else : ?>
                     <h1>S'inscrire</h1>

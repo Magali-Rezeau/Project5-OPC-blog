@@ -7,9 +7,9 @@ class Request {
     {
         $_GET = array_map('htmlspecialchars',$_GET);
         if($key) {
-            return isset($_GET[$key])?$_GET[$key]:null;
+            return isset($_GET[$key]) ? $_GET[$key] : null;
          }
-         return isset($_GET)?$_GET:null;
+         return isset($_GET) ? $_GET : null;
     }
     public function getPost($key=null)
     {   
@@ -17,6 +17,6 @@ class Request {
         if($key) {
            return isset($_POST[$key])?$_POST[$key]:null;
         }
-        return isset($_POST)?$_POST:null;
+        return isset($_POST) ? $_POST : null;
     }
 }

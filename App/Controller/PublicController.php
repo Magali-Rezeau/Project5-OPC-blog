@@ -30,6 +30,11 @@ class PublicController {
         $this->userSession = new UserSession();
         $this->session = new Session();
     }
+    /**
+     * displays the home page and management of the contact form 
+     *
+     * @return void
+     */
     public function home()
     {  
         $form = $this->form;
@@ -42,19 +47,33 @@ class PublicController {
                 $message = $this->request->getPost('message');
                 $header = "FROM : " . $this->request->getPost('email');
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
+                $this->session->set('emailSent',"Votre message a bien été envoyé.");
                 $succes_emailSent = "Votre message a bien été envoyé.";
             } else {
+                $this->session->set('error_emailSent',"Une erreur est survenue lors de l'envoie de votre message. Veuillez vérifier les données saisies.");
                 $error_emailSent = "Une erreur est survenue lors de l'envoie de votre message.";
             }
         }
         require '../Views/public/home.php';
     }
+    /**
+     * show all blog posts
+     *
+     * @return void
+     */
     public function blog()
     {
         $posts = $this->postDAO->getPosts();
         require '../Views/public/blog.php';
     }
    
+    /**
+     * signup form and signup validation 
+     *
+     * @param  mixed $method
+     *
+     * @return void
+     */
     public function signup($method)
     {
         $form = $this->form;
@@ -70,9 +89,9 @@ class PublicController {
             $error_emailDB = $this->userDAO->check_emailDB($method);
             if(empty($errors) && empty($error_pseudoDB) && empty($error_emailDB)) {
                 $this->userDAO->register($method);   
-                $succes_signup = "Votre inscription a bien été prise en compte.";
+                $this->session->set('signup', "Votre inscription a bien été prise en compte.");
             } else {  
-                $error_signup = "Une erreur est survenue lors de votre inscription. Veuillez vérifier les champs saisies";
+                $this->session->set('error_signup', "Une erreur est survenue lors de votre inscription. Veuillez vérifier les données saisies.");
             }
         }
         require '../Views/public/signup.php';

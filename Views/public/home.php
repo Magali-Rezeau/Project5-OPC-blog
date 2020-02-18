@@ -2,10 +2,10 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="succes">
-                        <?= isset($succes_emailSent) ? $succes_emailSent : '' ?>
+                        <?= $this->session->show('emailSent') ?>
                     </span>
                     <span class="errors">
-                        <?= isset($error_emailSent) ? $error_emailSent : '' ?>
+                        <?= $this->session->show('error_emailSent') ?>
                     </span>
                 </div>
                 <h1>Bienvenue,</h1>

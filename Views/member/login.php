@@ -2,7 +2,7 @@
             <div class="header-content-text">
                 <div class="header-content-text-message">
                     <span class="errors">
-                        <?= isset($error_login) ? $error_login : '' ?>
+                        <?= $this->session->show('error_login') ?>
                     </span>
                 </div>
                 <h1>Se connecter</h1>

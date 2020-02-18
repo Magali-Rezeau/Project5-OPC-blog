@@ -13,6 +13,12 @@ abstract class Database
     const DB_USER = 'root';
     const DB_PASS = 'root';
     private $pdo;
+    
+    /**
+     * allows only one connexion of database 
+     *
+     * @return void
+     */
     private function checkPDO()
     {
         if($this->pdo === null) {
@@ -20,6 +26,11 @@ abstract class Database
         }
         return $this->pdo;
     }
+    /**
+     * initialize connexion database
+     *
+     * @return instance
+     */
     private function getPDO() 
     {
         try {

@@ -19,7 +19,8 @@ class Router {
     private $session;
     private $userSession;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->publicController = new PublicController();
         $this->errorsController = new ErrorsController();
         $this->memberController = new MemberController();
@@ -40,12 +41,36 @@ class Router {
                 } elseif ($page === 'blog') {
                     $title = "Blog";
                     $this->publicController->blog();
+                } elseif ($page === 'signup') {
+                    $title = "S'inscrire'";
+                    $method = $this->request->getPost();
+                    $this->publicController->signup($method);
                 } elseif ($page === 'single') {
                     $title = "Single";
                     $method = $this->request->getPost();
                     $this->session->check('id_user') ? $userId = $this->session->get('id_user') : $userId = null;
                     $postId = $this->request->getGet('id_post');
                     $this->memberController->single($method, $userId, $postId);
+                } elseif ($page === 'login') {
+                    $title = "Se connecter";
+                    $method = $this->request->getPost();
+                    $this->memberController->login($method);
+                } elseif ($page === 'profil') {
+                    $title = "Profil";
+                    $userId = $this->request->getGet('id_user');
+                    $this->memberController->profil($userId);
+                } elseif ($page === 'logout') {
+                    $this->memberController->logout();
+                } elseif ($page === 'editProfil') {
+                    $title = "Edition du profil";
+                    $userId = $this->request->getGet('id_user');
+                    $method = $this->request->getPost();
+                    $this->memberController->editProfil($method, $userId);
+                } elseif ($page === 'editPassword') {
+                    $title = "Modification du mot de passe";
+                    $userId = $this->request->getGet('id_user');
+                    $method = $this->request->getPost();
+                    $this->memberController->editPassword($method, $userId);
                 } elseif ($page === 'dashboard') {
                     $title = "Dashboard";
                     $this->adminController->dashboard();
@@ -77,31 +102,7 @@ class Router {
                     $title = "Delete user";
                     $userId = $this->request->getGet('id_user');
                     $this->adminController->deleteUser($userId);
-                } elseif ($page === 'signup') {
-                    $title = "S'inscrire'";
-                    $method = $this->request->getPost();
-                    $this->frontController->signup($method);
-                } elseif ($page === 'login') {
-                    $title = "Se connecter";
-                    $method = $this->request->getPost();
-                    $this->memberController->login($method);
-                } elseif ($page === 'profil') {
-                    $title = "Profil";
-                    $userId = $this->request->getGet('id_user');
-                    $this->memberController->profil($userId);
-                } elseif ($page === 'logout') {
-                    $this->memberController->logout();
-                } elseif ($page === 'editProfil') {
-                    $title = "Edition du profil";
-                    $userId = $this->request->getGet('id_user');
-                    $method = $this->request->getPost();
-                    $this->memberController->editProfil($method, $userId);
-                } elseif ($page === 'editPassword') {
-                    $title = "Modification du mot de passe";
-                    $userId = $this->request->getGet('id_user');
-                    $method = $this->request->getPost();
-                    $this->memberController->editPassword($method, $userId);
-                } elseif ($page === 'pageNotFound') {
+                }   elseif ($page === 'pageNotFound') {
                     $title = "Erreur 404";
                     $this->errorsController->errorPageNotFound();
                 } else {

@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use App\Config\Session\Session;
 use App\Config\Session\UserSession;
-use App\Controller\ErrorsController;
 use App\Config\Request;
 use App\DAO\CommentDAO;
 use App\DAO\PostDAO;
@@ -13,12 +12,14 @@ use App\DAO\UserDAO;
 
 class MemberController {
 
+    private $request;
     private $form;
     private $validator;
+    private $postDAO;
+    private $commentDAO;
     private $userDAO;
-    private $request;
-    private $session;
     private $userSession;
+    private $session;
     
     public function __construct()
     {
@@ -31,6 +32,15 @@ class MemberController {
         $this->userSession = new UserSession();
         $this->session = new Session();
     }
+    /**
+     * displays a post   
+     * gives registered and connected users the possibility to comment a post
+     * @param  mixed $method
+     * @param  integer $userId
+     * @param  integer $postId
+     *
+     * @return void
+     */
     public function single($method, $userId, $postId) 
     {
         $post = $this->postDAO->getPost($postId);
@@ -53,6 +63,13 @@ class MemberController {
         } 
         require '../Views/member/single.php';
     }
+    /**
+     * acces to login page and redirection if pseudo and password is ok
+     *
+     * @param  mixed $method
+     *
+     * @return void
+     */
     public function login($method) 
     {   
         $form = $this->form;
@@ -64,11 +81,18 @@ class MemberController {
                 $_SESSION['role'] = $user['user']['entitled'];
                 $this->userSession->redirection();
             } else {
-                $error_login = "Votre mot de passe ou votre pseudo sont incorrectes.";
+                $this->session->set('error_login', "Votre mot de passe ou votre pseudo sont incorrectes.");
             } 
         }
         require '../Views/member/login.php';
     }
+    /**
+     * displays a user's profile if he is logged in
+     * 
+     * @param  mixed $userId
+     *
+     * @return void
+     */
     public function profil($userId) 
     {
         if($this->userSession->checkLogged($userId)){
@@ -79,6 +103,14 @@ class MemberController {
         }
         require '../Views/member/profil.php';
     }
+    /**
+     * acces to edit user's profil page if he is logged in
+     * gives the possibility to change profile picture and pseudo  
+     * @param  mixed $method
+     * @param  integer $userId
+     *
+     * @return void
+     */
     public function editProfil($method,$userId) 
     {
         if ($this->userSession->checkLogged($userId)) {
@@ -135,6 +167,14 @@ class MemberController {
         }
         require '../Views/member/editProfil.php';
     }
+    /**
+     * acces to edit password page if the user is logged in
+     * gives the possibility to change password
+     * @param  mixed $method
+     * @param  integer $userId
+     *
+     * @return void
+     */
     public function editPassword($method,$userId) 
     { 
         if ($this->userSession->checkLogged($userId)) {
@@ -150,7 +190,7 @@ class MemberController {
                 } else {
                     $this->session->set('error_editPassword', "Une erreur est survenue lors de la modification de votre mot de passe.");
                 }
-            }
+            } 
         } else {
             $this->userSession->redirection();
         }
