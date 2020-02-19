@@ -19,9 +19,6 @@
     <section id="profil" class="profil">
         <div class="profil-content">
             <form method="post" action="../public/index.php?page=profil&id_user=<?= $user->id_user ?>" class="profil-content-form">
-                <h1 class="profil-content-form-title">Profil de 
-                    <?= ucfirst($user->pseudo)?>
-                </h1>
                 <div class="profil-content-form-item">            
                     <?= $form->text('pseudo', 'Pseudo', $user->pseudo, 'readonly="readonly"') ?>
                 </div>

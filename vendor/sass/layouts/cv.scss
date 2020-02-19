@@ -1,0 +1,12 @@
+.cv {
+    @include grid;
+    grid-template-rows: 20rem;
+
+    @include medium-only {
+        grid-template-rows: 10rem;
+    }
+
+    & .btn {
+        grid-column: 2/3;
+    }
+}

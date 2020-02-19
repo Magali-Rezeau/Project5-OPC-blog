@@ -220,7 +220,7 @@
                 </svg>
             </div>
             <div class="footer-copyright">
-                <p>&copy; Magali Rézeau - 2019 &nbsp;&nbsp;<a href="#">Mentions légales</a></p>
+                <p>&copy; Magali Rézeau - 2020</p>
             </div>
             <div class="footer-admin-link">
                 <?php if($this->userSession->checkAdmin()): ?>

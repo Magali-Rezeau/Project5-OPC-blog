@@ -71,7 +71,7 @@ class Router {
                     $userId = $this->request->getGet('id_user');
                     $method = $this->request->getPost();
                     $this->memberController->editPassword($method, $userId);
-                } elseif ($page === 'dashboard') {
+                }elseif ($page === 'dashboard') {
                     $title = "Dashboard";
                     $this->adminController->dashboard();
                 } elseif ($page === 'editorDashboard') {
@@ -110,6 +110,7 @@ class Router {
                     $this->errorsController->errorPageNotFound();
                 }
             } else {
+                $title = "Page d'accueil";
                 $this->publicController->home();
             }
             $content = ob_get_clean();

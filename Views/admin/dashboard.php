@@ -16,28 +16,28 @@
         <table class="dashboard-post-table">
             <thead class="dashboard-post-table-head">
                 <tr class="dashboard-post-table-head-row">
-                    <td class="dashboard-post-table-head-cell">Id</td>
+                    <td class="dashboard-post-table-head-cell dashboard-post-table-head-cell-display">Id</td>
                     <td class="dashboard-post-table-head-cell">Auteur</td>
                     <td class="dashboard-post-table-head-cell">Titre</td>
-                    <td class="dashboard-post-table-head-cell">Date de création</td>
-                    <td class="dashboard-post-table-head-cell">Date de modification</td>
+                    <td class="dashboard-post-table-head-cell dashboard-post-table-head-cell-display">Date de création</td>
+                    <td class="dashboard-post-table-head-cell dashboard-post-table-head-cell-display">Date de modification</td>
                     <td class="dashboard-post-table-head-cell">Actions</td>
                 </tr>
             </thead>
             <tbody class="dashboard-post-table-body">
                 <?php foreach ($posts as $post) : ?>
                     <tr class="dashboard-post-table-body-row">
-                        <td class="dashboard-post-table-body-cell"><?= $post->id_post; ?> </td>
+                        <td class="dashboard-post-table-body-cell dashboard-post-table-body-cell-display"><?= $post->id_post; ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= $post->author; ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= $post->title; ?></td>
-                        <td class="dashboard-post-table-body-cell">
+                        <td class="dashboard-post-table-body-cell dashboard-post-table-body-cell-display">
                             <?php 
                                 $date = new \DateTime($post->create_date);
                                 $format_date = $date->format("d-m-Y"); 
                             ?>
                             <?= $format_date ?>
                         </td>
-                        <td class="dashboard-post-table-body-cell">
+                        <td class="dashboard-post-table-body-cell dashboard-post-table-body-cell-display">
                             <?php
                                 $modification_date = new \DateTime($post->modification_date);
                                 $format_modification_date = $modification_date->format("d-m-Y");
@@ -58,9 +58,9 @@
         <table class="dashboard-comment-table">
             <thead class="dashboard-comment-table-head">
                 <tr class="dashboard-comment-table-head-row">
-                    <td class="dashboard-comment-table-head-cell">Id article</td>
+                    <td class="dashboard-comment-table-head-cell dashboard-comment-table-head-cell-display">Id article</td>
                     <td class="dashboard-comment-table-head-cell">Auteur</td>
-                    <td class="dashboard-comment-table-head-cell">Date de création</td>
+                    <td class="dashboard-comment-table-head-cell dashboard-comment-table-head-cell-display">Date de création</td>
                     <td class="dashboard-comment-table-head-cell">Contenu</td>
                     <td class="dashboard-comment-table-head-cell">Actions</td>
                 </tr>
@@ -68,9 +68,9 @@
             <tbody class="dashboard-comment-table-body">
                 <?php foreach ($comments as $comment) : ?>
                     <tr class="dashboard-comment-table-body-row">
-                        <td class="dashboard-comment-table-body-cell"><?= $comment->post_id; ?></td>
+                        <td class="dashboard-comment-table-body-cell dashboard-comment-table-body-cell-display"><?= $comment->post_id; ?></td>
                         <td class="dashboard-comment-table-body-cell"><?= $comment->author; ?></td>
-                        <td class="dashboard-comment-table-body-cell">
+                        <td class="dashboard-comment-table-body-cell dashboard-comment-table-body-cell-display">
                             <?php 
                                 $date = new \DateTime($comment->create_date);
                                 $format_date = $date->format("d-m-Y");
@@ -92,22 +92,22 @@
         <table class="dashboard-user-table">
             <thead class="dashboard-user-table-head">
                 <tr class="dashboard-user-table-head-row">
-                    <td class="dashboard-user-table-head-cell">Id</td>
+                    <td class="dashboard-user-table-head-cell dashboard-user-table-body-cell-display">Id</td>
                     <td class="dashboard-user-table-head-cell">Pseudo</td>
                     <td class="dashboard-user-table-head-cell">Email</td>
-                    <td class="dashboard-user-table-head-cell">Role</td>
-                    <td class="dashboard-user-table-head-cell">Date de création</td>
+                    <td class="dashboard-user-table-head-cell dashboard-user-table-body-cell-display">Role</td>
+                    <td class="dashboard-user-table-head-cell dashboard-user-table-body-cell-display">Date de création</td>
                     <td class="dashboard-user-table-head-cell">Actions</td>
                 </tr>
             </thead>
             <tbody class="dashboard-user-table-body">
                 <?php foreach($users as $user) : ?>
                     <tr class="dashboard-user-table-body-row">
-                        <td class="dashboard-user-table-body-cell"><?= $user->id_user;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->pseudo;?></td>
+                        <td class="dashboard-user-table-body-cell dashboard-user-table-body-cell-display"><?= $user->id_user;?></td>
+                        <td class="dashboard-user-table-body-cell display"><?= $user->pseudo;?></td>
                         <td class="dashboard-user-table-body-cell"><?= $user->email;?></td>
-                        <td class="dashboard-user-table-body-cell"><?= $user->role;?></td>
-                        <td class="dashboard-user-table-body-cell">
+                        <td class="dashboard-user-table-body-cell dashboard-user-table-body-cell-display"><?= $user->role;?></td>
+                        <td class="dashboard-user-table-body-cell dashboard-user-table-body-cell-display">
                             <?php 
                                 $date = new \DateTime($user->create_date); 
                                 $format_date = $date->format("d-m-Y");
@@ -115,7 +115,7 @@
                             <?= $format_date ?>
                         </td>
                         <td class="dashboard-user-table-body-cell">
-                            <button class="btn"><a href="../public/index.php?page=editRoleUser&id_user=<?= $user->id_user ?>">Modifier</a></button>
+                           
                             <button class="btn"><a href="../public/index.php?page=deleteUser&id_user=<?= $user->id_user ?>">Supprimer</a>
                         </td>
                     </tr>

@@ -70,9 +70,8 @@ class PublicController {
     /**
      * signup form and signup validation 
      *
-     * @param  mixed $method
+     * @param  array $method
      *
-     * @return void
      */
     public function signup($method)
     {

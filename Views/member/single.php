@@ -9,6 +9,7 @@
                     </span>
                 </div>
                 <h1>Bienvenue,</h1>
+                <p>Je suis <span class="catch">Magali Rézeau</span> en formation chez Openclassrooms sur le parcours <span class="catch">Développeur d'application PHP/Symfony.</span></p>
                 <br>
                 <p>Découvrez l'article <span class="catch"><?= $post->title ?></span>.</p>
             </div>

@@ -44,11 +44,10 @@ class CommentDAO extends Database {
     /**
      * add a comment in DB
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      * @param  integer $userId
      * @param  integer $postId
      *
-     * @return void
      */
     public function addComment($method,$userId,$postId) 
     {
@@ -57,7 +56,7 @@ class CommentDAO extends Database {
     /**
      * get all not validated comments
      *
-     * @return void
+     * @return array
      */
     public function getValidatedComments() 
     {
@@ -74,7 +73,6 @@ class CommentDAO extends Database {
      *
      * @param  integer $commentId
      *
-     * @return void
      */
     public function validateComment($commentId) 
     {
@@ -86,7 +84,6 @@ class CommentDAO extends Database {
      *
      * @param  integer $commentId
      *
-     * @return void
      */
     public function deleteComment($commentId) 
     {

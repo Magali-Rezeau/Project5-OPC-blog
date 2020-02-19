@@ -151,7 +151,7 @@ class MemberController {
                             $error_weight = "Votre photo de profil ne doit pas dépasser 2mo";
                             $this->session->set('error_editProfil', "Une erreur est survenue lors de la modification de votre profil.");
                         }
-                    } elseif (isset($_FILES['profile_picture']) && empty($_FILES['profile_picture']['name'])) {
+                    } elseif (!isset($_FILES['profile_picture']) && empty($_FILES['profile_picture']['name'])) {
                         $extensionUpload = "png";
                         $_SESSION['id_user'] = "default";
                         $this->userDAO->editUser($method, $userId, $extensionUpload);

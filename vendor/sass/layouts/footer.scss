@@ -1,0 +1,69 @@
+.footer {
+  @include grid;
+  grid-template-rows: 12rem;
+
+  @include medium-only {
+    grid-template-rows: 8rem;
+  }
+
+  @include smallest-only {
+    grid-template-rows: 6rem;
+  }
+
+  &-logo {
+    grid-column: 1 / 2;
+    width: 8rem;
+    height: 8rem;
+    background-color: $color-primary;
+    position: relative;
+
+    @include medium-only {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    @include small-only {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    @include smallest-only {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    &-svg {
+      display: block;
+      width: 65%;
+      height: 65%;
+      fill: $color-white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-copyright {
+    grid-column: 2 / 3;
+  }
+
+  &-admin-link {
+    grid-column: 3 / 4;
+
+    & .btn {
+      width: 8rem;
+      font-size: 1rem;
+
+      @include medium-only {
+        width: 5rem;
+        font-size: .5rem;
+      }
+
+      @include smallest-only {
+        width: 3.5rem;
+        font-size: .2rem;
+      }
+    }
+  }
+}

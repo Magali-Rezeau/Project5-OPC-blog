@@ -22,7 +22,6 @@
         <section id="editProfil" class="editProfil">
             <div class="editProfil-content">
                 <form method="post" enctype="multipart/form-data" action="../public/index.php?page=editProfil&id_user=<?= $user->id_user ?>" class="editProfil-content-form">
-                    <h1 class="editProfil-content-form-title">Modifier votre profil</h1>
                     <span class="errors">
                         <?= isset($errors['pseudo']) ? $errors['pseudo'] : '' ?>
                     </span>

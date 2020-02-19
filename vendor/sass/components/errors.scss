@@ -1,0 +1,13 @@
+.errors {
+    color: $color-primary;
+    font-size: 2rem;
+    font-family: $ff-title;
+    font-style: italic;
+    margin: 2rem 0;
+    width: 100%;
+
+    @include medium-only {
+        font-size: 1rem;
+        margin: 0;
+    }
+}

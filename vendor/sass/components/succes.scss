@@ -1,0 +1,12 @@
+.succes {
+    display: block;
+    color: green;
+    font-size: 2rem;
+    font-family: $ff-title;
+    font-style: italic;
+    margin: 2rem 0;
+    @include medium-only {
+        font-size: 1rem;
+        margin: 0;
+    }
+}

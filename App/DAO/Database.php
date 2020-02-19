@@ -17,7 +17,7 @@ abstract class Database
     /**
      * allows only one connexion of database 
      *
-     * @return void
+     * @return pdo
      */
     private function checkPDO()
     {
