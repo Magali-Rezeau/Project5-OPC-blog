@@ -21,6 +21,7 @@
     "autoprefixer": "^9.7.3",
     "postcss": "^7.0.26",
     "postcss-cli": "^7.1.0",
-    "sass": "^1.24.4"
+    "sass": "^1.24.4",
+    "browserslist": "last 10 versions"
   }
 }
