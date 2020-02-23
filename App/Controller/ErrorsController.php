@@ -1,7 +1,8 @@
 <?php 
 namespace App\Controller;
 
-class ErrorsController {
+class ErrorsController 
+{
     
     public function errorPageNotFound()
     {

@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
 
-class FormController {
-    
+class FormController 
+{
     private $errors;
     private $datas;
    
@@ -20,7 +20,6 @@ class FormController {
      * @param  string $name2
      * @param  integer $value
      *
-     * @return void
      */
     public function check($name, $rule, $message, $name2= null, $value = null) 
     {

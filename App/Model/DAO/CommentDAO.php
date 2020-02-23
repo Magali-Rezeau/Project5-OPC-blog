@@ -1,7 +1,7 @@
 <?php 
-namespace App\DAO;
+namespace App\Model\DAO;
 
-use App\DAO\Database;
+use App\Model\DAO\Database;
 use App\Model\Comment;
 
 class CommentDAO extends Database {

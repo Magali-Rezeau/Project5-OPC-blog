@@ -2,22 +2,20 @@
 namespace App\Controller;
 
 use App\Config\Session\Session;
-use App\Config\Session\UserSession;
 use App\Config\Request;
-use App\DAO\CommentDAO;
-use App\DAO\PostDAO;
+use App\Model\DAO\PostDAO;
+use App\Model\DAO\UserDAO;
 use App\Model\Form;
 use App\Controller\FormController;
-use App\DAO\UserDAO;
 
-class PublicController {
-
+class PublicController 
+{
     private $form;
     private $validator;
     private $postDAO;
-    private $commentDAO;
     private $userDAO;
     private $request;
+    private $session;
     
     public function __construct()
     {
@@ -25,15 +23,11 @@ class PublicController {
         $this->form = new Form($this->request->getPost());
         $this->validator = new FormController($this->request->getPost());
         $this->postDAO = new PostDAO();
-        $this->commentDAO = new CommentDAO();
         $this->userDAO = new UserDAO();
-        $this->userSession = new UserSession();
         $this->session = new Session();
     }
     /**
      * displays the home page and management of the contact form 
-     *
-     * @return void
      */
     public function home()
     {  
@@ -48,29 +42,24 @@ class PublicController {
                 $header = "FROM : " . $this->request->getPost('email');
                 mail('magalirezeau@free.fr', 'Formulaire de contact', $message, $header);
                 $this->session->set('emailSent',"Votre message a bien été envoyé.");
-                $succes_emailSent = "Votre message a bien été envoyé.";
             } else {
                 $this->session->set('error_emailSent',"Une erreur est survenue lors de l'envoie de votre message. Veuillez vérifier les données saisies.");
-                $error_emailSent = "Une erreur est survenue lors de l'envoie de votre message.";
             }
         }
         require '../Views/public/home.php';
     }
     /**
      * show all blog posts
-     *
-     * @return void
      */
     public function blog()
     {
         $posts = $this->postDAO->getPosts();
         require '../Views/public/blog.php';
     }
-   
     /**
      * signup form and signup validation 
      *
-     * @param  array $method
+     * @param  array $method = $_POST
      *
      */
     public function signup($method)

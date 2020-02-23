@@ -1,7 +1,8 @@
 <?php 
 namespace App\Model;
 
-class Comment {
+class Comment 
+{
 
     private $id_comment;
     private $author;

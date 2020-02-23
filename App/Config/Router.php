@@ -1,8 +1,8 @@
 <?php
 namespace App\Config;
 
-use App\Config\Session\UserSession;
 use App\Config\Session\Session;
+use App\Config\Session\UserSession;
 use App\Config\Request;
 use App\Controller\AdminController;
 use App\Controller\ErrorsController;
@@ -10,15 +10,15 @@ use App\Controller\PublicController;
 use App\Controller\MemberController;
 use \Exception;
 
-class Router {
-    private $frontController;
+class Router 
+{
+    private $publicController;
     private $errorsController;
     private $adminController;
     private $memberController;
     private $request;
     private $session;
-    private $userSession;
-
+  
     public function __construct() 
     {
         $this->publicController = new PublicController();
@@ -27,10 +27,10 @@ class Router {
         $this->adminController = new AdminController();
         $this->request = new Request();
         $this->session = new Session();
-        $this->userSession = new UserSession();
+        $this->userSession = new userSession();
     }
-    public function run() {
-
+    public function run() 
+    {
         try {
             ob_start();
             if ($this->request->getGet('page')) {

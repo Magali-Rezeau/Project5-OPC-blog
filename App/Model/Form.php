@@ -1,7 +1,8 @@
 <?php 
 namespace App\Model;
 
-class Form {
+class Form 
+{
     
     private $datas;
    
@@ -9,7 +10,8 @@ class Form {
     {
         $this->datas = $datas; 
     }
-    private function input($type, $name, $label, $value = null, $option = null) {
+    private function input($type, $name, $label, $value = null, $option = null) 
+    {
         if(isset($this->datas[$name])) {
             $value = $this->datas[$name];
         } 

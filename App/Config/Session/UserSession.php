@@ -1,11 +1,10 @@
 <?php 
-
 namespace App\Config\Session;
 
 use App\Config\Session\Session;
 
-class UserSession extends Session {
-    
+class UserSession extends Session 
+{
     public function checkAdmin() 
     {
         return $this->check('id_user') && $this->setStrict('role','ADMIN');    

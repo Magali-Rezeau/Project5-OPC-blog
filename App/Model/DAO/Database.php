@@ -1,5 +1,5 @@
 <?php 
-namespace App\DAO;
+namespace App\Model\DAO;
 
 use \PDO;
 use \Exception;
@@ -40,7 +40,7 @@ abstract class Database
         }
         catch(Exception $errorPdo)
         {
-            die ('Erreur de connection :'.$errorPdo->getMessage());
+            die('Erreur de connection :'.$errorPdo->getMessage());
         }
     }
     protected function queryDB($statement) 

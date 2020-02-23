@@ -1,7 +1,8 @@
 <?php 
 namespace App\Model;
 
-class User {
+class User 
+{
     private $id_user;
     private $pseudo;
     private $email;

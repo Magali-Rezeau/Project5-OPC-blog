@@ -1,11 +1,11 @@
 <?php 
-namespace App\DAO;
+namespace App\Model\DAO;
 
-use App\DAO\Database;
+use App\Model\DAO\Database;
 use App\Model\Post;
 
-class PostDAO extends Database {
-
+class PostDAO extends Database 
+{
     /**
      * create post object
      *
@@ -56,9 +56,8 @@ class PostDAO extends Database {
     /**
      * add blog post in DB
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      *
-     * @return void
      */
     public function addPost($method) 
     {
@@ -69,7 +68,6 @@ class PostDAO extends Database {
      *
      * @param  integer $postId
      *
-     * @return void
      */
     public function deletePost($postId) 
     {
@@ -78,10 +76,9 @@ class PostDAO extends Database {
     /**
      * update modification to the blog post
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      * @param  integer $postId
      *
-     * @return void
      */
     public function editPost($method,$postId) 
     {

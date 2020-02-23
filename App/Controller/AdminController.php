@@ -3,16 +3,15 @@ namespace App\Controller;
 
 use App\Config\Session\Session;
 use App\Config\Session\UserSession;
-use App\Controller\ErrorsController;
 use App\Config\Request;
-use App\DAO\PostDAO;
-use App\DAO\CommentDAO;
+use App\Model\DAO\PostDAO;
+use App\Model\DAO\CommentDAO;
 use App\Model\Form;
 use App\Controller\FormController;
-use App\DAO\UserDAO;
+use App\Model\DAO\UserDAO;
 
-class AdminController {
-
+class AdminController 
+{
     private $postDAO;
     private $commentDAO;
     private $form;
@@ -35,8 +34,6 @@ class AdminController {
     }
     /**
      * acces to the dashboard only by the administrator
-     *
-     * @return void
      */
     public function dashboard()
     {   
@@ -51,8 +48,6 @@ class AdminController {
     }
     /**
      * acces to the editorDashboard only by the editor
-     *
-     * @return void
      */
     public function editorDashboard()
     {   
@@ -66,9 +61,8 @@ class AdminController {
     /**
      * validation of comments by administrator
      *
-     * @param  mixed $commentId
+     * @param  integer $commentId
      *
-     * @return void
      */
     public function validateComment($commentId)
     {   
@@ -85,9 +79,8 @@ class AdminController {
     /**
      * delete of comments by administrator
      *
-     * @param  mixed $commentId
+     * @param  integer $commentId
      *
-     * @return void
      */
     public function deleteComment($commentId) 
     {
@@ -105,9 +98,8 @@ class AdminController {
     /**
      * add post by the administrator or the editor
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      *
-     * @return void
      */
     public function addPost($method) 
     {
@@ -133,9 +125,8 @@ class AdminController {
     /**
      * delete post by the administrator or the editor
      *
-     * @param  mixed $postId
+     * @param  integer $postId
      *
-     * @return void
      */
     public function deletePost($postId) 
     {
@@ -150,10 +141,9 @@ class AdminController {
     /**
      * edit post by the administrator or the editor
      *
-     * @param  mixed $method
-     * @param  mixed $postId
+     * @param  array $method = $_POST
+     * @param  integer $postId
      *
-     * @return void
      */
     public function editPost($method,$postId) 
     {
@@ -180,9 +170,8 @@ class AdminController {
     /**
      * delete user by the administrator 
      *
-     * @param  mixed $userId
+     * @param  integer $userId
      *
-     * @return void
      */
     public function deleteUser($userId) 
     {

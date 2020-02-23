@@ -1,8 +1,5 @@
 <?php
-
 namespace App\Config\Session;
-
-
 
 class Session
 {

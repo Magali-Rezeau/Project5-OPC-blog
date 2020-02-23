@@ -1,11 +1,11 @@
 <?php 
-namespace App\DAO;
+namespace App\Model\DAO;
 
-use App\DAO\Database;
+use App\Model\DAO\Database;
 use App\Model\User;
 
-class UserDAO extends Database {
-
+class UserDAO extends Database
+{
     /**
      * create user object
      *
@@ -53,7 +53,7 @@ class UserDAO extends Database {
     /**
      * insert a user in DB
      *
-     * @param  mixed $method
+     * @param array $method = $_POST
      *
      */
     public function register($method) 
@@ -63,9 +63,8 @@ class UserDAO extends Database {
     /**
      * check unique pseudo in DB
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      *
-     * @return void
      */
     public function check_pseudoDB($method) 
     {
@@ -78,9 +77,8 @@ class UserDAO extends Database {
     /**
      * check unique email in DB
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      *
-     * @return void
      */
     public function check_emailDB($method) 
     {
@@ -93,7 +91,7 @@ class UserDAO extends Database {
     /**
      * login : check pseudo and valid password in DB
      *
-     * @param  mixed $method
+     * @param array $method = $_POST
      *
      * @return array
      */
@@ -120,7 +118,7 @@ class UserDAO extends Database {
     /**
      * update user profile modification in DB
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      * @param  integer $userId
      * @param  string $extensionUpload
      *
@@ -133,7 +131,7 @@ class UserDAO extends Database {
     /**
      * update password modification
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      * @param  integer $userId
      *
      */

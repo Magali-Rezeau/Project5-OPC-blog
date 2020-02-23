@@ -4,14 +4,14 @@ namespace App\Controller;
 use App\Config\Session\Session;
 use App\Config\Session\UserSession;
 use App\Config\Request;
-use App\DAO\CommentDAO;
-use App\DAO\PostDAO;
+use App\Model\DAO\CommentDAO;
+use App\Model\DAO\PostDAO;
+use App\Model\DAO\UserDAO;
 use App\Model\Form;
 use App\Controller\FormController;
-use App\DAO\UserDAO;
 
-class MemberController {
-
+class MemberController 
+{
     private $request;
     private $form;
     private $validator;
@@ -35,11 +35,11 @@ class MemberController {
     /**
      * displays a post   
      * gives registered and connected users the possibility to comment a post
-     * @param  mixed $method
+     * 
+     * @param  array $method = $_POST
      * @param  integer $userId
      * @param  integer $postId
      *
-     * @return void
      */
     public function single($method, $userId, $postId) 
     {
@@ -66,9 +66,8 @@ class MemberController {
     /**
      * acces to login page and redirection if pseudo and password is ok
      *
-     * @param  mixed $method
+     * @param  array $method = $_POST
      *
-     * @return void
      */
     public function login($method) 
     {   
@@ -89,9 +88,8 @@ class MemberController {
     /**
      * displays a user's profile if he is logged in
      * 
-     * @param  mixed $userId
+     * @param  integer $userId
      *
-     * @return void
      */
     public function profil($userId) 
     {
@@ -106,10 +104,10 @@ class MemberController {
     /**
      * acces to edit user's profil page if he is logged in
      * gives the possibility to change profile picture and pseudo  
-     * @param  mixed $method
+     * 
+     * @param  array $method = $_POST
      * @param  integer $userId
      *
-     * @return void
      */
     public function editProfil($method,$userId) 
     {
@@ -130,8 +128,10 @@ class MemberController {
                         $extensionValide = array('jpg', 'gif', 'png', 'jpeg');
                         if ($_FILES['profile_picture']['size'] <= $maxWeight) {
                             if (isset($user->profile_picture) && $user->profile_picture != "default.png") {
+                                //Make a string lowercase - Return a part of string - find the last occurence
                                 $extensionUpload = strtolower(substr(strrchr($user->profile_picture, '.'), 1));
                             }
+                            //Make a string lowercase - Return a part of string - find the last occurence
                             $extensionUpload = strtolower(substr(strrchr($_FILES['profile_picture']['name'], '.'), 1));
                             if (in_array($extensionUpload, $extensionValide)) {
                                 $path = "../public/profile_pictures/profile_picture" . $_SESSION['id_user'] . "." . $extensionUpload;
@@ -170,10 +170,10 @@ class MemberController {
     /**
      * acces to edit password page if the user is logged in
      * gives the possibility to change password
-     * @param  mixed $method
+     * 
+     * @param  array $method = $_POST
      * @param  integer $userId
      *
-     * @return void
      */
     public function editPassword($method,$userId) 
     { 
@@ -200,5 +200,4 @@ class MemberController {
     {
         $this->session->destroy();
     }
-    
 }
