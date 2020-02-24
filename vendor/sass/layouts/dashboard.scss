@@ -1,0 +1,166 @@
+.dashboard {
+    @include grid;
+    grid-template-rows: 15rem 10rem auto 15rem auto 15rem auto;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+
+
+    &-post-title {
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+
+    &-comment-title {
+        grid-column: 2/3;
+        grid-row: 4/5;
+    }
+
+    &-user-title {
+        grid-column: 2/3;
+        grid-row: 6/7;
+    }
+
+    &-btn-addPost {
+        width: 100%;
+        grid-column: 2/3;
+        grid-row: 2/3;
+        height: 10rem;
+
+        & .btn {
+            width: 20rem;
+        }
+    }
+
+    &-post-table {
+        grid-row: 3/4;
+    }
+
+    &-comment-table {
+        grid-row: 5/6;
+    }
+
+    &-user-table {
+        grid-row: 7/8;
+    }
+
+    &-post-table,
+    &-comment-table,
+    &-user-table {
+        width: 100%;
+        grid-column: 2/3;
+        margin-bottom: 10rem;
+        box-shadow: 0 1.5em 4em rgba(0, 0, 0, 0.4);
+
+        &-head {
+            color: $color-primary;
+            font-family: $ff-title;
+        }
+
+        &-body,
+        &-head {
+            &-row {
+                display: flex;
+                width: 100%;
+                justify-content: space-around;
+                align-items: center;
+                border-bottom: 1px solid $color-white;
+                padding: 0 2rem;
+
+                @include small-only {
+                    padding: 0;
+                }
+            }
+
+            &-cell {
+                width: 20%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &:nth-child(1) {
+                    width: 5%;
+                }
+
+                &:nth-child(2) {
+                    width: 10%;
+                }
+
+                &:last-child {
+                    width: 30%;
+
+                    @include medium-only {
+                        width: 35%;
+                    }
+                }
+
+                & .btn {
+                    margin: 0 auto;
+
+                    @include small-only {
+                        width: 5rem;
+                        font-size: .7rem;
+                    }
+
+                    @include smallest-only {
+                        width: 4rem;
+                        font-size: .5rem;
+                    }
+                }
+
+                &-display {
+                    @include medium-only {
+                        display: none;
+                    }
+
+                }
+            }
+        }
+    }
+
+    &-post-table,
+    &-user-table {
+
+        &-body-cell,
+        &-head-cell {
+            height: 10rem;
+
+            @include small-only {
+                height: 8rem;
+            }
+
+            @include smallest-only {
+                height: 6rem;
+            }
+        }
+    }
+
+    &-comment-table-head-cell {
+        height: 10rem;
+
+        @include small-only {
+            height: 8rem;
+        }
+
+        @include smallest-only {
+            height: 6rem;
+        }
+    }
+
+    &-comment-table-body-cell,
+    &-comment-table-head-cell {
+        &:nth-child(2) {
+            width: 5%;
+        }
+
+        &:nth-child(3) {
+            width: 10%;
+        }
+
+        &:nth-child(4) {
+            text-align: justify;
+            width: 35%;
+            padding: .5rem;
+        }
+    }
+}

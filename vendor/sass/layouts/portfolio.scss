@@ -1,0 +1,110 @@
+.portfolio {
+  @include grid;
+  grid-template-rows: 20rem auto;
+
+  @include medium-only {
+    grid-template-rows: 10rem auto;
+  }
+
+  &-title {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+
+  &-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    grid-column: 2 / 3;
+    justify-content: space-between;
+    align-content: space-between;
+    text-align: center;
+
+    &>* {
+      height: 40rem;
+      width: 30%;
+      margin-bottom: 5rem;
+
+      @include large-only {
+        width: 100%;
+      }
+
+      @include smallest-only {
+        margin-bottom: 1rem;
+        height: 30rem;
+      }
+
+      & figure {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        & figcaption {
+          font-size: 2rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        & .img {
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: center;
+        }
+      }
+    }
+
+    &-p1 {
+      & .img {
+        @include radial-gradient('../img/john-doe.png');
+      }
+    }
+
+    &-p2 {
+      & .img {
+        @include radial-gradient('../img/chalets-caviar.png');
+      }
+    }
+
+    &-p3 {
+      & .img {
+        @include radial-gradient('../img/film-plein-air.png');
+      }
+    }
+
+    &-p4 {
+      & .img {
+        @include radial-gradient('../img/express-food.jpg');
+      }
+    }
+
+    &-p5 {
+      & .img {
+        @include radial-gradient('../img/blog.png');
+      }
+    }
+
+    &-p6 {
+      & .img {
+        @include radial-gradient('../img/snowtricks.jpg');
+      }
+    }
+
+    &-p7 {
+      & .img {
+        @include radial-gradient('../img/bilemo.jpg');
+      }
+    }
+
+    &-p8 {
+      & .img {
+        @include radial-gradient('../img/todolist.jpg');
+      }
+    }
+  }
+}

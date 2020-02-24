@@ -1,7 +1,8 @@
 <?php 
 namespace App\Model;
 
-class Post {
+class Post 
+{
 
     private $id_post;
     private $title;

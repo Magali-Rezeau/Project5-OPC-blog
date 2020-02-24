@@ -1,14 +1,15 @@
 <?php 
 namespace App\Controller;
 
-class ErrorsController {
+class ErrorsController 
+{
     
     public function errorPageNotFound()
     {
-        require '../Views/templates/error_404.php';
+        require '../Views/public/error_404.php';
     }
     public function errorServer()
     {
-        require '../Views/templates/error_500.php';
+        require '../Views/public/error_500.php';
     }
 }

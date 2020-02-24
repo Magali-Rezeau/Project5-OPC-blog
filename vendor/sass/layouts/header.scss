@@ -1,0 +1,316 @@
+.header {
+  @include grid;
+  grid-template-rows: 12rem;
+
+  @include medium-only {
+    grid-template-rows: 8rem;
+  }
+
+  @include smallest-only {
+    grid-template-rows: 6rem;
+  }
+
+  height: 100vh;
+
+  &-logo {
+    grid-column: 1 / 2;
+    width: 8rem;
+    height: 8rem;
+    background-color: $color-primary;
+    position: relative;
+
+    @include medium-only {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    @include small-only {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    @include smallest-only {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    &-svg {
+      display: block;
+      width: 65%;
+      height: 65%;
+      fill: $color-white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-nav {
+    grid-column: 3 / 4;
+
+    &-label {
+      width: 5rem;
+      height: 5rem;
+      background-color: $color-primary;
+      display: block;
+
+      @include small-only {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      @include smallest-only {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      & .menu {
+        display: block;
+        position: relative;
+        z-index: 100;
+        width: 5rem;
+        height: 5rem;
+        transition: .5s ease-in-out;
+        cursor: pointer;
+
+        @include small-only {
+          width: 4rem;
+          height: 4rem;
+        }
+
+        @include smallest-only {
+          width: 3rem;
+          height: 3rem;
+        }
+      }
+
+      & .hamburger {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 2rem;
+        height: .30rem;
+        background-color: $color-white;
+        transform-origin: center;
+        transition: .5s ease-in-out;
+
+        @include small-only {
+          width: 1.5rem;
+          height: .20rem;
+        }
+      }
+
+      & .hamburger:after,
+      & .hamburger:before {
+        transition: .5s ease-in-out;
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: $color-white;
+      }
+
+      & .hamburger:before {
+        top: .625rem;
+      }
+
+      & .hamburger:after {
+        bottom: .625rem;
+      }
+
+      & input {
+        display: none;
+
+        &:checked+.menu {
+          box-shadow: 0 0 0 100vw $color-primary, 0 0 0 100vh $color-primary;
+          border-radius: 0;
+
+          & .hamburger {
+            transform: rotate(45deg);
+
+            &:after {
+              transform: rotate(90deg);
+              bottom: 0;
+            }
+
+            &:before {
+              transform: rotate(90deg);
+              top: 0;
+            }
+          }
+
+          &+ul {
+            opacity: 1;
+          }
+        }
+      }
+
+      & ul {
+        z-index: 200;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        text-align: center;
+        transition: .25s 0s ease-in-out;
+      }
+
+      & a {
+        margin-bottom: 1rem;
+        display: block;
+        font-size: 3rem;
+        color: $color-dark;
+        text-decoration: none;
+
+        @include medium-only {
+          font-size: 2rem;
+        }
+
+        @include small-only {
+          font-size: 1.5rem;
+        }
+
+        &:hover {
+          color: $color-white;
+        }
+
+        & svg {
+          width: 8rem;
+          height: 8rem;
+          display: block;
+          margin: 0 auto;
+          fill: $color-white;
+
+          @include medium-only {
+            width: 5rem;
+            height: 5rem;
+          }
+
+          @include small-only {
+            width: 4rem;
+            height: 4rem;
+          }
+        }
+      }
+    }
+  }
+
+  &-content {
+    display: flex;
+    width: 100%;
+    height: 87vh;
+    grid-column: 2 / 3;
+    justify-content: space-evenly;
+    align-items: center;
+
+    @include medium-only {
+      align-items: flex-start;
+      flex-direction: column;
+      height: 90vh;
+    }
+
+    &-text {
+      width: 30%;
+
+      @include medium-only {
+        width: 65%;
+        height: 20%;
+      }
+
+      & p {
+        @include smallest-only {
+          font-size: 1.1rem;
+        }
+      }
+
+      & button {
+        margin-top: 2rem;
+
+        @include medium-only {
+          margin-top: 1rem;
+        }
+      }
+
+      &-message {
+        width: 100%;
+      }
+    }
+
+    &-img {
+      @include linear-gradient('../img/header-home.jpg');
+      background-size: cover;
+    }
+
+    &-img-blog {
+      @include linear-gradient('../img/header-blog.jpg');
+    }
+
+    &-img-admin {
+      @include linear-gradient('../img/header-dashboard.jpg');
+    }
+
+    &-img-signup {
+      @include linear-gradient('../img/header-signup.jpg');
+    }
+
+    &-img-login {
+      @include linear-gradient('../img/header-login.jpg');
+    }
+
+    &-img-profil {
+      @include linear-gradient('../img/header-profil.png');
+    }
+
+    &-img,
+    &-img-blog,
+    &-img-admin,
+    &-img-login,
+    &-img-signup,
+    &-img-profil {
+      width: 50%;
+      height: 80%;
+      background-size: cover;
+      background-position: center;
+
+      @include large-only {
+        height: 70%;
+      }
+
+      @include medium-only {
+        width: 70%;
+        height: 40%;
+        align-self: flex-end;
+      }
+
+      @include small-only {
+        width: 80%;
+      }
+
+      @include smallest-only {
+        width: 65%;
+      }
+    }
+
+    &-profile-picture {
+      width: 50rem;
+
+      @include medium-only {
+        width: 30rem;
+        align-self: flex-end;
+      }
+
+      @include small-only {
+        width: 20rem;
+      }
+
+      @include smallest-only {
+        width: 15rem;
+      }
+    }
+  }
+}

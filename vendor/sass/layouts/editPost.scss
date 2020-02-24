@@ -1,0 +1,88 @@
+.editPost {
+    @include grid;
+
+    &-content {
+        width: 100%;
+        grid-column: 2 / 3;
+        margin: 5rem 0;
+
+        &-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 5rem;
+            margin: 15rem auto;
+            @include shadow;
+
+            @include medium-only {
+                margin: 5rem auto;
+            }
+
+            &-item {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                & label,
+                & input {
+                    color: $color-primary;
+                    height: 4rem;
+                    border: none;
+                    margin-bottom: 2rem;
+                    padding: 1rem;
+                    font-size: 2rem;
+                }
+
+                & label {
+                    width: 10%;
+                }
+
+                & input {
+                    width: 80%;
+
+                    @include medium-only {
+                        width: 70%;
+                    }
+                }
+
+                & textarea {
+                    color: $color-primary;
+                    width: 80%;
+                    height: 15rem;
+                    border: none;
+                    margin-bottom: 2rem;
+                    font-size: 2rem;
+                    padding: 1rem;
+                    border-radius: .3rem;
+
+                    @include medium-only {
+                        width: 70%;
+                    }
+                }
+
+                & input:focus {
+                    outline: $color-primary solid 2px;
+                }
+            }
+        }
+
+        &-redir {
+            width: 100%;
+            display: flex;
+            height: 15rem;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2rem;
+            @include shadow;
+
+            @include medium-only {
+                height: 8rem;
+            }
+
+            @include small-only {
+                padding: 1rem;
+            }
+        }
+    }
+}

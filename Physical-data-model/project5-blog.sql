@@ -2,10 +2,10 @@
 -- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:8889
--- Généré le :  ven. 31 jan. 2020 à 11:19
--- Version du serveur :  5.7.26
--- Version de PHP :  7.3.8
+-- Host: localhost:8889
+-- Generation Time: Feb 10, 2020 at 05:02 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `project5-blog`
+-- Database: `project5-blog`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -36,16 +36,22 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `comments`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`id_comment`, `content`, `create_date`, `validation`, `user_id`, `post_id`) VALUES
-(4, 'Fool me once, shame on you. Fool Chuck Norris once and he will roundhouse you in the face.', '2020-01-31 00:00:00', 'noValidate', 3, 1);
+(1, 'Fool me once, shame on you. Fool Chuck Norris once and he will roundhouse you in the face.', '2020-01-31 00:00:00', 'validate', 3, 1),
+(2, 'Norris is the only man to ever defeat a brick wall in a game of tennis.', '2020-02-03 00:00:00', 'Validate', 3, 1),
+(3, 'Chuck Norris doesn’t wear a watch. He decides what time it is.', '2020-02-02 00:00:00', 'Validate', 2, 1),
+(4, 'Every man who has lotted here over the centuries, has looked up to the light and imagined climbing to freedom.', '2020-02-03 13:48:00', 'Validate', 4, 3),
+(5, 'Rich redeye, eu instant, cinnamon percolator cultivar aromatic roast medium.', '2020-02-03 17:54:34', 'noValidate', 3, 2),
+(6, 'Such feelings give us a true understanding of human rights, that is not grounded just in legal terms, but rooted deeply in the heart.', '2020-02-03 17:55:57', 'validate', 3, 5),
+(7, 'Oat cake chocolate bar sweet roll chocolate bar chocolate cake bonbon sweet roll tootsie roll. ', '2020-02-03 17:59:15', 'validate', 3, 4);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -59,7 +65,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id_post`, `title`, `content`, `short_content`, `create_date`, `modification_date`, `user_id`) VALUES
@@ -72,7 +78,7 @@ INSERT INTO `posts` (`id_post`, `title`, `content`, `short_content`, `create_dat
 -- --------------------------------------------------------
 
 --
--- Structure de la table `role_users`
+-- Table structure for table `role_users`
 --
 
 CREATE TABLE `role_users` (
@@ -81,7 +87,7 @@ CREATE TABLE `role_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `role_users`
+-- Dumping data for table `role_users`
 --
 
 INSERT INTO `role_users` (`id_role_user`, `entitled`) VALUES
@@ -92,7 +98,7 @@ INSERT INTO `role_users` (`id_role_user`, `entitled`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -106,20 +112,21 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id_user`, `pseudo`, `email`, `password`, `create_date`, `profile_picture`, `role_users_id`) VALUES
-(1, 'Magali', 'magalirezeau@gmail.com', '$2y$10$WtRxax2CjsDfuZwvckaazOK7jfG9dVY5CbTDUGaT4zuaFkYkqFnPS', '2020-01-31', '1.jpg', 1),
+(1, 'Magali', 'magalirezeau@gmail.com', '$2y$10$CpwyQaYUsdwfRDOCZxpMhuAjCn5Rf5MIQwBoejBuqL8mytfWAmIJu', '2020-01-31', '1.jpg', 1),
 (2, 'Marie', 'marie@gmail.com', '$2y$10$4HNPjRG9JSSk94cE7bi/Me8rQUfCECYTwnqvKsqAonYNbdKuLCAym', '2020-01-31', '2.jpg', 2),
-(3, 'Vincent', 'vincent@gmail.com', '$2y$10$0vh5mDUR92Hw.9GrGdbHb.TRIuI1aj.SfydH9eiljPm1NcLdEgcf6', '2020-01-31', '3.jpg', 3);
+(3, 'Vincent', 'vincent@gmail.com', '$2y$10$0vh5mDUR92Hw.9GrGdbHb.TRIuI1aj.SfydH9eiljPm1NcLdEgcf6', '2020-01-31', '3.jpg', 3),
+(4, 'Eva', 'eva@gmail.com', '$2y$10$zyV9BE.l.lXg9Pp3rDTv8uJvHGPS7zQ2Hrp.AMfNj3r.cUoHbPrMi', '2020-02-03', 'default.png', 3);
 
 --
--- Index pour les tables déchargées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `comments`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id_comment`),
@@ -127,72 +134,72 @@ ALTER TABLE `comments`
   ADD KEY `fk_comments_posts_idx` (`post_id`);
 
 --
--- Index pour la table `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id_post`),
   ADD KEY `fk_posts_users_idx` (`user_id`);
 
 --
--- Index pour la table `role_users`
+-- Indexes for table `role_users`
 --
 ALTER TABLE `role_users`
   ADD PRIMARY KEY (`id_role_user`);
 
 --
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
   ADD KEY `fk_users_role_users_idx` (`role_users_id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT pour la table `comments`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT pour la table `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT pour la table `role_users`
+-- AUTO_INCREMENT for table `role_users`
 --
 ALTER TABLE `role_users`
   MODIFY `id_role_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Contraintes pour les tables déchargées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `comments`
+-- Constraints for table `comments`
 --
 ALTER TABLE `comments`
   ADD CONSTRAINT `fk_comments_posts` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id_post`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_comments_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `posts`
+-- Constraints for table `posts`
 --
 ALTER TABLE `posts`
   ADD CONSTRAINT `fk_posts_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_users_role_users` FOREIGN KEY (`role_users_id`) REFERENCES `role_users` (`id_role_user`) ON DELETE NO ACTION ON UPDATE NO ACTION;

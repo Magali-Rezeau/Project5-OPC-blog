@@ -1,0 +1,102 @@
+.login {
+  @include grid;
+
+  &-content {
+    width: 100%;
+    grid-column: 2 / 3;
+    height: min-content;
+    margin: 5rem auto;
+
+    @include medium-only {
+      margin: 0 auto 5rem auto;
+    }
+
+    &-form {
+      width: 60%;
+      @include shadow;
+      display: flex;
+      flex-direction: column;
+      margin: 15rem auto;
+      padding: 5rem;
+
+      @include medium-only {
+        padding: 3rem;
+        margin: 5rem auto;
+      }
+
+      @include small-only {
+        width: 100%;
+        padding: 2rem;
+        margin: 0 auto 5rem auto;
+      }
+
+      &-item {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        & label,
+        & input {
+          color: $color-primary;
+          width: 30rem;
+          height: 4rem;
+          border: none;
+          margin-bottom: 2rem;
+          padding: 1rem;
+          font-size: 2rem;
+
+          @include medium-only {
+            font-size: 1.5rem;
+          }
+
+          @include small-only {
+            height: 1rem;
+            font-size: .8rem;
+          }
+        }
+
+        & label {
+          @include small-only {
+            width: 12rem;
+          }
+        }
+
+        & input {
+          @include medium-only {
+            width: 20rem;
+          }
+
+          @include small-only {
+            width: 10rem;
+          }
+        }
+
+        & input:focus {
+          outline: $color-primary solid 2px;
+        }
+      }
+    }
+
+    &-redir {
+      width: 100%;
+      display: flex;
+      height: 15rem;
+      justify-content: space-around;
+      align-items: center;
+      @include shadow;
+      padding: 2rem;
+
+      @include medium-only {
+        height: 8rem;
+      }
+
+      @include small-only {
+        padding: 1rem;
+      }
+
+      & p {
+        display: none;
+      }
+    }
+  }
+}
