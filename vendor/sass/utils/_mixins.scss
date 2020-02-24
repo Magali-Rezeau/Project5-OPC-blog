@@ -2,7 +2,8 @@
     display: grid;
     grid-template-columns: 10rem 1fr 10rem;
     justify-items: center;
-    align-items: center;
+    -webkit-box-align: center;
+            align-items: center;
     @include medium-only(){
         grid-template-columns: 8rem 1fr 8rem;
     }
@@ -17,9 +18,13 @@
     box-shadow: 0 1.5em 4em rgba(0, 0, 0, 0.4);
 }
 @mixin radial-gradient($url) {
-    background-image: radial-gradient(circle at center,rgba($color-grey, 1),rgba($color-grey-light, 0.1)),url($url);
+    background-image: radial-gradient(circle at center,rgba($color-grey, 1),rgba($color-grey-light, 0.1)),url($url);  
 }
 @mixin linear-gradient($url){
+    background-image: -webkit-gradient(linear,
+    left top, right bottom,
+    from(rgba($color-grey-light, 0.8)),
+    to(rgba($color-grey, 0.8))),url($url);
     background-image: linear-gradient(to right bottom,
     rgba($color-grey-light, 0.8),
     rgba($color-grey, 0.8)),url($url);
