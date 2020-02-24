@@ -4,8 +4,8 @@ namespace App\Model\DAO;
 use App\Model\DAO\Database;
 use App\Model\Comment;
 
-class CommentDAO extends Database {
-
+class CommentDAO extends Database 
+{
     /**
      * create comment object
      *
