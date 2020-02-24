@@ -21,13 +21,12 @@
     background-image: radial-gradient(circle at center,rgba($color-grey, 1),rgba($color-grey-light, 0.1)),url($url);  
 }
 @mixin linear-gradient($url){
-    background-image: -webkit-gradient(linear,
-    left top, right bottom,
-    from(rgba($color-grey-light, 0.8)),
-    to(rgba($color-grey, 0.8))),url($url);
-    background-image: linear-gradient(to right bottom,
-    rgba($color-grey-light, 0.8),
-    rgba($color-grey, 0.8)),url($url);
+    background-image: -webkit-gradient(linear,left top, right bottom,from(rgba($color-grey-light, 0.8)),to(rgba($color-grey, 0.8))),url($url);
+    background-image: -webkit-linear-gradient(linear,left top, right bottom,from(rgba($color-grey-light, 0.8)),to(rgba($color-grey, 0.8))),url($url);
+    background-image: -moz-linear-gradient(linear,left top, right bottom,from(rgba($color-grey-light, 0.8)),to(rgba($color-grey, 0.8))),url($url);
+    background-image: -o-linear-gradient(linear,left top, right bottom,from(rgba($color-grey-light, 0.8)),to(rgba($color-grey, 0.8))),url($url);
+    background-image: -ms-linear-gradient(linear,left top, right bottom,from(rgba($color-grey-light, 0.8)),to(rgba($color-grey, 0.8))),url($url);
+    background-image: linear-gradient(to right bottom, rgba($color-grey-light, 0.8), rgba($color-grey, 0.8)),url($url);
 }
 @mixin large-only {
     @media screen and (max-width: map-get($breakpoints, large)) {
