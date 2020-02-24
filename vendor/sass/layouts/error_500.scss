@@ -1,6 +1,9 @@
 .errorserver {
     height: 100vh;
     width: 100%;
+    @include medium-only {
+        height: 75vh;
+    }
 
     &-500 {
         display: flex;
@@ -15,6 +18,9 @@
         font-family: $ff-title;
         font-size: 30rem;
         position: relative;
+        @include medium-only {
+            font-size: 20rem;
+        }
     }
 
     & h2 {
@@ -28,6 +34,11 @@
         color: $color-dark;
         display: block;
         padding: 0 1rem;
+        @include medium-only {
+            font-size: 2.9rem;
+            top: 40%;
+            transform: translate(-50%, -40%);   
+        }
     }
 
     & .btn {

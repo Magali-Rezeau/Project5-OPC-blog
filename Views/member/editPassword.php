@@ -34,7 +34,6 @@
     <section id="editPassword" class="editPassword">
         <div class="editPassword-content">
             <form method="post" enctype="multipart/form-data" action="../public/index.php?page=editPassword&id_user=<?= $user->id_user ?>" class="editPassword-content-form">
-                <h1 class="editPassword-content-form-title">Modifier votre mot de passe</h1>
                 <span class="errors">
                     <?= isset($errors['password']) ? $errors['password'] : '' ?>
                 </span>

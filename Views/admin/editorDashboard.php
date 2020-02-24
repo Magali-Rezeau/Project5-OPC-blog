@@ -19,18 +19,18 @@
                     <td class="dashboard-post-table-head-cell">Id</td>
                     <td class="dashboard-post-table-head-cell">Auteur</td>
                     <td class="dashboard-post-table-head-cell">Titre</td>
-                    <td class="dashboard-post-table-head-cell">Date de création</td>
-                    <td class="dashboard-post-table-head-cell">Date de modification</td>
+                    <td class="dashboard-post-table-head-cell dashboard-post-table-head-cell-display">Date de création</td>
+                    <td class="dashboard-post-table-head-cell dashboard-post-table-head-cell-display">Date de modification</td>
                     <td class="dashboard-post-table-head-cell">Actions</td>
                 </tr>
             </thead>
             <tbody class="dashboard-post-table-body">
                 <?php foreach ($posts as $post) : ?>
                     <tr class="dashboard-post-table-body-row">
-                        <td class="dashboard-post-table-body-cell"><?= $post->id_post; ?> </td>
+                        <td class="dashboard-post-table-body-cell dashboard-post-table-head-cell-display"><?= $post->id_post; ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= $post->author; ?> </td>
                         <td class="dashboard-post-table-body-cell"><?= $post->title; ?></td>
-                        <td class="dashboard-post-table-body-cell">
+                        <td class="dashboard-post-table-body-cell dashboard-post-table-head-cell-display">
                             <?php 
                                 $date = new \DateTime($post->create_date);
                                 $format_date = $date->format("d-m-Y"); 

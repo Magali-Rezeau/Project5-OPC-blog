@@ -2,7 +2,10 @@
     @include grid;
     height: 100%;
     width: 100%;
-
+    @include medium-only {
+        height: 75vh;
+    }
+   
     &-404 {
         grid-column: 2/3;
         display: flex;
@@ -18,6 +21,12 @@
         font-family: $ff-title;
         font-size: 30rem;
         position: relative;
+        @include medium-only {
+            font-size: 20rem;
+        }
+        @include small-only {
+            font-size: 10rem;
+        }
     }
 
     & h2 {
@@ -31,10 +40,24 @@
         color: $color-dark;
         display: block;
         padding: 0 1rem;
+        @include medium-only {
+            font-size: 2.9rem;
+            top: 40%;
+            transform: translate(-50%, -40%);   
+        }
+        @include small-only {
+            font-size: 1.3rem;
+        }
+        @include smallest-only {
+            font-size: 1rem;
+        }
     }
 
     & .btn {
         width: 30rem;
         margin-top: 2rem;
+        @include medium-only {
+            width: 20rem;
+        }
     }
 }
