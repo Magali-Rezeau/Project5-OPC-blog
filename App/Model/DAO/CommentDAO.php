@@ -22,7 +22,6 @@ class CommentDAO extends Database
         isset($data['profile_picture']) ? $comment->setProfile_picture($data['profile_picture']): '';
         $comment->setCreate_date($data['create_date']);
         isset($data['post_id']) ? $comment->setPost_id($data['post_id']) : '';
-        $comment->setPost_id($data['post_id']);
         return $comment;
     }
     /**
