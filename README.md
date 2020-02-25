@@ -1,6 +1,6 @@
 # Project5-OPC-blog
 Creating a portfolio and a blog developed in PHP
-This project was carried out as part of my training with 'Openclassrooms' on the course application developper PHP/Symfony.
+This project was carried out as part of my training with 'Openclassrooms' on the course application developper PHP/Symfony. The blog had to be developed in object oriented programming and adopt an MVC architecture.
 
 # Set up guide
 1. Install Apache/PHP/MySQL.
@@ -13,7 +13,7 @@ To install composer, go to getcomposer.org/download/ and follows the instruction
 
 # Test 
 To test user accounts, enter :
-    1. for administrator : pseudo = magali password = admin
-    2. for editor : pseudo = marie password = editor
-    3. for member with a personal profile picture: pseudo = vincent password = vincent
-    4. for member with a default profile picture : pseudo = eva password = eva
+1. for administrator : pseudo = magali password = admin
+2. for editor : pseudo = marie password = editor
+3. for member with a personal profile picture: pseudo = vincent password = vincent
+4. for member with a default profile picture : pseudo = eva password = eva
