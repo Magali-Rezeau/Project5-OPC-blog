@@ -1,4 +1,7 @@
 # Project5-OPC-blog
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c1fda71376774c4da83cff6f42d3d91d)](https://app.codacy.com/manual/Magali-Rezeau/Project5-OPC-blog?utm_source=github.com&utm_medium=referral&utm_content=Magali-Rezeau/Project5-OPC-blog&utm_campaign=Badge_Grade_Dashboard)
+
 Creating a portfolio and a blog developed in PHP
 This project was carried out as part of my training with 'Openclassrooms' on the course application developper PHP/Symfony. The blog had to be developed in object oriented programming and adopt an MVC architecture.
 
